@@ -1,0 +1,291 @@
+<div id="createLayananModal"
+    class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden items-center justify-center z-50 transition-opacity duration-300 backdrop-blur-sm">
+    <div id="createModalContent"
+        class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 my-8 transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto">
+
+        <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white rounded-t-2xl">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary/10 p-2 rounded-lg">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Tambah Layanan Baru</h3>
+            </div>
+            <button onclick="closeCreateModal()"
+                class="text-gray-400 hover:text-gray-600 transition-colors rounded-full p-1 hover:bg-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <form id="createLayananForm" onsubmit="submitCreateLayanan(event)" class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="space-y-2">
+                    <label for="kategori_id" class="block text-sm font-semibold text-gray-700">
+                        Kategori <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <select id="kategori_id" name="kategori_id"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            <option value="" selected disabled>Pilih kategori</option>
+                            @foreach ($kategoris as $item)
+                                <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
+                            @endforeach
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="text-red-500 text-xs mt-1 hidden" id="error_kategori_id"></span>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="status" class="block text-sm font-semibold text-gray-700">
+                        Status <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <select id="status" name="status" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            <option value="" disabled selected>Pilih status</option>
+                            <option value="publik">Publik</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="text-red-500 text-xs mt-1 hidden" id="error_status"></span>
+                </div>
+                
+                <div class="space-y-2">
+                    <label for="judul" class="block text-sm font-semibold text-gray-700">
+                        Judul Layanan <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="judul" name="judul"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            placeholder="Masukkan judul layanan">
+                    </div>
+                    <span class="text-red-500 text-xs mt-1 hidden" id="error_judul"></span>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="slog" class="block text-sm font-semibold text-gray-700">
+                        Slogan / Subjudul
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="slog" name="slog"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            placeholder="Masukkan slogan (opsional)">
+                    </div>
+                    <span class="text-red-500 text-xs mt-1 hidden" id="error_slog"></span>
+                </div>
+
+                <div class="md:col-span-2 space-y-2">
+                    <label for="deskripsi" class="block text-sm font-semibold text-gray-700">
+                        Deskripsi
+                    </label>
+                    <div class="relative">
+                        <div class="absolute top-3 left-3">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                        </div>
+                        <textarea id="deskripsi" name="deskripsi" rows="3"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                            placeholder="Masukkan deskripsi layanan"></textarea>
+                    </div>
+                    <span class="text-red-500 text-xs mt-1 hidden" id="error_deskripsi"></span>
+                </div>
+
+                <div class="md:col-span-2 space-y-2">
+                    <label for="gambar" class="block text-sm font-semibold text-gray-700">
+                        Gambar (opsional)
+                    </label>
+                    <div class="relative">
+                        <div id="uploadArea" class="flex items-center justify-center w-full">
+                            <label for="gambar" class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <div class="flex flex-col items-center justify-center pt-3 pb-3">
+                                    <svg class="w-6 h-6 mb-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                    </svg>
+                                    <p class="text-sm text-gray-500"><span class="font-semibold">Klik untuk upload</span> atau drag & drop</p>
+                                    <p class="text-xs text-gray-500">(PNG, JPG, GIF | MAX. 5MB)</p>
+                                </div>
+                                <input id="gambar" name="gambar" type="file" class="hidden" accept="image/*" onchange="previewImage(this)" />
+                            </label>
+                        </div>
+
+                        <div id="previewArea" class="hidden w-full">
+                            <div class="relative bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-shrink-0">
+                                        <img id="imagePreview" class="w-16 h-16 object-cover rounded-lg border border-gray-200" src="" alt="Preview gambar">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p id="fileName" class="text-sm font-medium text-gray-900 truncate"></p>
+                                        <p id="fileSize" class="text-xs text-gray-500"></p>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-shrink-0">
+                                        <button type="button" onclick="changeImage()" class="px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
+                                            Ganti
+                                        </button>
+                                        <button type="button" onclick="removeImage()" class="px-3 py-1 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                            Hapus
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-red-500 text-xs mt-1 hidden" id="error_gambar"></span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
+                <button type="button" onclick="closeCreateModal()"
+                    class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-semibold flex-1 sm:flex-none">
+                    Batal
+                </button>
+                <button type="submit" id="createSubmitBtn"
+                    class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold flex items-center justify-center gap-2 flex-1 sm:flex-none">
+                    <svg id="loadingSpinner" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    <span id="createSubmitBtnText">Simpan Layanan</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function closeCreateModal() {
+    const modal = document.getElementById('createLayananModal');
+    const modalContent = document.getElementById('createModalContent');
+
+    modalContent.classList.add('scale-95', 'opacity-0');
+    modalContent.classList.remove('scale-100', 'opacity-100');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }, 300);
+}
+
+function submitCreateLayanan(event) {
+    event.preventDefault();
+    // Logic untuk submit data layanan
+    console.log('Form submitted');
+}
+
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            document.getElementById('uploadArea').classList.add('hidden');
+            document.getElementById('previewArea').classList.remove('hidden');
+            
+            document.getElementById('imagePreview').src = e.target.result;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+        }
+        
+        reader.readAsDataURL(file);
+    }
+}
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function changeImage() {
+    document.getElementById('gambar').click();
+}
+
+function removeImage() {
+    document.getElementById('gambar').value = '';
+    
+    document.getElementById('previewArea').classList.add('hidden');
+    document.getElementById('uploadArea').classList.remove('hidden');
+    
+    document.getElementById('imagePreview').src = '';
+    document.getElementById('fileName').textContent = '';
+    document.getElementById('fileSize').textContent = '';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Target label for drag/drop, memastikan elemennya ada sebelum listener ditambahkan
+    const uploadLabel = document.querySelector('#uploadArea label'); 
+    const fileInput = document.getElementById('gambar');
+    
+    if (uploadLabel) {
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadLabel.addEventListener(eventName, preventDefaults, false);
+        });
+        document.body.addEventListener('dragover', preventDefaults, false);
+        document.body.addEventListener('drop', preventDefaults, false);
+        
+        // Highlight drop area when item is dragged over it
+        uploadLabel.addEventListener('dragenter', highlight, false);
+        uploadLabel.addEventListener('dragover', highlight, false);
+        
+        uploadLabel.addEventListener('dragleave', unhighlight, false);
+        uploadLabel.addEventListener('drop', unhighlight, false);
+        
+        // Handle dropped files
+        uploadLabel.addEventListener('drop', handleDrop, false);
+    }
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    function highlight() {
+        uploadLabel.classList.add('border-primary', 'bg-primary/5');
+    }
+    
+    function unhighlight() {
+        uploadLabel.classList.remove('border-primary', 'bg-primary/5');
+    }
+    
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        previewImage(fileInput);
+    }
+});
+</script>
