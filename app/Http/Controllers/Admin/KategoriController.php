@@ -1,0 +1,204 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Kategori;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class KategoriController extends Controller
+{
+    /**
+     * Generate kode kategori otomatis
+     */
+    private function generateKode()
+    {
+        $lastKategori = Kategori::orderBy('id_kategori', 'desc')->first();
+        
+        if (!$lastKategori) {
+            return 'KAT-001';
+        }
+        
+        $lastNumber = intval(substr($lastKategori->kode_kategori, 4));
+        $newNumber = $lastNumber + 1;
+        
+        return 'KAT-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $query = Kategori::query();
+
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_kategori', 'like', "%{$search}%")
+                  ->orWhere('kode_kategori', 'like', "%{$search}%")
+                  ->orWhere('tipe', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by tipe
+        if ($request->has('tipe') && $request->tipe != '') {
+            $query->where('tipe', $request->tipe);
+        }
+
+        // Pagination
+        $kategoris = $query->latest()->paginate(10);
+
+        return view('admin.kategori.index', compact('kategoris'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_kategori' => 'required|string|max:255',
+            'tipe' => 'required|string|max:100',
+        ], [
+            'nama_kategori.required' => 'Nama kategori harus diisi',
+            'tipe.required' => 'Tipe harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            Kategori::create([
+                'kode_kategori' => $this->generateKode(),
+                'nama_kategori' => $request->nama_kategori,
+                'tipe' => $request->tipe,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Kategori berhasil ditambahkan!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        try {
+            $kategori = Kategori::findOrFail($id);
+            
+            $kategoriData = [
+                'id_kategori' => $kategori->id_kategori,
+                'kode_kategori' => $kategori->kode_kategori,
+                'nama_kategori' => $kategori->nama_kategori,
+                'tipe' => $kategori->tipe,
+                'created_at_formatted' => $kategori->created_at ? $kategori->created_at->format('d M Y H:i') : '-',
+                'updated_at_formatted' => $kategori->updated_at ? $kategori->updated_at->format('d M Y H:i') : '-',
+            ];
+            
+            return response()->json([
+                'success' => true,
+                'kategori' => $kategoriData
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kategori tidak ditemukan'
+            ], 404);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        try {
+            $kategori = Kategori::findOrFail($id);
+            return response()->json([
+                'success' => true,
+                'kategori' => $kategori
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kategori tidak ditemukan'
+            ], 404);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $kategori = Kategori::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'nama_kategori' => 'required|string|max:255',
+            'tipe' => 'required|string|max:100',
+        ], [
+            'nama_kategori.required' => 'Nama kategori harus diisi',
+            'tipe.required' => 'Tipe harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $kategori->update([
+                'nama_kategori' => $request->nama_kategori,
+                'tipe' => $request->tipe,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Kategori berhasil diperbarui!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        try {
+            $kategori = Kategori::findOrFail($id);
+            $kategori->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Kategori berhasil dihapus!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+}
