@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar for sidebar only */
+.style-scroll::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+.style-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.style-scroll::-webkit-scrollbar-thumb {
+    background: #fd0103;
+    border-radius: 8px;
+    min-height: 30px;
+}
+.style-scroll::-webkit-scrollbar-thumb:hover {
+    background: #d10103;
+}
+.style-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #fd0103 transparent;
+}
