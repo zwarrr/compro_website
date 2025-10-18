@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Karyawan;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class KaryawanController extends Controller
@@ -16,14 +17,14 @@ class KaryawanController extends Controller
     private function generateKode()
     {
         $lastKaryawan = Karyawan::orderBy('id_karyawan', 'desc')->first();
-        
+
         if (!$lastKaryawan) {
             return 'KAR-001';
         }
-        
+
         $lastNumber = intval(substr($lastKaryawan->kode_karyawan, 4));
         $newNumber = $lastNumber + 1;
-        
+
         return 'KAR-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
     }
 
@@ -37,10 +38,10 @@ class KaryawanController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%{$search}%")
-                  ->orWhere('kode_karyawan', 'like', "%{$search}%")
-                  ->orWhere('nik', 'like', "%{$search}%");
+                    ->orWhere('kode_karyawan', 'like', "%{$search}%")
+                    ->orWhere('nik', 'like', "%{$search}%");
             });
         }
 
@@ -71,7 +72,7 @@ class KaryawanController extends Controller
             'nik' => 'required|string|max:50|unique:karyawan,nik',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // Maks 10MB
             'status' => 'required|in:aktif,nonaktif',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
@@ -80,7 +81,8 @@ class KaryawanController extends Controller
             'nik.unique' => 'NIK sudah terdaftar',
             'nama.required' => 'Nama harus diisi',
             'foto.image' => 'File harus berupa gambar',
-            'foto.max' => 'Ukuran foto maksimal 5MB',
+            'foto.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'foto.max' => 'Ukuran foto maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -101,13 +103,21 @@ class KaryawanController extends Controller
                 'status' => $request->status,
             ];
 
+            // Upload foto ke storage/app/public/karyawan
             // Handle file upload
             if ($request->hasFile('foto')) {
                 $file = $request->file('foto');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('images/karyawan'), $filename);
+                $extension = $file->getClientOriginalExtension();
+
+                // Gunakan nama karyawan sebagai nama file
+                $filename = str_replace(' ', '_', strtolower($request->nama)) . '.' . $extension;
+
+                // Simpan ke storage/app/public/karyawan
+                $file->storeAs('public/karyawan', $filename);
+
                 $data['foto'] = $filename;
             }
+
 
             Karyawan::create($data);
 
@@ -130,7 +140,7 @@ class KaryawanController extends Controller
     {
         try {
             $karyawan = Karyawan::with('kategori')->findOrFail($id);
-            
+
             $karyawanData = [
                 'id_karyawan' => $karyawan->id_karyawan,
                 'kode_karyawan' => $karyawan->kode_karyawan,
@@ -140,12 +150,12 @@ class KaryawanController extends Controller
                 'nama' => $karyawan->nama,
                 'deskripsi' => $karyawan->deskripsi,
                 'foto' => $karyawan->foto,
-                'foto_url' => $karyawan->foto ? asset('images/karyawan/' . $karyawan->foto) : null,
+                'foto_url' => $karyawan->foto ? asset('storage/' . $karyawan->foto) : null,
                 'status' => $karyawan->status,
                 'created_at_formatted' => $karyawan->created_at ? $karyawan->created_at->format('d M Y H:i') : '-',
                 'updated_at_formatted' => $karyawan->updated_at ? $karyawan->updated_at->format('d M Y H:i') : '-',
             ];
-            
+
             return response()->json([
                 'success' => true,
                 'karyawan' => $karyawanData
@@ -189,17 +199,8 @@ class KaryawanController extends Controller
             'nik' => 'required|string|max:50|unique:karyawan,nik,' . $id . ',id_karyawan',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:aktif,nonaktif',
-        ], [
-            'kategori_id.required' => 'Kategori harus dipilih',
-            'kategori_id.exists' => 'Kategori tidak valid',
-            'nik.required' => 'NIK harus diisi',
-            'nik.unique' => 'NIK sudah terdaftar',
-            'nama.required' => 'Nama harus diisi',
-            'foto.image' => 'File harus berupa gambar',
-            'foto.max' => 'Ukuran foto maksimal 2MB',
-            'status.required' => 'Status harus dipilih',
         ]);
 
         if ($validator->fails()) {
@@ -218,18 +219,26 @@ class KaryawanController extends Controller
                 'status' => $request->status,
             ];
 
+            // Jika ada file foto baru
             // Handle file upload
             if ($request->hasFile('foto')) {
-                // Delete old foto if exists
-                if ($karyawan->foto && file_exists(public_path('images/karyawan/' . $karyawan->foto))) {
-                    unlink(public_path('images/karyawan/' . $karyawan->foto));
+                // Hapus foto lama kalau ada
+                if ($karyawan->foto && Storage::exists('public/karyawan/' . $karyawan->foto)) {
+                    Storage::delete('public/karyawan/' . $karyawan->foto);
                 }
 
                 $file = $request->file('foto');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('images/karyawan'), $filename);
+                $extension = $file->getClientOriginalExtension();
+
+                // Nama file = nama karyawan + ekstensi
+                $filename = str_replace(' ', '_', strtolower($request->nama)) . '.' . $extension;
+
+                // Simpan ke storage
+                $file->storeAs('public/karyawan', $filename);
+
                 $data['foto'] = $filename;
             }
+
 
             $karyawan->update($data);
 
@@ -252,12 +261,12 @@ class KaryawanController extends Controller
     {
         try {
             $karyawan = Karyawan::findOrFail($id);
-            
-            // Delete foto if exists
-            if ($karyawan->foto && file_exists(public_path('images/karyawan/' . $karyawan->foto))) {
-                unlink(public_path('images/karyawan/' . $karyawan->foto));
+
+            // Hapus foto dari storage jika ada
+            if ($karyawan->foto && Storage::exists('public/' . $karyawan->foto)) {
+                Storage::delete('public/' . $karyawan->foto);
             }
-            
+
             $karyawan->delete();
 
             return response()->json([

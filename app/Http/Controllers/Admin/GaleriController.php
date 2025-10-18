@@ -16,14 +16,14 @@ class GaleriController extends Controller
     private function generateKode()
     {
         $lastGaleri = Galeri::orderBy('id_galeri', 'desc')->first();
-        
+
         if (!$lastGaleri) {
             return 'GAL-001';
         }
-        
+
         $lastNumber = intval(substr($lastGaleri->kode_galeri, 4));
         $newNumber = $lastNumber + 1;
-        
+
         return 'GAL-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
     }
 
@@ -37,9 +37,9 @@ class GaleriController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', "%{$search}%")
-                  ->orWhere('kode_galeri', 'like', "%{$search}%");
+                    ->orWhere('kode_galeri', 'like', "%{$search}%");
             });
         }
 
@@ -69,14 +69,14 @@ class GaleriController extends Controller
             'kategori_id' => 'required|exists:kategori,id_kategori',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:aktif,nonaktif',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
             'kategori_id.exists' => 'Kategori tidak valid',
             'judul.required' => 'Judul harus diisi',
             'gambar.image' => 'File harus berupa gambar',
-            'gambar.max' => 'Ukuran gambar maksimal 2MB',
+            'gambar.max' => 'Ukuran gambar maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -96,11 +96,19 @@ class GaleriController extends Controller
                 'status' => $request->status,
             ];
 
+
             // Handle file upload
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('images/galeri'), $filename);
+                $extension = $file->getClientOriginalExtension();
+
+                // contoh nama file: judul_galeri.jpg (bersihkan spasi & lowercase)
+                $filename = str_replace(' ', '_', strtolower($request->judul)) . '.' . $extension;
+
+                // simpan ke storage/app/public/galeri
+                $file->storeAs('public/galeri', $filename);
+
+                // simpan nama file (relatif) di DB
                 $data['gambar'] = $filename;
             }
 
@@ -125,7 +133,7 @@ class GaleriController extends Controller
     {
         try {
             $galeri = Galeri::with('kategori')->findOrFail($id);
-            
+
             $galeriData = [
                 'id_galeri' => $galeri->id_galeri,
                 'kode_galeri' => $galeri->kode_galeri,
@@ -139,7 +147,7 @@ class GaleriController extends Controller
                 'created_at_formatted' => $galeri->created_at ? $galeri->created_at->format('d M Y H:i') : '-',
                 'updated_at_formatted' => $galeri->updated_at ? $galeri->updated_at->format('d M Y H:i') : '-',
             ];
-            
+
             return response()->json([
                 'success' => true,
                 'galeri' => $galeriData
@@ -182,14 +190,14 @@ class GaleriController extends Controller
             'kategori_id' => 'required|exists:kategori,id_kategori',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:aktif,nonaktif',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
             'kategori_id.exists' => 'Kategori tidak valid',
             'judul.required' => 'Judul harus diisi',
             'gambar.image' => 'File harus berupa gambar',
-            'gambar.max' => 'Ukuran gambar maksimal 2MB',
+            'gambar.max' => 'Ukuran gambar maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -210,16 +218,26 @@ class GaleriController extends Controller
 
             // Handle file upload
             if ($request->hasFile('gambar')) {
-                // Delete old image if exists
-                if ($galeri->gambar && file_exists(public_path('images/galeri/' . $galeri->gambar))) {
-                    unlink(public_path('images/galeri/' . $galeri->gambar));
+                // Hapus gambar lama jika ada
+                if ($galeri->gambar && file_exists(storage_path('app/public/galeri/' . $galeri->gambar))) {
+                    unlink(storage_path('app/public/galeri/' . $galeri->gambar));
                 }
 
                 $file = $request->file('gambar');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('images/galeri'), $filename);
+
+                // Ambil nama asli tanpa ekstensi
+                // $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // Ambil ekstensi file
+                $ekstensi = $file->getClientOriginalExtension();
+                // Gabungkan jadi namaasli.ext
+                $filename = $request->judul . '.' . $ekstensi;
+
+                // Simpan ke storage/app/public/galeri
+                $file->storeAs('public/galeri', $filename);
+
                 $data['gambar'] = $filename;
             }
+
 
             $galeri->update($data);
 
@@ -242,12 +260,12 @@ class GaleriController extends Controller
     {
         try {
             $galeri = Galeri::findOrFail($id);
-            
+
             // Delete image if exists
             if ($galeri->gambar && file_exists(public_path('images/galeri/' . $galeri->gambar))) {
                 unlink(public_path('images/galeri/' . $galeri->gambar));
             }
-            
+
             $galeri->delete();
 
             return response()->json([
