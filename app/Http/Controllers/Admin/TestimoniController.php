@@ -70,7 +70,7 @@ class TestimoniController extends Controller
             'nama_testimoni' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'pesan' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'rating' => 'required|integer|min:1|max:5',
             'status' => 'required|in:publik,draft',
         ], [
@@ -81,7 +81,7 @@ class TestimoniController extends Controller
             'rating.min' => 'Rating minimal 1',
             'rating.max' => 'Rating maksimal 5',
             'foto.image' => 'File harus berupa gambar',
-            'foto.max' => 'Ukuran foto maksimal 2MB',
+            'foto.max' => 'Ukuran foto maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -208,7 +208,7 @@ class TestimoniController extends Controller
             'nama_testimoni' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'pesan' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'rating' => 'required|integer|min:1|max:5',
             'status' => 'required|in:publik,draft',
         ], [
@@ -217,7 +217,7 @@ class TestimoniController extends Controller
             'pesan.required' => 'Pesan testimoni harus diisi',
             'rating.required' => 'Rating harus dipilih',
             'foto.image' => 'File harus berupa gambar',
-            'foto.max' => 'Ukuran foto maksimal 2MB',
+            'foto.max' => 'Ukuran foto maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 

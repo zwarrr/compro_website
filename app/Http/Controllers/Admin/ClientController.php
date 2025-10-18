@@ -70,7 +70,7 @@ class ClientController extends Controller
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'required|exists:kategori,id_kategori',
             'nama_client' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'website' => 'nullable|url|max:255',
             'deskripsi' => 'nullable|string',
             'status' => 'required|in:publik,draft',
@@ -80,7 +80,7 @@ class ClientController extends Controller
             'nama_client.required' => 'Nama client harus diisi',
             'logo.image' => 'File harus berupa gambar',
             'logo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'logo.max' => 'Ukuran gambar maksimal 2MB',
+            'logo.max' => 'Ukuran gambar maksimal 10MB',
             'website.url' => 'Format website tidak valid',
             'status.required' => 'Status harus diisi',
             'status.in' => 'Status tidak valid',
@@ -106,7 +106,7 @@ class ClientController extends Controller
             // Handle logo upload
             if ($request->hasFile('logo')) {
                 $logo = $request->file('logo');
-                $logoName = time() . '_' . $logo->getClientOriginalName();
+                $logoName = $request->nama_client . '.' . $logo->getClientOriginalExtension();
                 $logo->storeAs('public/clients', $logoName);
                 $data['logo'] = 'clients/' . $logoName;
             }
@@ -201,7 +201,7 @@ class ClientController extends Controller
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'required|exists:kategori,id_kategori',
             'nama_client' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'website' => 'nullable|url|max:255',
             'deskripsi' => 'nullable|string',
             'status' => 'required|in:publik,draft',
@@ -211,7 +211,7 @@ class ClientController extends Controller
             'nama_client.required' => 'Nama client harus diisi',
             'logo.image' => 'File harus berupa gambar',
             'logo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'logo.max' => 'Ukuran gambar maksimal 2MB',
+            'logo.max' => 'Ukuran gambar maksimal 10MB',
             'website.url' => 'Format website tidak valid',
             'status.required' => 'Status harus diisi',
             'status.in' => 'Status tidak valid',
@@ -241,7 +241,7 @@ class ClientController extends Controller
                 }
 
                 $logo = $request->file('logo');
-                $logoName = time() . '_' . $logo->getClientOriginalName();
+                $logoName = $request->nama_client . '_' . $logo->getClientOriginalExtension();
                 $logo->storeAs('public/clients', $logoName);
                 $data['logo'] = 'clients/' . $logoName;
             }

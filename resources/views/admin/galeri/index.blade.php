@@ -136,7 +136,7 @@
                             <!-- Image Section -->
                             <div class="relative h-48 overflow-hidden bg-gray-100">
                                 @if ($galeri->gambar)
-                                    <img src="{{ asset('images/galeri/' . $galeri->gambar) }}"
+                                    <img src="{{ asset('storage/galeri/' . $galeri->gambar) }}"
                                         alt="{{ $galeri->judul }}"
                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                                 @else
@@ -343,7 +343,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($galeri->gambar)
-                                        <img src="{{ asset('images/galeri/' . $galeri->gambar) }}"
+                                        <img src="{{ asset('storage/galeri/' . $galeri->gambar) }}"
                                             alt="{{ $galeri->judul }}"
                                             class="w-12 h-12 object-cover rounded-lg border">
                                     @else

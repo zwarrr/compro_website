@@ -154,7 +154,7 @@
                             <div class="relative -mt-12 flex justify-center px-4">
                                 <div class="relative">
                                     @if($karyawan->foto)
-                                        <img src="{{ asset('images/karyawan/' . $karyawan->foto) }}" 
+                                        <img src="{{ asset('storage/karyawan/' . $karyawan->foto) }}" 
                                              alt="{{ $karyawan->nama }}"
                                              class="w-24 h-24 rounded-xl object-cover border-4 border-white shadow-xl ring-2 ring-gray-200">
                                     @else
@@ -308,7 +308,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($karyawan->foto)
-                                    <img src="{{ asset('images/karyawan/'.$karyawan->foto) }}" alt="{{ $karyawan->nama }}" class="w-12 h-12 object-cover rounded-lg border">
+                                    <img src="{{ asset('storage/karyawan/'.$karyawan->foto) }}" alt="{{ $karyawan->nama }}" class="w-12 h-12 object-cover rounded-lg border">
                                 @else
                                     <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">N/A</div>
                                 @endif
