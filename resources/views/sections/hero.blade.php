@@ -26,7 +26,7 @@
       <i class="fas fa-arrow-right text-sm"></i>
   </a>
 
-  <a href="#fitur" 
+  <a href="#faq" 
      class="hero-btn-secondary inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-gray-700 rounded-xl font-semibold border border-gray-200 shadow-md hover:shadow-lg hover:border-[#FD0103]/40 hover:text-[#FD0103] transform hover:scale-105 transition-all duration-300 ease-in-out">
       <span>Pelajari Lebih Lanjut</span>
       <!-- <i class="fas fa-info-circle text-sm"></i> -->

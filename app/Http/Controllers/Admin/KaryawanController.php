@@ -69,7 +69,7 @@ class KaryawanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'required|exists:kategori,id_kategori',
-            'nik' => 'required|string|max:50|unique:karyawan,nik',
+            'nik' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // Maks 10MB
@@ -78,7 +78,6 @@ class KaryawanController extends Controller
             'kategori_id.required' => 'Kategori harus dipilih',
             'kategori_id.exists' => 'Kategori tidak valid',
             'nik.required' => 'NIK harus diisi',
-            'nik.unique' => 'NIK sudah terdaftar',
             'nama.required' => 'Nama harus diisi',
             'foto.image' => 'File harus berupa gambar',
             'foto.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
@@ -196,7 +195,7 @@ class KaryawanController extends Controller
 
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'required|exists:kategori,id_kategori',
-            'nik' => 'required|string|max:50|unique:karyawan,nik,' . $id . ',id_karyawan',
+            'nik' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',

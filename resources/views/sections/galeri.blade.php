@@ -219,107 +219,30 @@
 
                 <!-- Gallery Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    <!-- Image 1 -->
-                    <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                         onclick="openLightbox('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Kantor TMS" 
-                             class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                            <h4 class="text-xl font-bold mb-2">Kantor Pusat TMS</h4>
-                            <p class="text-sm opacity-90">Ciamis, Jawa Barat</p>
-                            <div class="flex items-center mt-2">
-                                <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                <span class="text-xs">Klik untuk memperbesar</span>
+                    @forelse($galeris as $galeri)
+                        <?php
+                            $gambarPath = $galeri->gambar ? asset('storage/galeri/' . $galeri->gambar) : 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                        ?>
+                        <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
+                             onclick="openLightbox('{{ $gambarPath }}')">
+                            <img src="{{ $gambarPath }}" 
+                                 alt="{{ $galeri->judul }}" 
+                                 class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                            <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                <h4 class="text-xl font-bold mb-2">{{ $galeri->judul }}</h4>
+                                <p class="text-sm opacity-90">{{ $galeri->deskripsi }}</p>
+                                <div class="flex items-center mt-2">
+                                    <i class="fas fa-expand-arrows-alt mr-2"></i>
+                                    <span class="text-xs">Klik untuk memperbesar</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Image 2 -->
-                    <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                         onclick="openLightbox('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Team Meeting" 
-                             class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                            <h4 class="text-xl font-bold mb-2">Team Meeting</h4>
-                            <p class="text-sm opacity-90">Diskusi strategi pengembangan</p>
-                            <div class="flex items-center mt-2">
-                                <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                <span class="text-xs">Klik untuk memperbesar</span>
-                            </div>
+                    @empty
+                        <div class="col-span-full text-center py-12">
+                            <p class="text-gray-500 text-lg">Tidak ada galeri yang tersedia</p>
                         </div>
-                    </div>
-
-                    <!-- Image 3 -->
-                    <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                         onclick="openLightbox('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Development Process" 
-                             class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                            <h4 class="text-xl font-bold mb-2">Proses Development</h4>
-                            <p class="text-sm opacity-90">Tim developer sedang bekerja</p>
-                            <div class="flex items-center mt-2">
-                                <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                <span class="text-xs">Klik untuk memperbesar</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Image 4 -->
-                    <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                         onclick="openLightbox('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
-                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Client Presentation" 
-                             class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                            <h4 class="text-xl font-bold mb-2">Client Presentation</h4>
-                            <p class="text-sm opacity-90">Presentasi solusi kepada klien</p>
-                            <div class="flex items-center mt-2">
-                                <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                <span class="text-xs">Klik untuk memperbesar</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Image 5 -->
-                    <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                         onclick="openLightbox('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
-                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Award Ceremony" 
-                             class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                            <h4 class="text-xl font-bold mb-2">Penghargaan</h4>
-                            <p class="text-sm opacity-90">Top IT Company 2023</p>
-                            <div class="flex items-center mt-2">
-                                <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                <span class="text-xs">Klik untuk memperbesar</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Image 6 -->
-                    <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                         onclick="openLightbox('https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
-                        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Training Session" 
-                             class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                            <h4 class="text-xl font-bold mb-2">Training Session</h4>
-                            <p class="text-sm opacity-90">Pelatihan teknologi terbaru</p>
-                            <div class="flex items-center mt-2">
-                                <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                <span class="text-xs">Klik untuk memperbesar</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
 
                 <!-- Statistics Section -->
@@ -372,11 +295,11 @@
                         Jelajahi lebih banyak proyek dan pencapaian yang telah kami raih bersama klien-klien terbaik
                     </p>
                     <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                        <a href="#contact" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-lg shadow-lg hover:shadow-xl">
+                        <a href="{{ route('hubungi-kami') }}" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-lg shadow-lg hover:shadow-xl">
                             <i class="fas fa-phone mr-2"></i>
                             Hubungi Kami
                         </a>
-                        <a href="#portfolio" class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-lg">
+                        <a href="{{ url('/') }}" class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-lg">
                             <i class="fas fa-folder mr-2"></i>
                             Lihat Portfolio
                         </a>

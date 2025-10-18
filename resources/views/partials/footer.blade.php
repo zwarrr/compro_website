@@ -82,24 +82,20 @@
                             USEFUL LINKS
                         </h4>
                         <ul class="space-y-3">
-                            <li><a href="#"
+                            <li><a href="{{ route('beranda') }}"
                                     class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Beranda</a>
                             </li>
-                            <li><a href="#"
-                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Tim
-                                    Kerja</a></li>
-                            <li><a href="#"
-                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Profil
-                                    TMS</a></li>
-                            <li><a href="#"
-                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Struktur
-                                    Organisasi</a></li>
-                            <li><a href="#"
+                            <li><a href="{{ route('team') }}"
+                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Team</a></li>
+                            <li><a href="{{ route('profil-perusahaan') }}"
+                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Profil Perusahaan</a></li>
+                            <li><a href="{{ route('layanan') }}"
+                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Layanan</a></li>
+                            <li><a href="{{ route('galeri') }}"
                                     class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Galeri</a>
                             </li>
-                            <li><a href="#"
-                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Kontak
-                                    Kami</a></li>
+                            <li><a href="{{ route('hubungi-kami') }}"
+                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Hubungi Kami</a></li>
                         </ul>
                     </div>
 
@@ -136,17 +132,30 @@
                             CONTACT US
                         </h4>
                         <div class="space-y-3 text-sm text-gray-700">
+                            <!-- Alamat dengan link Google Maps -->
                             <div class="leading-relaxed">
-                                <p>JL. Ciamis-Banjar Dusun Kidul RT/RW</p>
-                                <p>007/003 Cijeungjing</p>
-                                <p>Cijeungjing, Ciamis</p>
+                                <p class="font-semibold mb-2">Alamat:</p>
+                                <a href="https://maps.app.goo.gl/X6D7uSgTV6Q9eXUf8" target="_blank" rel="noopener noreferrer"
+                                    class="text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                                    JL. Ciamis-Banjar Dusun Kidul RT/RW<br>
+                                    007/003 Cijeungjing<br>
+                                    Cijeungjing, Ciamis
+                                </a>
                             </div>
                             <div class="pt-2">
+                                <!-- Phone dengan link telp -->
                                 <p class="mb-2">
-                                    <span class="font-semibold">Phone:</span> 085223035426
+                                    <span class="font-semibold">Phone:</span>
+                                    <a href="tel:+6285223035426" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                                        085223035426
+                                    </a>
                                 </p>
+                                <!-- Email dengan link mailto -->
                                 <p>
-                                    <span class="font-semibold">Email:</span> kocicenter@gmail.com
+                                    <span class="font-semibold">Email:</span>
+                                    <a href="mailto:kocicenter@gmail.com" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                                        kocicenter@gmail.com
+                                    </a>
                                 </p>
                             </div>
                         </div>

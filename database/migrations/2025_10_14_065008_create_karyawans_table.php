@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id('id_karyawan');
             $table->string('kode_karyawan')->unique();
             $table->foreignId('kategori_id')->constrained('kategori', 'id_kategori')->onDelete('cascade');
-            $table->string('nik')->unique();
+            $table->string('nik')->default('-');
             $table->string('nama');
             $table->string('foto')->nullable();
             $table->text('deskripsi')->nullable();

@@ -239,6 +239,10 @@
                             <i class="fas fa-images"></i>
                             <span>Galeri</span>
                         </a>
+                        <a href="{{ route('hubungi-kami') }}">
+                            <i class="fas fa-envelope"></i>
+                            <span>Hubungi Kami</span>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -274,6 +278,10 @@
                             <a href="{{ route('galeri') }}" class="nav-link block text-gray-600 flex items-center gap-2">
                                 <i class="fas fa-images text-sm"></i>
                                 <span>Galeri</span>
+                            </a>
+                            <a href="{{ route('hubungi-kami') }}" class="nav-link block text-gray-600 flex items-center gap-2">
+                                <i class="fas fa-envelope text-sm"></i>
+                                <span>Hubungi Kami</span>
                             </a>
                         </div>
                     </div>
@@ -460,6 +468,8 @@
                 link.classList.add('active');
             } else if (href === '/galeri' && currentPath === '/galeri') {
                 link.classList.add('active');
+            } else if (href === '/hubungi-kami' && currentPath === '/hubungi-kami') {
+                link.classList.add('active');
             }
         });
         
@@ -486,7 +496,7 @@
             }
         }
 
-        // Scroll event untuk update active state
+        // Scroll event untuk update active state - DIPERBAIKI
         window.addEventListener('scroll', () => {
             // Hanya jalankan di halaman beranda
             if (currentPath !== '/' && currentPath !== '/beranda') return;
@@ -496,26 +506,37 @@
             let currentSectionName = null;
             
             // Deteksi apakah sudah scroll ke footer
-            const isAtFooter = window.scrollY + window.innerHeight >= document.body.scrollHeight - 200;
+            const isAtFooter = window.scrollY + window.innerHeight >= document.body.scrollHeight - 300;
             
             if (isAtFooter) {
                 // Jika sudah di footer, remove semua active state
                 currentSection = null;
             } else {
-                // Deteksi section mana yang sedang dilihat
+                // Deteksi section mana yang sedang dilihat dengan threshold yang lebih akurat
+                let maxVisibleArea = 0;
+                let visibleSection = null;
+                
                 sections.forEach(sectionId => {
                     const section = document.querySelector(sectionId);
                     if (!section) return;
                     
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const scrollPos = window.scrollY + 150;
+                    const rect = section.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
                     
-                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                        currentSection = sectionId;
+                    // Hitung area section yang terlihat di viewport
+                    const sectionTop = Math.max(rect.top, 0);
+                    const sectionBottom = Math.min(rect.bottom, viewportHeight);
+                    const visibleArea = Math.max(0, sectionBottom - sectionTop);
+                    
+                    // Gunakan section dengan area terlihat terbesar
+                    if (visibleArea > maxVisibleArea) {
+                        maxVisibleArea = visibleArea;
+                        visibleSection = sectionId;
                         currentSectionName = sectionId.replace('#', '');
                     }
                 });
+                
+                currentSection = visibleSection;
             }
             
             // Update URL tanpa hashtag berdasarkan section yang aktif
@@ -524,10 +545,15 @@
                 if (window.location.pathname !== newUrl) {
                     history.replaceState(null, '', newUrl);
                 }
+            } else if (isAtFooter) {
+                // Jika di footer, pastikan URL tetap di beranda
+                if (window.location.pathname !== '/') {
+                    history.replaceState(null, '', '/');
+                }
             }
             
             updateActiveLink(currentSection);
-        });
+        }, { passive: true });
 
         // Function untuk set initial active state
         function setInitialActiveState(link, href, currentPath, currentHash) {
@@ -545,6 +571,8 @@
                 link.classList.add('active');
             } else if (href === '/galeri' && currentPath === '/galeri') {
                 link.classList.add('active');
+            } else if (href === '/hubungi-kami' && currentPath === '/hubungi-kami') {
+                link.classList.add('active');
             } else if (href && href.includes('#')) {
                 const sectionId = href.substring(href.indexOf('#'));
                 const sectionName = sectionId.replace('#', '');
@@ -561,8 +589,10 @@
                     const section = document.querySelector(sectionId);
                     if (section) {
                         const rect = section.getBoundingClientRect();
-                        // Section dianggap aktif jika berada di viewport atas (150px dari top)
-                        if (rect.top <= 150 && rect.bottom >= 150) {
+                        const viewportHeight = window.innerHeight;
+                        
+                        // Section dianggap aktif jika berada di viewport (dengan buffer)
+                        if (rect.top < viewportHeight * 0.6 && rect.bottom > viewportHeight * 0.2) {
                             link.classList.add('active');
                             return;
                         }
@@ -639,6 +669,11 @@
                 }
             }, 100);
         }
+        
+        // Initial call untuk update active link berdasarkan scroll position saat load
+        setTimeout(() => {
+            window.dispatchEvent(new Event('scroll'));
+        }, 200);
     };
 
     if (document.readyState === 'loading') {
