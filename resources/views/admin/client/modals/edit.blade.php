@@ -47,7 +47,7 @@
                             </svg>
                         </div>
                         <select id="edit_kategori_id" name="kategori_id"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all appearance-none bg-white">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg focus:ring-0 focus:ring-yellow-500 focus:border-yellow-500 transition-all appearance-none bg-white">
                             <option value="">Pilih kategori</option>
                             @foreach($kategoris as $kategori)
                                 <option value="{{ $kategori->id_kategori }}">{{ $kategori->nama_kategori }}</option>
@@ -78,7 +78,7 @@
                             </svg>
                         </div>
                         <input type="text" id="edit_nama_client" name="nama_client"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg focus:ring-0 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
                             placeholder="Masukkan nama client">
                     </div>
                     <p id="error_edit_nama_client" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -145,7 +145,7 @@
                             </svg>
                         </div>
                         <input type="url" id="edit_website" name="website"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg focus:ring-0 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
                             placeholder="https://example.com">
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                 <div class="space-y-2 md:col-span-2">
                     <label for="edit_deskripsi" class="block text-sm font-semibold text-gray-700">Deskripsi</label>
                     <textarea id="edit_deskripsi" name="deskripsi" rows="4"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all resize-none"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-0 focus:ring-yellow-500 focus:border-yellow-500 transition-all resize-none"
                         placeholder="Masukkan deskripsi client"></textarea>
                 </div>
 
@@ -164,7 +164,7 @@
                         Status <span class="text-red-500">*</span>
                     </label>
                     <select id="edit_status" name="status"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white">
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-0 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white">
                         <option value="publik">Publik</option>
                         <option value="draft">Draft</option>
                     </select>

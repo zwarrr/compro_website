@@ -36,7 +36,7 @@
                             </svg>
                         </div>
                         <input type="text" id="create_nama" name="nama"
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan nama lengkap">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_create_nama"></span>
@@ -54,7 +54,7 @@
                             </svg>
                         </div>
                         <input type="email" id="create_email" name="email"
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="user@example.com">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_create_email"></span>
@@ -72,7 +72,7 @@
                             </svg>
                         </div>
                         <input type="password" id="create_password" name="password"
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Minimal 8 karakter">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_create_password"></span>
@@ -91,7 +91,7 @@
                             </svg>
                         </div>
                         <input type="password" id="create_password_confirmation" name="password_confirmation"
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Ulangi password">
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                            <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
                         </div>
-                        <select id="create_role" name="role" class="w-full appearance-none pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white">
+                        <select id="create_role" name="role" class="w-full appearance-none pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:border-red-500 transition bg-white">
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
@@ -123,7 +123,7 @@
                             </svg>
                         </div>
                         <select id="create_status" name="status"
-                            class="w-full appearance-none pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white">
+                            class="w-full appearance-none pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition bg-white outline-none">
                             <option value="aktif">Aktif</option>
                             <option value="nonaktif">Non-Aktif</option>
                         </select>

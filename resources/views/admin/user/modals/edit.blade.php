@@ -48,7 +48,7 @@
                                 </svg>
                             </div>
                             <input type="text" id="edit_nama" name="nama" required
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="Masukkan nama lengkap">
                         </div>
                         <span class="text-red-500 text-sm mt-1 hidden" id="error_edit_nama"></span>
@@ -69,7 +69,7 @@
                                 </svg>
                             </div>
                             <input type="email" id="edit_email" name="email" required
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="user@example.com">
                         </div>
                         <span class="text-red-500 text-sm mt-1 hidden" id="error_edit_email"></span>
@@ -89,7 +89,7 @@
                                 </svg>
                             </div>
                             <select id="edit_status" name="status" required
-                                class="w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white">
+                                class="appearance-none w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                                 <option value="aktif">Aktif</option>
                                 <option value="nonaktif">Non-Aktif</option>
                             </select>
@@ -121,7 +121,7 @@
                                 </svg>
                             </div>
                             <input type="password" id="edit_password" name="password"
-                                class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="Minimal 8 karakter">
                             <button type="button" onclick="togglePassword('edit_password')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
@@ -152,7 +152,7 @@
                                 </svg>
                             </div>
                             <input type="password" id="edit_password_confirmation" name="password_confirmation"
-                                class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="Ulangi password baru">
                             <button type="button" onclick="togglePassword('edit_password_confirmation')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">

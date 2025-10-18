@@ -58,7 +58,7 @@
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari nama, kode, atau NIK..."
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                         id="karyawanSearchInput">
                     <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -78,7 +78,7 @@
                         </svg>
                     </div>
                     <select name="status" id="karyawanStatusSelect"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white appearance-none transition">
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none appearance-none">
                         <option value="">Semua Status</option>
                         <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
                         <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
@@ -102,7 +102,7 @@
                         </svg>
                     </div>
                     <select name="kategori_id" id="karyawanKategoriSelect"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white appearance-none transition">
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none appearance-none">
                         <option value="">Semua Kategori</option>
                         @foreach ($kategoris as $kategori)
                             <option value="{{ $kategori->id_kategori }}" {{ request('kategori_id') == $kategori->id_kategori ? 'selected' : '' }}>
@@ -316,7 +316,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium relative">
                                 <div x-data="{ open: false }" class="relative inline-block text-left">
                                     <div>
-                                        <button @click="open = !open" type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" :class="{ 'bg-gray-100 text-gray-600': open }">
+                                        <button @click="open = !open" type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-offset-2" :class="{ 'bg-gray-100 text-gray-600': open }">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
                                         </button>
                                     </div>
@@ -353,7 +353,7 @@
 
         @if ($karyawans->hasPages())
             <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                {{ $karyawans->withQueryString()->links() }}
+                {{ $karyawans->withQueryString()->links('vendor.pagination.custom') }}
             </div>
         @endif
     </div>

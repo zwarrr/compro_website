@@ -97,6 +97,7 @@ class LayananController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'judul' => $request->judul,
                 'slog' => $request->slog,
+                'link' => $request->link,
                 'deskripsi' => $request->deskripsi,
                 'status' => $request->status,
             ];
@@ -145,6 +146,7 @@ class LayananController extends Controller
                 'kategori_nama' => $layanan->kategori->nama_kategori ?? '-',
                 'judul' => $layanan->judul,
                 'slog' => $layanan->slog,
+                'link' => $layanan->link,
                 'deskripsi' => $layanan->deskripsi,
                 'gambar' => $layanan->gambar,
                 'gambar_url' => $layanan->gambar ? asset('storage/' . $layanan->gambar) : null,
@@ -219,6 +221,7 @@ class LayananController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'judul' => $request->judul,
                 'slog' => $request->slog,
+                'link' => $request->link,
                 'deskripsi' => $request->deskripsi,
                 'status' => $request->status,
             ];

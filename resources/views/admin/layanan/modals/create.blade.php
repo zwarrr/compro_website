@@ -31,7 +31,7 @@
                     </label>
                     <div class="relative">
                         <select id="kategori_id" name="kategori_id"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="appearance-none w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                             <option value="" selected disabled>Pilih kategori</option>
                             @foreach ($kategoris as $item)
                                 <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
@@ -52,7 +52,7 @@
                     </label>
                     <div class="relative">
                         <select id="status" name="status" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="appearance-none w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                             <option value="" disabled selected>Pilih status</option>
                             <option value="publik">Publik</option>
                             <option value="draft">Draft</option>
@@ -77,7 +77,7 @@
                             </svg>
                         </div>
                         <input type="text" id="judul" name="judul"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan judul layanan">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_judul"></span>
@@ -94,7 +94,7 @@
                             </svg>
                         </div>
                         <input type="text" id="slog" name="slog"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan slogan (opsional)">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_slog"></span>
@@ -111,7 +111,7 @@
                             </svg>
                         </div>
                         <textarea id="deskripsi" name="deskripsi" rows="3"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none resize-none"
                             placeholder="Masukkan deskripsi layanan"></textarea>
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_deskripsi"></span>

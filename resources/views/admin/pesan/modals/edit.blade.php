@@ -54,7 +54,7 @@
                                 </svg>
                             </div>
                             <input type="text" id="edit_nama" name="nama"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="Masukkan nama pengirim" required>
                         </div>
                         <p id="error-nama" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -72,7 +72,7 @@
                                 </svg>
                             </div>
                             <input type="email" id="edit_email" name="email"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="contoh@email.com" required>
                         </div>
                         <p id="error-email" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -90,7 +90,7 @@
                                 </svg>
                             </div>
                             <input type="text" id="edit_subjek" name="subjek"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                                 placeholder="Masukkan subjek pesan">
                         </div>
                         <p id="error-subjek" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -108,7 +108,7 @@
                                 </svg>
                             </div>
                             <textarea id="edit_pesan" name="pesan" rows="4"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none resize-none"
                                 placeholder="Tulis pesan di sini..." required></textarea>
                         </div>
                         <p id="error-pesan" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -122,12 +122,12 @@
                         <div class="flex gap-6">
                             <label class="flex items-center cursor-pointer group">
                                 <input type="radio" name="status_baca" value="belum" id="edit_status_belum"
-                                    class="w-4 h-4 text-primary focus:ring-2 focus:ring-primary">
+                                    class="w-4 h-4 text-primary">
                                 <span class="ml-2 text-sm text-gray-700 group-hover:text-gray-900">Belum Dibaca</span>
                             </label>
                             <label class="flex items-center cursor-pointer group">
                                 <input type="radio" name="status_baca" value="sudah" id="edit_status_sudah"
-                                    class="w-4 h-4 text-primary focus:ring-2 focus:ring-primary">
+                                    class="w-4 h-4 text-primary">
                                 <span class="ml-2 text-sm text-gray-700 group-hover:text-gray-900">Sudah Dibaca</span>
                             </label>
                         </div>

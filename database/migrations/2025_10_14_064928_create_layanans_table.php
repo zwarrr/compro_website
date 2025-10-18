@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->foreignId('kategori_id')->constrained('kategori', 'id_kategori')->onDelete('cascade');
             $table->string('judul');
             $table->string('slog')->nullable();
+            $table->string('link')->nullable();
             $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();
             $table->enum('status', ['publik', 'draft'])->default('publik');
