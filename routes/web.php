@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Users\KaryawanController;
+use App\Http\Controllers\Users\LayananController;
+use App\Http\Controllers\Users\FaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +17,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
+Route::get('/', [LayananController::class, 'layanan'])->name('beranda');
+
+Route::get('/beranda', [LayananController::class, 'layanan'])->name('beranda.clean');
+
+Route::get('/fitur', [LayananController::class, 'layanan'])->name('fitur');
+
+Route::get('/layanan', [LayananController::class, 'layanan'])->name('layanan');
+
+Route::get('/faq', [FaqController::class, 'faq'])->name('faq');
+
+Route::get('/profil-perusahaan', function () {
+    return view('sections.profil_perusahaan');
+})->name('profil-perusahaan');
+
+Route::get('/team', [KaryawanController::class, 'team'])->name('team');
+
+Route::get('/galeri', function () {
+    return view('sections.galeri');
+})->name('galeri');
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
 

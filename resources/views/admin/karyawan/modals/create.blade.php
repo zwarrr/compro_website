@@ -166,7 +166,7 @@
                                       </svg>
                                       <p class="text-sm text-gray-500"><span class="font-semibold">Klik untuk
                                               upload</span> atau drag & drop</p>
-                                      <p class="text-xs text-gray-500">(PNG, JPG, GIF | MAX. 5MB)</p>
+                                      <p class="text-xs text-gray-500">(PNG, JPG, GIF | MAX. 10MB)</p>
                                   </div>
                                   <input id="create_foto" name="foto" type="file" class="hidden"
                                       accept="image/*" onchange="previewKaryawanImage(this)" />

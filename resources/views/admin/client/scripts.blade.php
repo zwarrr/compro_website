@@ -5,7 +5,7 @@
 
 function openCreateModal() {
     const modal = document.getElementById('createModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = document.getElementById('createModalContent');
     
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -23,7 +23,7 @@ function openCreateModal() {
 
 function closeCreateModal() {
     const modal = document.getElementById('createModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = document.getElementById('createModalContent');
     
     modal.classList.remove('opacity-100');
     modalContent.classList.remove('scale-100', 'opacity-100');
@@ -37,7 +37,7 @@ function closeCreateModal() {
 
 async function showDetail(clientId) {
     const modal = document.getElementById('detailModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = document.getElementById('detailModalContent');
     const loadingEl = document.getElementById('detailLoading');
     const dataEl = document.getElementById('detailData');
     
@@ -100,7 +100,7 @@ async function showDetail(clientId) {
 
 function closeDetailModal() {
     const modal = document.getElementById('detailModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = document.getElementById('detailModalContent');
     
     modal.classList.remove('opacity-100');
     modalContent.classList.remove('scale-100', 'opacity-100');
@@ -114,9 +114,7 @@ function closeDetailModal() {
 
 async function openEditModal(clientId) {
     const modal = document.getElementById('editModal');
-    const modalContent = modal.querySelector('.modal-content');
-    const loadingEl = document.getElementById('editLoading');
-    const formEl = document.getElementById('editFormContent');
+    const modalContent = document.getElementById('editModalContent');
     
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -127,9 +125,9 @@ async function openEditModal(clientId) {
         modalContent.classList.add('scale-100', 'opacity-100');
     }, 10);
     
-    loadingEl.classList.remove('hidden');
-    formEl.classList.add('hidden');
-    document.getElementById('edit_logo_preview').classList.add('hidden');
+    // Reset form and hide preview
+    document.getElementById('editLogoPreviewArea').classList.add('hidden');
+    document.getElementById('editLogoUploadArea').classList.remove('hidden');
     clearErrors('edit');
     
     try {
@@ -154,17 +152,14 @@ async function openEditModal(clientId) {
         document.getElementById('edit_status').value = client.status;
         document.getElementById('edit_logo_path').value = client.logo_path || '';
         
-        // Show current logo
-        const currentLogoDiv = document.getElementById('edit_current_logo');
+        // Show current logo if exists
         if (client.logo) {
-            currentLogoDiv.querySelector('img').src = client.logo;
-            currentLogoDiv.classList.remove('hidden');
-        } else {
-            currentLogoDiv.classList.add('hidden');
+            document.getElementById('editLogoUploadArea').classList.add('hidden');
+            document.getElementById('editLogoPreviewArea').classList.remove('hidden');
+            document.getElementById('editLogoPreviewImg').src = client.logo;
+            document.getElementById('editLogoFileName').textContent = 'Logo saat ini';
+            document.getElementById('editLogoFileSize').textContent = '';
         }
-        
-        loadingEl.classList.add('hidden');
-        formEl.classList.remove('hidden');
         
     } catch (error) {
         console.error('Error:', error);
@@ -175,7 +170,7 @@ async function openEditModal(clientId) {
 
 function closeEditModal() {
     const modal = document.getElementById('editModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = document.getElementById('editModalContent');
     
     modal.classList.remove('opacity-100');
     modalContent.classList.remove('scale-100', 'opacity-100');
@@ -189,7 +184,7 @@ function closeEditModal() {
 
 function confirmDelete(clientId, clientName) {
     const modal = document.getElementById('deleteModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = modal.querySelector('div:first-child');
     
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -206,7 +201,7 @@ function confirmDelete(clientId, clientName) {
 
 function closeDeleteModal() {
     const modal = document.getElementById('deleteModal');
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = modal.querySelector('div:first-child');
     
     modal.classList.remove('opacity-100');
     modalContent.classList.remove('scale-100', 'opacity-100');
@@ -227,10 +222,13 @@ async function submitCreate(event) {
     
     const form = document.getElementById('createClientForm');
     const submitBtn = document.getElementById('createSubmitBtn');
+    const submitBtnText = document.getElementById('createSubmitBtnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
     const formData = new FormData(form);
     
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Menyimpan...';
+    loadingSpinner.classList.remove('hidden');
+    submitBtnText.textContent = 'Menyimpan...';
     
     clearErrors('create');
     
@@ -262,7 +260,8 @@ async function submitCreate(event) {
         showNotification('Terjadi kesalahan pada server', 'error');
     } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Simpan Client';
+        loadingSpinner.classList.add('hidden');
+        submitBtnText.textContent = 'Simpan Client';
     }
 }
 
@@ -271,12 +270,15 @@ async function submitEdit(event) {
     
     const form = document.getElementById('editClientForm');
     const submitBtn = document.getElementById('editSubmitBtn');
+    const submitBtnText = document.getElementById('editSubmitBtnText');
+    const loadingSpinner = document.getElementById('editLoadingSpinner');
     const clientId = document.getElementById('edit_id').value;
     const formData = new FormData(form);
     formData.append('_method', 'PUT');
     
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Mengupdate...';
+    loadingSpinner.classList.remove('hidden');
+    submitBtnText.textContent = 'Mengupdate...';
     
     clearErrors('edit');
     
@@ -308,7 +310,8 @@ async function submitEdit(event) {
         showNotification('Terjadi kesalahan pada server', 'error');
     } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Update Client';
+        loadingSpinner.classList.add('hidden');
+        submitBtnText.textContent = 'Update Client';
     }
 }
 

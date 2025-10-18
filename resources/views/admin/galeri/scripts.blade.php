@@ -95,7 +95,7 @@ async function openEditGaleriModal(id) {
         document.getElementById('edit_deskripsi').value = g.deskripsi || '';
         document.getElementById('edit_status').value = g.status;
         const preview = document.getElementById('edit_gambar_preview');
-        if (g.gambar) { preview.src = `{{ asset('images/galeri') }}/${g.gambar}`; preview.classList.remove('hidden'); } else { preview.src = ''; preview.classList.add('hidden'); }
+        if (g.gambar) { preview.src = `{{ asset('storage/galeri') }}/${g.gambar}`; preview.classList.remove('hidden'); } else { preview.src = ''; preview.classList.add('hidden'); }
         loadingEl.classList.add('hidden');
         formEl.classList.remove('hidden');
     } catch(err) {
