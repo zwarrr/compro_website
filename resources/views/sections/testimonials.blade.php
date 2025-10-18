@@ -64,122 +64,57 @@
         
         <!-- Testimonials Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <!-- Testimonial 1 -->
+            @forelse($testimonis as $testimoni)
             <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 scroll-reveal">
                 <div class="flex items-center mb-6">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1505715229805-a1ae4025e73a" alt="Rudi Setiawan, CEO PT Teknologi Maju" class="w-16 h-16 rounded-full object-cover ring-4 ring-rose-100" onerror="this.src='https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        @if($testimoni->foto)
+                            <img src="{{ asset('storage/' . $testimoni->foto) }}" alt="{{ $testimoni->nama_testimoni }}, {{ $testimoni->jabatan }}" class="w-16 h-16 rounded-full object-cover ring-4 ring-rose-100" />
+                        @else
+                            <div class="w-16 h-16 rounded-full object-cover ring-4 ring-rose-100 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-user text-white text-2xl"></i>
+                            </div>
+                        @endif
                         <div class="absolute -top-2 -right-2 w-6 h-6 bg-rose-500 rounded-full flex items-center justify-center">
                             <i class="fas fa-quote-left text-white text-xs"></i>
                         </div>
                     </div>
                     <div class="ml-4">
-                        <h4 class="font-bold text-lg text-gray-900">Rudi Setiawan</h4>
-                        <p class="text-sm text-gray-500">CEO, PT Teknologi Maju</p>
+                        <h4 class="font-bold text-lg text-gray-900">{{ $testimoni->nama_testimoni }}</h4>
+                        <p class="text-sm text-gray-500">{{ $testimoni->jabatan }}</p>
                     </div>
                 </div>
                 
                 <!-- Rating -->
                 <div class="flex items-center mb-6">
                     <div class="flex testimonial-rating mr-3">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= $testimoni->rating)
+                                <i class="fas fa-star text-yellow-400"></i>
+                            @else
+                                <i class="fas fa-star text-gray-300"></i>
+                            @endif
+                        @endfor
                     </div>
-                    <span class="text-sm text-gray-500 font-medium">5.0 Rating</span>
+                    <span class="text-sm text-gray-500 font-medium">{{ $testimoni->rating }}.0 Rating</span>
                 </div>
                 
                 <!-- Testimonial Text -->
                 <blockquote class="text-gray-600 leading-relaxed mb-6 italic">
-                    "Transformasi digital yang dilakukan TMS meningkatkan efisiensi operasional kami sebesar 60% dalam 4 bulan. Tim yang sangat profesional dan hasil yang terukur."
+                    "{{ $testimoni->pesan }}"
                 </blockquote>
                 
                 <!-- Result Badge -->
                 <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
-                    <i class="fas fa-chart-line text-xs"></i>
-                    ROI: 250% dalam 6 bulan
+                    <i class="fas fa-check-circle text-xs"></i>
+                    Verified Customer
                 </div>
             </div>
-            
-            <!-- Testimonial 2 -->
-            <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 scroll-reveal">
-                <div class="flex items-center mb-6">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1479800800845-03752b6188fa" alt="Lisa Permata, CFO PT Global Solutions" class="w-16 h-16 rounded-full object-cover ring-4 ring-blue-100" onerror="this.src='https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
-                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-quote-left text-white text-xs"></i>
-                        </div>
-                    </div>
-                    <div class="ml-4">
-                        <h4 class="font-bold text-lg text-gray-900">Lisa Permata</h4>
-                        <p class="text-sm text-gray-500">CFO, PT Global Solutions</p>
-                    </div>
-                </div>
-                
-                <!-- Rating -->
-                <div class="flex items-center mb-6">
-                    <div class="flex testimonial-rating mr-3">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <span class="text-sm text-gray-500 font-medium">5.0 Rating</span>
-                </div>
-                
-                <!-- Testimonial Text -->
-                <blockquote class="text-gray-600 leading-relaxed mb-6 italic">
-                    "Implementasi sistem analitik yang mereka berikan memberikan insight bisnis yang sangat valuable. Sekarang kami bisa membuat keputusan berdasarkan data real-time."
-                </blockquote>
-                
-                <!-- Result Badge -->
-                <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
-                    <i class="fas fa-bullseye text-xs"></i>
-                    Akurasi Prediksi: 85%
-                </div>
+            @empty
+            <div class="col-span-full text-center text-gray-500 py-12">
+                <p>Tidak ada testimoni yang tersedia</p>
             </div>
-            
-            <!-- Testimonial 3 -->
-            <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 scroll-reveal">
-                <div class="flex items-center mb-6">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1666249246648-04876acb35a6" alt="Ahmad Pratama, CTO PT Inovasi Digital" class="w-16 h-16 rounded-full object-cover ring-4 ring-green-100" onerror="this.src='https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
-                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-quote-left text-white text-xs"></i>
-                        </div>
-                    </div>
-                    <div class="ml-4">
-                        <h4 class="font-bold text-lg text-gray-900">Ahmad Pratama</h4>
-                        <p class="text-sm text-gray-500">CTO, PT Inovasi Digital</p>
-                    </div>
-                </div>
-                
-                <!-- Rating -->
-                <div class="flex items-center mb-6">
-                    <div class="flex testimonial-rating mr-3">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <span class="text-sm text-gray-500 font-medium">5.0 Rating</span>
-                </div>
-                
-                <!-- Testimonial Text -->
-                <blockquote class="text-gray-600 leading-relaxed mb-6 italic">
-                    "Migrasi ke cloud yang mereka handle berjalan sangat smooth. Zero downtime dan performa sistem meningkat drastis. Highly recommended!"
-                </blockquote>
-                
-                <!-- Result Badge -->
-                <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold">
-                    <i class="fas fa-rocket text-xs"></i>
-                    Performa: +300%
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -521,17 +521,25 @@
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden w-full">
                 <!-- Team Cards Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 w-full">
-                    <!-- Team Member 1 -->
+                    @forelse($karyawans as $karyawan)
+                    <!-- Team Member Card -->
                     <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
                         <div class="team-card-header">
                             <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
                             
                             <!-- FOTO PROFIL -->
                             <div class="team-avatar">
-                                <img src="{{ asset('img/team_cards/eja.png') }}" 
-                                     alt="Reza Parjaman Permana" 
-                                     class="team-member-photo"
-                                     onerror="this.style.display='none'">
+                                @if($karyawan->foto)
+                                    <img src="{{ asset('images/karyawan/' . $karyawan->foto) }}" 
+                                         alt="{{ $karyawan->nama }}" 
+                                         class="team-member-photo"
+                                         onerror="this.style.display='none'">
+                                @else
+                                    <img src="{{ asset('img/team_cards/eja.png') }}" 
+                                         alt="{{ $karyawan->nama }}" 
+                                         class="team-member-photo"
+                                         onerror="this.style.display='none'">
+                                @endif
                             </div>
 
                             <!-- Wave putih MEMOTONG foto di bawah -->
@@ -544,186 +552,19 @@
                         
                         <!-- Konten bawah putih -->
                         <div class="team-info-box">
-                            <h3 class="name-title">REZA PARJAMAN PERMANA</h3>
-                            <p class="job-title">Staff Customer Service</p>
-                            <p class="nik-number">NIK : 02129824</p>
+                            <h3 class="name-title">{{ strtoupper($karyawan->nama) }}</h3>
+                            <p class="job-title">{{ $karyawan->kategori->nama_kategori ?? '-' }}</p>
+                            <p class="nik-number">NIK : {{ $karyawan->nik }}</p>
                             <p class="description-text">
-                                Vero omnis enim consequatur. Voluptas consectetur unde qui 
-                                molestiae deserunt. Voluptates enim aut architecto porro aspernatur 
-                                molestiae modi.
+                                {{ $karyawan->deskripsi ?? 'Tim profesional yang siap memberikan solusi terbaik.' }}
                             </p>
                         </div>
                     </div>
-
-                    <!-- Team Member 2 -->
-                    <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
-                        <div class="team-card-header">
-                            <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
-                            
-                            <!-- FOTO PROFIL -->
-                            <div class="team-avatar">
-                                <img src="{{ asset('img/team_cards/eja.png') }}" 
-                                     alt="Jane Smith" 
-                                     class="team-member-photo"
-                                     onerror="this.style.display='none'">
-                            </div>
-
-                            <!-- Wave putih MEMOTONG foto di bawah -->
-                            <div class="custom-wave">
-                                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                    <path d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        
-                        <!-- Konten bawah putih -->
-                        <div class="team-info-box">
-                            <h3 class="name-title">JANE SMITH</h3>
-                            <p class="job-title">Lead Developer</p>
-                            <p class="nik-number">NIK : 02129825</p>
-                            <p class="description-text">
-                                Expert dalam pengembangan aplikasi web dan mobile dengan 
-                                teknologi terdepan. Memiliki pengalaman lebih dari 8 tahun 
-                                di bidang software development dan manajemen tim.
-                            </p>
-                        </div>
+                    @empty
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500 text-lg">Tidak ada data karyawan yang ditampilkan.</p>
                     </div>
-
-                    <!-- Team Member 3 -->
-                    <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
-                        <div class="team-card-header">
-                            <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
-                            
-                            <!-- FOTO PROFIL -->
-                            <div class="team-avatar">
-                                <img src="{{ asset('img/team_cards/eja.png') }}" 
-                                     alt="Mike Johnson" 
-                                     class="team-member-photo"
-                                     onerror="this.style.display='none'">
-                            </div>
-
-                            <!-- Wave putih MEMOTONG foto di bawah -->
-                            <div class="custom-wave">
-                                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                    <path d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        
-                        <!-- Konten bawah putih -->
-                        <div class="team-info-box">
-                            <h3 class="name-title">MIKE JOHNSON</h3>
-                            <p class="job-title">UI/UX Designer</p>
-                            <p class="nik-number">NIK : 02129826</p>
-                            <p class="description-text">
-                                Menciptakan pengalaman pengguna yang intuitif dan desain 
-                                yang menarik. Spesialis dalam user interface design dan 
-                                user experience optimization untuk aplikasi modern.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 4 -->
-                    <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
-                        <div class="team-card-header">
-                            <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
-                            
-                            <!-- FOTO PROFIL -->
-                            <div class="team-avatar">
-                                <img src="{{ asset('img/team_cards/eja.png') }}" 
-                                     alt="Sarah Wilson" 
-                                     class="team-member-photo"
-                                     onerror="this.style.display='none'">
-                            </div>
-
-                            <!-- Wave putih MEMOTONG foto di bawah -->
-                            <div class="custom-wave">
-                                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                    <path d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        
-                        <!-- Konten bawah putih -->
-                        <div class="team-info-box">
-                            <h3 class="name-title">SARAH WILSON</h3>
-                            <p class="job-title">Project Manager</p>
-                            <p class="nik-number">NIK : 02129827</p>
-                            <p class="description-text">
-                                Memastikan setiap proyek berjalan sesuai timeline dan 
-                                memenuhi ekspektasi klien. Berpengalaman dalam manajemen 
-                                proyek IT selama 6 tahun dengan track record yang baik.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 5 -->
-                    <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
-                        <div class="team-card-header">
-                            <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
-                            
-                            <!-- FOTO PROFIL -->
-                            <div class="team-avatar">
-                                <img src="{{ asset('img/team_cards/eja.png') }}" 
-                                     alt="David Brown" 
-                                     class="team-member-photo"
-                                     onerror="this.style.display='none'">
-                            </div>
-
-                            <!-- Wave putih MEMOTONG foto di bawah -->
-                            <div class="custom-wave">
-                                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                    <path d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        
-                        <!-- Konten bawah putih -->
-                        <div class="team-info-box">
-                            <h3 class="name-title">DAVID BROWN</h3>
-                            <p class="job-title">Security Specialist</p>
-                            <p class="nik-number">NIK : 02129828</p>
-                            <p class="description-text">
-                                Menjaga keamanan sistem dan data dengan standar keamanan 
-                                internasional. Certified dalam berbagai framework security 
-                                dan penetration testing untuk melindungi infrastruktur IT.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 6 -->
-                    <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
-                        <div class="team-card-header">
-                            <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
-                            
-                            <!-- FOTO PROFIL -->
-                            <div class="team-avatar">
-                                <img src="{{ asset('img/team_cards/eja.png') }}" 
-                                     alt="Lisa Garcia" 
-                                     class="team-member-photo"
-                                     onerror="this.style.display='none'">
-                            </div>
-
-                            <!-- Wave putih MEMOTONG foto di bawah -->
-                            <div class="custom-wave">
-                                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                    <path d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        
-                        <!-- Konten bawah putih -->
-                        <div class="team-info-box">
-                            <h3 class="name-title">LISA GARCIA</h3>
-                            <p class="job-title">Customer Support</p>
-                            <p class="nik-number">NIK : 02129829</p>
-                            <p class="description-text">
-                                Memberikan dukungan teknis dan pelayanan terbaik untuk 
-                                kepuasan klien. Responsif dalam menangani berbagai 
-                                kebutuhan dan permasalahan customer dengan profesional.
-                            </p>
-                        </div>
-                    </div>
+                    @endforelse
                     </div>
                 </div>
             </div>

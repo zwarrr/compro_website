@@ -303,7 +303,7 @@
     
     @include('sections.fitur')
     
-    @include('sections.client')
+    @include('sections.layanan')
     
     @include('sections.faq')
     
