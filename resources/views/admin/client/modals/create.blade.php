@@ -45,7 +45,7 @@
                             </svg>
                         </div>
                         <select id="create_kategori_id" name="kategori_id"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none>
                             <option value="">Pilih kategori</option>
                             @foreach($kategoris as $kategori)
                                 <option value="{{ $kategori->id_kategori }}">{{ $kategori->nama_kategori }}</option>
@@ -76,7 +76,7 @@
                             </svg>
                         </div>
                         <input type="text" id="create_nama_client" name="nama_client"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan nama client">
                     </div>
                     <p id="error_create_nama_client" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -142,7 +142,7 @@
                             </svg>
                         </div>
                         <input type="url" id="create_website" name="website"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="https://example.com">
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                 <div class="space-y-2 md:col-span-2">
                     <label for="create_deskripsi" class="block text-sm font-semibold text-gray-700">Deskripsi</label>
                     <textarea id="create_deskripsi" name="deskripsi" rows="4"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                        class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                         placeholder="Masukkan deskripsi client"></textarea>
                 </div>
             </div>

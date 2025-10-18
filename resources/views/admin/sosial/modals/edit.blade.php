@@ -41,7 +41,7 @@
                 </svg>
               </div>
               <input type="text" id="edit_nama_sosmed" name="nama_sosmed"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                 placeholder="Masukkan nama sosmed">
             </div>
             <span class="text-red-500 text-xs mt-1 hidden" id="error_edit_sosmed_nama_sosmed"></span>
@@ -59,7 +59,7 @@
                 </svg>
               </div>
               <input type="text" id="edit_username" name="username"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                 placeholder="@username">
             </div>
             <span class="text-red-500 text-xs mt-1 hidden" id="error_edit_sosmed_username"></span>
@@ -77,7 +77,7 @@
                 </svg>
               </div>
               <input type="url" id="edit_url" name="url"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                 placeholder="https://instagram.com/username">
             </div>
             <span class="text-red-500 text-xs mt-1 hidden" id="error_edit_sosmed_url"></span>
@@ -95,7 +95,7 @@
                 </svg>
               </div>
               <input type="text" id="edit_icon" name="icon"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                 placeholder="📱 atau fa-instagram">
             </div>
             <span class="text-red-500 text-xs mt-1 hidden" id="error_edit_sosmed_icon"></span>
@@ -113,7 +113,7 @@
                 </svg>
               </div>
               <input type="text" id="edit_warna" name="warna"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                 placeholder="#E1306C">
             </div>
             <span class="text-red-500 text-xs mt-1 hidden" id="error_edit_sosmed_warna"></span>
@@ -131,7 +131,7 @@
                 </svg>
               </div>
               <select id="edit_status" name="status"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none appearance-none bg-white">
                 <option value="publik">Publik</option>
                 <option value="draft">Draft</option>
               </select>

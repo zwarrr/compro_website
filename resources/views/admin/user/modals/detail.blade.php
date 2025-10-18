@@ -55,7 +55,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <p class="text-sm font-medium" id="detail_nama"></p>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <p class="text-sm font-medium" id="detail_email"></p>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <span id="detail_status"></span>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <p class="text-sm font-medium" id="detail_id"></p>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <p class="text-sm font-medium" id="detail_terakhir_aktif"></p>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <p class="text-sm font-medium" id="detail_created_at"></p>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                 </svg>
                             </div>
                             <div
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900">
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none border-gray-300 rounded-lg bg-gray-50 text-gray-900">
                                 <p class="text-sm font-medium" id="detail_updated_at"></p>
                             </div>
                         </div>

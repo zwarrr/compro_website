@@ -2,17 +2,17 @@
     class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden items-center justify-center z-50 transition-opacity duration-300 backdrop-blur-sm">
     <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-3xl mx-4 transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto">
         <!-- Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-primary to-red-700 rounded-t-xl sticky top-0 z-10">
+        <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white rounded-t-2xl">
             <div class="flex items-center gap-3">
-                <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="bg-yellow-500/10 p-2 rounded-lg">
+                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-white">Edit FAQ</h3>
+                <h3 class="text-xl font-bold text-gray-800">Edit FAQ</h3>
             </div>
             <button onclick="closeEditModal()"
-                class="text-white hover:bg-white/20 transition-colors rounded-full p-2">
+                class="text-gray-400 hover:text-gray-600 transition-colors rounded-full p-1 hover:bg-gray-200">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -50,7 +50,7 @@
                             </svg>
                         </div>
                         <input type="text" id="edit_pertanyaan" name="pertanyaan"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan pertanyaan" required>
                     </div>
                     <span class="text-red-500 text-sm hidden error-message" id="error_edit_pertanyaan"></span>
@@ -62,7 +62,7 @@
                         Jawaban <span class="text-red-500">*</span>
                     </label>
                     <textarea id="edit_jawaban" name="jawaban" rows="8"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition resize-none"
+                        class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                         placeholder="Tulis jawaban lengkap di sini..." required></textarea>
                     <span class="text-red-500 text-sm hidden error-message" id="error_edit_jawaban"></span>
                 </div>
@@ -75,12 +75,12 @@
                     <div class="flex gap-4">
                         <label class="flex items-center cursor-pointer group">
                             <input type="radio" name="status" value="publik" id="edit_status_publik"
-                                class="w-4 h-4 text-primary focus:ring-2 focus:ring-primary">
+                                class="w-4 h-4 text-primary">
                             <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900">Publik</span>
                         </label>
                         <label class="flex items-center cursor-pointer group">
                             <input type="radio" name="status" value="draft" id="edit_status_draft"
-                                class="w-4 h-4 text-primary focus:ring-2 focus:ring-primary">
+                                class="w-4 h-4 text-primary">
                             <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-gray-900">Draft</span>
                         </label>
                     </div>
