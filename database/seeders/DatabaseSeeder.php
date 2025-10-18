@@ -18,6 +18,21 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call(UserSeeder::class);
+        
+        // Seeder harus dijalankan sesuai urutan karena ada foreign key dependencies
+        $this->call([
+            UserSeeder::class,
+            ProfilePerusahaanSeeder::class,
+            KategoriSeeder::class,          // Harus pertama karena dipakai oleh tabel lain
+            LayananSeeder::class,           // Depends on Kategori
+            GaleriSeeder::class,            // Depends on Kategori
+            KaryawanSeeder::class,          // Depends on Kategori
+            ClientSeeder::class,            // Depends on Kategori
+            TestimoniSeeder::class,         // Independent
+            FaqSeeder::class,               // Independent
+            SocialMediaSeeder::class,       // Independent
+            KontakSeeder::class,            // Independent
+        ]);
     }
 }
+

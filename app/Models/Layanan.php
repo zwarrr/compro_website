@@ -17,6 +17,7 @@ class Layanan extends Model
         'kategori_id',
         'judul',
         'slog',
+        'link',
         'deskripsi',
         'gambar',
         'status',

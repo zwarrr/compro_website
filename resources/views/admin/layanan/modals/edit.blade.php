@@ -56,7 +56,7 @@
                             </svg>
                         </div>
                         <input type="text" id="edit_kode_layanan" name="kode_layanan"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-gray-50 cursor-not-allowed"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none bg-gray-50 cursor-not-allowed"
                             readonly>
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_kode_layanan"></span>
@@ -74,7 +74,7 @@
                             </svg>
                         </div>
                         <select id="edit_kategori_id" name="kategori_id"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none appearance-none bg-white">
                             <option value="">Pilih Kategori</option>
                             @foreach ($kategoris as $item)
                                 <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
@@ -101,7 +101,7 @@
                             </svg>
                         </div>
                         <input type="text" id="edit_judul" name="judul"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan judul layanan">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_judul"></span>
@@ -119,7 +119,7 @@
                             </svg>
                         </div>
                         <select id="edit_status" name="status"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none appearance-none bg-white">
                             <option value="">Pilih Status</option>
                             <option value="publik">Publik</option>
                             <option value="draft">Draft</option>
@@ -145,7 +145,7 @@
                             </svg>
                         </div>
                         <input type="text" id="edit_slog" name="slog"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan slogan layanan">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_slog"></span>
@@ -163,7 +163,7 @@
                             </svg>
                         </div>
                         <textarea id="edit_deskripsi" name="deskripsi" rows="4"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none resize-none"
                             placeholder="Masukkan deskripsi layanan"></textarea>
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_deskripsi"></span>

@@ -51,6 +51,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/chart-data', [App\Http\Controllers\Admin\DashboardController::class, 'getChartData'])->name('dashboard.chart-data');
     
+    // Spotlight Search
+    Route::get('search', [App\Http\Controllers\Admin\SearchController::class, 'search'])->name('search');
+    
     // CRUD routes with resource controllers
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);
     Route::resource('layanan', App\Http\Controllers\Admin\LayananController::class);

@@ -1,6 +1,104 @@
 <x-layouts.app>
     <x-slot name="title">Manajemen User</x-slot>
 
+    <!-- Custom Styles for Smooth Transitions -->
+    {{-- <style>
+        /* Smooth transitions for table */
+        tbody {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Pagination smooth transitions */
+        #pagination-container {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hover effects for pagination buttons */
+        #pagination-container a,
+        #pagination-container span {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hover effect untuk tombol non-active */
+        #pagination-container a:hover:not(.bg-primary) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.15), 0 2px 4px -1px rgba(220, 38, 38, 0.1);
+        }
+
+        /* Active page style */
+        #pagination-container .bg-primary {
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.4), 0 2px 4px -1px rgba(220, 38, 38, 0.25);
+        }
+
+        /* Active page pulse effect */
+        #pagination-container .bg-primary {
+            animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.95;
+            }
+        }
+
+        /* Smooth fade-in for table rows */
+        tbody tr {
+            animation: fadeInRow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInRow {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger animation for rows */
+        tbody tr:nth-child(1) { animation-delay: 0.05s; }
+        tbody tr:nth-child(2) { animation-delay: 0.1s; }
+        tbody tr:nth-child(3) { animation-delay: 0.15s; }
+        tbody tr:nth-child(4) { animation-delay: 0.2s; }
+        tbody tr:nth-child(5) { animation-delay: 0.25s; }
+        tbody tr:nth-child(6) { animation-delay: 0.3s; }
+        tbody tr:nth-child(7) { animation-delay: 0.35s; }
+        tbody tr:nth-child(8) { animation-delay: 0.4s; }
+        tbody tr:nth-child(9) { animation-delay: 0.45s; }
+        tbody tr:nth-child(10) { animation-delay: 0.5s; }
+
+        /* Pagination info box styling */
+        #pagination-container .bg-gray-50 {
+            transition: all 0.2s ease-in-out;
+        }
+
+        #pagination-container .bg-gray-50:hover {
+            background-color: #f9fafb;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Smooth pagination container appearance */
+        #pagination-container {
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style> --}}
+
     <!-- Page Header -->
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -27,7 +125,7 @@
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari nama atau email..."
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none">
                     <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -46,7 +144,7 @@
                         </svg>
                     </div>
                     <select name="status"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white appearance-none transition">
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none appearance-none">
                         <option value="">Semua Status</option>
                         <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
                         <option value="tidak aktif" {{ request('status') == 'tidak aktif' ? 'selected' : '' }}>Non-Aktif
@@ -130,7 +228,7 @@
                                 <div x-data="{ open: false }" class="relative inline-block text-left">
                                     <div>
                                         <button @click="open = !open" type="button"
-                                            class="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                            class="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-offset-2"
                                             :class="{ 'bg-gray-100 text-gray-600': open }">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -212,8 +310,8 @@
 
         <!-- Pagination -->
         @if ($users->hasPages())
-            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                {{ $users->links() }}
+            <div class="px-6 py-5 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white transition-all duration-300 ease-in-out" id="pagination-container">
+                {{ $users->links('vendor.pagination.custom') }}
             </div>
         @endif
     </div>
@@ -233,22 +331,29 @@
             const searchInput = form.querySelector('input[name="search"]');
             const statusSelect = form.querySelector('select[name="status"]');
             const tbody = document.querySelector('tbody');
+            const tableContainer = document.querySelector('.overflow-x-auto');
             let typingTimer;
 
             function showLoading() {
-                tbody.innerHTML = `
-            <tr>
-                <td colspan="6" class="px-6 py-12 text-center">
-                    <div class="flex flex-col items-center space-y-3">
-                        <svg class="animate-spin h-10 w-10 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l3 3-3 3v-4a8 8 0 01-8-8z"></path>
-                        </svg>
-                        <p class="text-gray-500 text-sm">Memuat data pengguna...</p>
-                    </div>
-                </td>
-            </tr>
-        `;
+                // Add fade out effect
+                tbody.style.opacity = '0.5';
+                tbody.style.transition = 'opacity 0.3s ease-in-out';
+                
+                setTimeout(() => {
+                    tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-6 py-12 text-center">
+                        <div class="flex flex-col items-center space-y-3 animate-pulse">
+                            <svg class="animate-spin h-10 w-10 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V8l-3 3 3 3V8a8 8 0 11-16 0h4a4 4 0 108 0z"></path>
+                            </svg>
+                            <p class="text-gray-500 text-sm font-medium">Memuat data pengguna...</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+                }, 150);
             }
 
             function fetchData(url = null) {
@@ -278,29 +383,54 @@
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(html, 'text/html');
                         const newTbody = doc.querySelector('tbody');
-                        const newPagination = doc.querySelector('.px-6.py-4.border-t');
+                        const newPaginationContainer = doc.querySelector('#pagination-container');
 
                         if (newTbody) {
-                            tbody.innerHTML = newTbody.innerHTML;
+                            // Fade in effect
+                            tbody.style.opacity = '0';
+                            setTimeout(() => {
+                                tbody.innerHTML = newTbody.innerHTML;
+                                tbody.style.opacity = '1';
+                            }, 200);
                         }
 
-                        if (newPagination) {
-                            const oldPagination = document.querySelector('.px-6.py-4.border-t');
-                            if (oldPagination) {
-                                oldPagination.innerHTML = newPagination.innerHTML;
-                            }
+                        // Update pagination with smooth transition
+                        const currentPaginationContainer = document.querySelector('#pagination-container');
+                        if (newPaginationContainer && currentPaginationContainer) {
+                            currentPaginationContainer.style.opacity = '0';
+                            setTimeout(() => {
+                                currentPaginationContainer.outerHTML = newPaginationContainer.outerHTML;
+                                const updatedPagination = document.querySelector('#pagination-container');
+                                if (updatedPagination) {
+                                    updatedPagination.style.opacity = '1';
+                                }
+                            }, 200);
+                        } else if (!newPaginationContainer && currentPaginationContainer) {
+                            // Remove pagination if no pages
+                            currentPaginationContainer.style.opacity = '0';
+                            setTimeout(() => {
+                                currentPaginationContainer.remove();
+                            }, 300);
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
+                        tbody.style.opacity = '1';
                         tbody.innerHTML = `
                 <tr>
                     <td colspan="6" class="px-6 py-12 text-center text-red-500">
-                        <svg class="mx-auto h-12 w-12 text-red-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <p class="font-medium">Gagal memuat data user</p>
-                        <p class="text-sm text-gray-500 mt-1">Silakan refresh halaman atau coba lagi</p>
+                        <div class="flex flex-col items-center space-y-3">
+                            <svg class="h-12 w-12 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-base">Gagal memuat data user</p>
+                                <p class="text-sm text-gray-500 mt-1">Silakan refresh halaman atau coba lagi</p>
+                            </div>
+                            <button onclick="location.reload()" class="mt-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-red-700 transition-colors text-sm">
+                                Refresh Halaman
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `;
@@ -316,13 +446,23 @@
             // Live filter
             statusSelect.addEventListener('change', () => fetchData());
 
-            // AJAX pagination
+            // AJAX pagination with smooth scroll
             document.addEventListener('click', e => {
-                const link = e.target.closest('.pagination a');
-                if (link) {
+                const link = e.target.closest('.relative.inline-flex');
+                if (link && link.href && link.closest('#pagination-container')) {
                     e.preventDefault();
                     const url = new URL(link.href);
-                    fetchData(url.pathname);
+                    
+                    // Smooth scroll to top of table
+                    tableContainer.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    
+                    // Delay fetch to allow scroll animation
+                    setTimeout(() => {
+                        fetchData(url.pathname + url.search);
+                    }, 300);
                 }
             });
         });

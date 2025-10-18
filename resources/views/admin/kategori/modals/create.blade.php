@@ -37,7 +37,7 @@
                             </svg>
                         </div>
                         <input type="text" id="create_nama_kategori" name="nama_kategori"
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                             placeholder="Masukkan nama kategori">
                     </div>
                     <span class="text-red-500 text-xs mt-1 hidden" id="error_create_nama_kategori"></span>
@@ -58,7 +58,7 @@
 
                         <!-- Dropdown -->
                         <select id="create_tipe" name="tipe" required
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white appearance-none">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none bg-white appearance-none">
                             <option value="" disabled selected>Pilih tipe</option>
                             <option value="layanan">Layanan</option>
                             <option value="galeri">Galeri</option>

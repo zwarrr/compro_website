@@ -29,7 +29,7 @@
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari nama client, kode, atau website..."
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 transition outline-none"
                         id="searchInput">
                     <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -49,7 +49,7 @@
                         </svg>
                     </div>
                     <select name="kategori" id="kategoriSelect"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white appearance-none transition">
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 bg-white appearance-none transition outline-none">
                         <option value="">Semua Kategori</option>
                         @foreach($kategoris as $kategori)
                             <option value="{{ $kategori->id_kategori }}" {{ request('kategori') == $kategori->id_kategori ? 'selected' : '' }}>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <select name="status" id="statusSelect"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white appearance-none transition">
+                        class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-red-500 bg-white appearance-none transition outline-none">
                         <option value="">Semua Status</option>
                         <option value="publik" {{ request('status') == 'publik' ? 'selected' : '' }}>Publik</option>
                         <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
@@ -174,7 +174,7 @@
                                 <div x-data="{ open: false }" class="relative inline-block text-left">
                                     <div>
                                         <button @click="open = !open" type="button"
-                                            class="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                            class="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none focus:ring-offset-2"
                                             :class="{ 'bg-gray-100 text-gray-600': open }">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -257,7 +257,7 @@
         <!-- Pagination -->
         @if ($clients->hasPages())
             <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                {{ $clients->links() }}
+                {{ $clients->links('vendor.pagination.custom') }}
             </div>
         @endif
     </div>
