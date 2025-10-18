@@ -73,14 +73,14 @@ class LayananController extends Controller
             'judul' => 'required|string|max:255',
             'slog' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:publik,draft',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
             'kategori_id.exists' => 'Kategori tidak valid',
             'judul.required' => 'Judul harus diisi',
             'gambar.image' => 'File harus berupa gambar',
-            'gambar.max' => 'Ukuran gambar maksimal 2MB',
+            'gambar.max' => 'Ukuran gambar maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -196,14 +196,14 @@ class LayananController extends Controller
             'judul' => 'required|string|max:255',
             'slog' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:publik,draft',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
             'kategori_id.exists' => 'Kategori tidak valid',
             'judul.required' => 'Judul harus diisi',
             'gambar.image' => 'File harus berupa gambar',
-            'gambar.max' => 'Ukuran gambar maksimal 2MB',
+            'gambar.max' => 'Ukuran gambar maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
