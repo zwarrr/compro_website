@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\KaryawanController;
 use App\Http\Controllers\Users\LayananController;
 use App\Http\Controllers\Users\FaqController;
+use App\Http\Controllers\Users\GaleriController;
+use App\Http\Controllers\Users\KontakController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +35,14 @@ Route::get('/profil-perusahaan', function () {
 
 Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
-Route::get('/galeri', function () {
-    return view('sections.galeri');
-})->name('galeri');
+Route::get('/galeri', [GaleriController::class, 'galeri'])->name('galeri');
+
+Route::get('/hubungi-kami', function () {
+    return view('hubungi_kami');
+})->name('hubungi-kami');
+
+// Contact form submission
+Route::post('/hubungi-kami', [KontakController::class, 'store'])->name('hubungi-kami.store');
 
 Route::get('/welcome', function () {
     return view('welcome');

@@ -233,25 +233,29 @@
                 @forelse($layanans as $index => $layanan)
                     @php
                         $gradient = $gradients[$index % count($gradients)];
-                        $icon = $icons[$index % count($icons)];
                         $colorScheme = $colorSchemes[$index % count($colorSchemes)];
+                        $gambarPath = $layanan->gambar ? asset('storage/' . $layanan->gambar) : asset('images/placeholder-layanan.jpg');
                     @endphp
                     <div class="swiper-slide">
                         <div class="layanan-card group cursor-pointer" data-layanan="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}">
                             <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                                <!-- Visual Header with Icon -->
+                                <!-- Visual Header with Image -->
                                 <div class="h-40 bg-gradient-to-br {{ $gradient }} relative overflow-hidden p-6 flex items-center justify-center">
-                                    <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                        <i class="fas {{ $icon }} text-white text-3xl"></i>
-                                    </div>
+                                    @if($layanan->gambar)
+                                        <img src="{{ $gambarPath }}" alt="{{ $layanan->judul }}" class="w-24 h-24 object-cover rounded-[20px] group-hover:scale-110 transition-transform duration-500">
+                                    @else
+                                        <div class="w-24 h-24 bg-white bg-opacity-20 backdrop-blur-md rounded-[20px] flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                            <i class="fas fa-image text-white text-3xl"></i>
+                                        </div>
+                                    @endif
                                 </div>
                                 
                                 <!-- Content -->
                                 <div class="p-6 flex-1 flex flex-col">
                                     <!-- Title & Icon -->
                                     <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-2xl font-bold text-gray-900">{{ strtoupper($layanan->judul) }}</h3>
-                                        <div class="w-10 h-10 bg-{{ $colorScheme['bg'] }}-50 rounded-xl flex items-center justify-center">
+                                        <h3 class="text-lg font-bold text-gray-900 truncate">{{ strtoupper($layanan->judul) }}</h3>
+                                        <div class="w-10 h-10 bg-{{ $colorScheme['bg'] }}-50 rounded-xl flex items-center justify-center flex-shrink-0 ml-2">
                                             <i class="fas fa-external-link-alt text-{{ $colorScheme['text'] }}-600 text-sm"></i>
                                         </div>
                                     </div>
