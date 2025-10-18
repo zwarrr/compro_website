@@ -6,18 +6,18 @@
 
 <style>
 /* ========== STYLING TETAP SAMA, TIDAK DIUBAH SEDIKITPUN ========== */
-.client-card {
+.layanan-card {
   width: 380px;
   height: 450px;
   flex-shrink: 0;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.client-card:hover {
+.layanan-card:hover {
   transform: translateY(-12px) scale(1.02);
 }
 
-.client-swiper {
+.layanan-swiper {
   padding: 30px 0 80px;
   overflow: visible;
   /* Ensure smooth autoplay */
@@ -28,13 +28,13 @@
 }
 
 /* Force hardware acceleration for smooth animations */
-.client-swiper .swiper-wrapper {
+.layanan-swiper .swiper-wrapper {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
 }
 
-.client-swiper .swiper-slide {
+.layanan-swiper .swiper-slide {
   width: 380px;
   height: auto;
   transition: all 0.4s ease;
@@ -42,49 +42,49 @@
 }
 
 /* Center card effect - Card yang berada di tengah dengan styling yang stabil */
-.client-swiper .swiper-slide .swiper-center-card {
+.layanan-swiper .swiper-slide .swiper-center-card {
   transform: scale(1.05) !important;
   z-index: 10 !important;
   transition: all 0.4s ease !important;
 }
 
-.client-swiper .swiper-slide .swiper-center-card .bg-white {
+.layanan-swiper .swiper-slide .swiper-center-card .bg-white {
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Side cards effect - Card yang berada di samping */
-.client-swiper .swiper-slide .swiper-side-card {
+.layanan-swiper .swiper-slide .swiper-side-card {
   transform: scale(0.95);
   opacity: 0.8;
   transition: all 0.4s ease;
 }
 
 /* Default state untuk semua slides - PASTIKAN DESKTOP BERFUNGSI */
-.client-swiper .swiper-slide-active .client-card {
+.layanan-swiper .swiper-slide-active .layanan-card {
   transform: scale(1.05) !important;
   z-index: 10 !important;
   transition: all 0.4s ease !important;
 }
 
-.client-swiper .swiper-slide-active .client-card .bg-white {
+.layanan-swiper .swiper-slide-active .layanan-card .bg-white {
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Non-active slides styling - Side cards dengan opacity yang jelas */
-.client-swiper .swiper-slide:not(.swiper-slide-active) .client-card {
+.layanan-swiper .swiper-slide:not(.swiper-slide-active) .layanan-card {
   transform: scale(0.9);
   opacity: 0.5; /* Opacity lebih rendah untuk efek fade yang jelas */
   transition: all 0.4s ease;
 }
 
 /* Pastikan hanya 3 slide yang terlihat dengan fade effect di sisi */
-.client-swiper .swiper-slide {
+.layanan-swiper .swiper-slide {
   opacity: 1;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* Slide yang tidak berada di posisi tengah 3 frame */
-.client-swiper .swiper-slide:not(.swiper-slide-prev):not(.swiper-slide-active):not(.swiper-slide-next) {
+.layanan-swiper .swiper-slide:not(.swiper-slide-prev):not(.swiper-slide-active):not(.swiper-slide-next) {
   opacity: 0; /* Sembunyikan slide di luar frame 3 */
   pointer-events: none;
 }
@@ -93,11 +93,11 @@
 
 /* Mobile - 480px ke bawah */
 @media (max-width: 480px) {
-  .client-swiper .swiper-slide {
+  .layanan-swiper .swiper-slide {
     width: 300px !important;
   }
   
-  .client-card {
+  .layanan-card {
     width: 300px;
   }
   
@@ -113,7 +113,7 @@
 
 /* Tablet - 481px sampai 768px */
 @media (min-width: 481px) and (max-width: 768px) {
-  .client-swiper .swiper-slide {
+  .layanan-swiper .swiper-slide {
     width: 340px !important;
   }
   
@@ -129,20 +129,20 @@
 
 /* Desktop - 769px ke atas - FOKUS UTAMA */
 @media (min-width: 769px) {
-  .client-swiper .swiper-slide {
+  .layanan-swiper .swiper-slide {
     width: 380px !important;
   }
   
-  .client-card {
+  .layanan-card {
     width: 380px;
   }
   
   /* Pastikan center effect berfungsi di desktop */
-  .client-swiper .swiper-slide-active .client-card {
+  .layanan-swiper .swiper-slide-active .layanan-card {
     transform: scale(1.05) !important;
   }
   
-  .client-swiper .swiper-slide .swiper-center-card {
+  .layanan-swiper .swiper-slide .swiper-center-card {
     transform: scale(1.05) !important;
   }
   
@@ -158,22 +158,22 @@
 
 /* Large Desktop - 1280px ke atas */
 @media (min-width: 1280px) {
-  .client-swiper .swiper-slide {
+  .layanan-swiper .swiper-slide {
     width: 380px !important;
   }
 }
 
 /* Compatibility untuk mobile yang sangat kecil */
 @media (max-width: 320px) {
-  .client-card {
+  .layanan-card {
     width: 280px;
     margin: 0 auto;
   }
 }
 </style>
 
-<!-- Client Section -->
-<section id="client" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+<!-- Layanan Section -->
+<section id="layanan" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
     <!-- Background decoration -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute top-20 left-10 w-32 h-32 bg-rose-300 rounded-full animate-pulse"></div>
@@ -184,28 +184,28 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="text-center mb-16">
       <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-        <i class="fas fa-handshake"></i>
-        OUR CLIENTS
+        <i class="fas fa-briefcase"></i>
+        LAYANAN KAMI
       </div>
       <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                Dipercaya oleh Client Terbaik
+                Layanan Unggulan Kami
             </h2>
       <p class="text-gray-600 text-xl max-w-3xl mx-auto">
         Bergabunglah dengan ribuan perusahaan yang telah merasakan transformasi bisnis bersama solusi teknologi kami
       </p>
     </div>
 
-    <!-- Client Swiper Slider -->
+    <!-- Layanan Swiper Slider -->
     <div class="relative">
         <!-- Gradient Fade Overlay untuk efek fade di sisi kiri dan kanan - LEBIH TEBAL -->
         <div class="absolute inset-0 z-10 pointer-events-none">
         </div>
         
-        <div class="swiper client-swiper">
+        <div class="swiper layanan-swiper">
             <div class="swiper-wrapper">
                 <!-- KRESYA Card -->
                 <div class="swiper-slide">
-                    <div class="client-card group cursor-pointer" data-client="kresya">
+                    <div class="layanan-card group cursor-pointer" data-layanan="kresya">
                         <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                             <!-- Visual Header with Icon -->
                             <div class="h-40 bg-gradient-to-br from-rose-500 to-pink-600 relative overflow-hidden p-6 flex items-center justify-center">
@@ -252,7 +252,7 @@
 
                 <!-- TMS POS Card -->
                 <div class="swiper-slide">
-                    <div class="client-card group cursor-pointer" data-client="tms-pos">
+                    <div class="layanan-card group cursor-pointer" data-layanan="tms-pos">
                         <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                             <!-- Visual Header with Icon -->
                             <div class="h-40 bg-gradient-to-br from-blue-500 to-indigo-600 relative overflow-hidden p-6 flex items-center justify-center">
@@ -299,7 +299,7 @@
 
                 <!-- TMS PAY Card -->
                 <div class="swiper-slide">
-                    <div class="client-card group cursor-pointer" data-client="tms-pay">
+                    <div class="layanan-card group cursor-pointer" data-layanan="tms-pay">
                         <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                             <!-- Visual Header with Icon -->
                             <div class="h-40 bg-gradient-to-br from-green-500 to-emerald-600 relative overflow-hidden p-6 flex items-center justify-center">
@@ -346,7 +346,7 @@
 
                 <!-- TMS PPOB Card -->
                 <div class="swiper-slide">
-                    <div class="client-card group cursor-pointer" data-client="tms-ppob">
+                    <div class="layanan-card group cursor-pointer" data-layanan="tms-ppob">
                         <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                             <!-- Visual Header with Icon -->
                             <div class="h-40 bg-gradient-to-br from-purple-500 to-indigo-600 relative overflow-hidden p-6 flex items-center justify-center">
@@ -393,7 +393,7 @@
 
                 <!-- TASYA Card -->
                 <div class="swiper-slide">
-                    <div class="client-card group cursor-pointer" data-client="tasya">
+                    <div class="layanan-card group cursor-pointer" data-layanan="tasya">
                         <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                             <!-- Visual Header with Icon -->
                             <div class="h-40 bg-gradient-to-br from-pink-500 to-rose-600 relative overflow-hidden p-6 flex items-center justify-center">
@@ -440,7 +440,7 @@
 
                 <!-- KOCI Card -->
                 <div class="swiper-slide">
-                    <div class="client-card group cursor-pointer" data-client="koci">
+                    <div class="layanan-card group cursor-pointer" data-layanan="koci">
                         <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                             <!-- Visual Header with Icon -->
                             <div class="h-40 bg-gradient-to-br from-orange-500 to-red-600 relative overflow-hidden p-6 flex items-center justify-center">
@@ -496,18 +496,18 @@
 (function () {
   'use strict';
   
-  const initClientSwiper = () => {
-    const container = document.querySelector('.client-swiper');
+  const initLayananSwiper = () => {
+    const container = document.querySelector('.layanan-swiper');
     if (!container) return;
 
     // Sembunyikan container untuk prevent flicker
     container.style.opacity = '0';
     container.style.transition = 'opacity 0.4s ease-out';
 
-    const totalSlides = document.querySelectorAll('.client-swiper .swiper-slide').length;
+    const totalSlides = document.querySelectorAll('.layanan-swiper .swiper-slide').length;
     const centerIndex = Math.floor(totalSlides / 2); // Index tengah
 
-    const swiper = new Swiper('.client-swiper', {
+    const swiper = new Swiper('.layanan-swiper', {
       // === CORE CONFIGURATION ===
       loop: true,
       centeredSlides: true,
@@ -598,7 +598,7 @@
       const activeIndex = swiperInstance.activeIndex;
       
       slides.forEach((slide, index) => {
-        const card = slide.querySelector('.client-card');
+        const card = slide.querySelector('.layanan-card');
         if (!card) return;
         
         // Reset all classes
@@ -675,13 +675,13 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        initClientSwiper();
+        initLayananSwiper();
         animateCounters();
       }, 100);
     });
   } else {
     setTimeout(() => {
-      initClientSwiper();
+      initLayananSwiper();
       animateCounters();
     }, 100);
   }

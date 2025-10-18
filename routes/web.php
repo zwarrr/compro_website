@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Users\KaryawanController;
+use App\Http\Controllers\Users\LayananController;
+use App\Http\Controllers\Users\FaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,29 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('landing_page');
-})->name('beranda');
+Route::get('/', [LayananController::class, 'layanan'])->name('beranda');
 
-Route::get('/fitur', function () {
-    return view('landing_page');
-})->name('fitur');
+Route::get('/beranda', [LayananController::class, 'layanan'])->name('beranda.clean');
 
-Route::get('/client', function () {
-    return view('landing_page');
-})->name('client');
+Route::get('/fitur', [LayananController::class, 'layanan'])->name('fitur');
 
-Route::get('/faq', function () {
-    return view('landing_page');
-})->name('faq');
+Route::get('/layanan', [LayananController::class, 'layanan'])->name('layanan');
+
+Route::get('/faq', [FaqController::class, 'faq'])->name('faq');
 
 Route::get('/profil-perusahaan', function () {
     return view('sections.profil_perusahaan');
 })->name('profil-perusahaan');
 
-Route::get('/team', function () {
-    return view('sections.team');
-})->name('team');
+Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
 Route::get('/galeri', function () {
     return view('sections.galeri');

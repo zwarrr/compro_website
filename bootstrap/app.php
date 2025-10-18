@@ -11,6 +11,11 @@
 |
 */
 
+// Set upload limits
+@ini_set('upload_max_filesize', '10M');
+@ini_set('post_max_size', '10M');
+@ini_set('memory_limit', '128M');
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );

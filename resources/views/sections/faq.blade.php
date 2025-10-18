@@ -73,134 +73,68 @@
         <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto faq-grid">
             <!-- Column 1 -->
             <div class="space-y-6">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item cursor-pointer group">
-                    <div class="border-b border-gray-200 pb-6">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                    Layanan apa saja yang tersedia di Technology Multi System?
-                                </h3>
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
-                                    <p class="text-gray-600 leading-relaxed pb-4">
-                                        Kami menyediakan berbagai layanan teknologi seperti pulsa semua operator, voucher game, token listrik, PDAM, dan layanan pembayaran digital lainnya untuk kebutuhan bisnis Anda.
-                                    </p>
+                @php $faqCount = 0; @endphp
+                @forelse($faqs as $faq)
+                    @if($faqCount % 2 == 0)
+                    <div class="faq-item cursor-pointer group">
+                        <div class="border-b border-gray-200 pb-6">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
+                                        {{ $faq->pertanyaan }}
+                                    </h3>
+                                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
+                                        <p class="text-gray-600 leading-relaxed pb-4">
+                                            {{ $faq->jawaban }}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
-                                <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
+                                <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
+                                    <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- FAQ Item 2 -->
-                <div class="faq-item cursor-pointer group">
-                    <div class="border-b border-gray-200 pb-6">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                    Technology Multi System itu bergerak di bidang apa?
-                                </h3>
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
-                                    <p class="text-gray-600 leading-relaxed pb-4">
-                                        PT. Technology Multi System bergerak di bidang teknologi informasi, khususnya dalam penyediaan platform pembayaran digital, pulsa, dan layanan UMKM sejak tahun 2005.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
-                                <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
-                            </div>
-                        </div>
+                    @php $faqCount++; @endphp
+                    @endif
+                @empty
+                    <div class="text-center text-gray-500">
+                        <p>Tidak ada FAQ yang tersedia</p>
                     </div>
-                </div>
-
-                <!-- FAQ Item 3 -->
-                <div class="faq-item cursor-pointer group">
-                    <div class="border-b border-gray-200 pb-6">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                    Bagaimana cara saya menghubungi layanan pelanggan Anda?
-                                </h3>
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
-                                    <p class="text-gray-600 leading-relaxed pb-4">
-                                        Anda dapat menghubungi kami melalui WhatsApp, email, telepon, atau live chat di website. Tim customer service kami siap membantu 24/7 untuk semua kebutuhan Anda.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
-                                <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
 
             <!-- Column 2 -->
             <div class="space-y-6">
-                <!-- FAQ Item 4 -->
-                <div class="faq-item cursor-pointer group">
-                    <div class="border-b border-gray-200 pb-6">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                    Bagaimana cara memulai transaksi?
-                                </h3>
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
-                                    <p class="text-gray-600 leading-relaxed pb-4">
-                                        Daftar akun melalui website atau aplikasi mobile, lakukan verifikasi identitas, deposit saldo, kemudian Anda sudah bisa melakukan berbagai transaksi dengan mudah dan aman.
-                                    </p>
+                @php $faqCount = 0; @endphp
+                @forelse($faqs as $faq)
+                    @if($faqCount % 2 == 1)
+                    <div class="faq-item cursor-pointer group">
+                        <div class="border-b border-gray-200 pb-6">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1 pr-4">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
+                                        {{ $faq->pertanyaan }}
+                                    </h3>
+                                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
+                                        <p class="text-gray-600 leading-relaxed pb-4">
+                                            {{ $faq->jawaban }}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
-                                <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
+                                <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
+                                    <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- FAQ Item 5 -->
-                <div class="faq-item cursor-pointer group">
-                    <div class="border-b border-gray-200 pb-6">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                    Apa fitur yang dimiliki KOCI?
-                                </h3>
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
-                                    <p class="text-gray-600 leading-relaxed pb-4">
-                                        KOCI memiliki fitur lengkap seperti pembayaran digital, transfer antar bank, top up e-wallet, pembelian pulsa, voucher game, dan berbagai layanan keuangan syariah.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
-                                <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
-                            </div>
-                        </div>
+                    @php $faqCount++; @endphp
+                    @endif
+                @empty
+                    <div class="text-center text-gray-500">
+                        <p>Tidak ada FAQ yang tersedia</p>
                     </div>
-                </div>
-
-                <!-- FAQ Item 6 -->
-                <div class="faq-item cursor-pointer group">
-                    <div class="border-b border-gray-200 pb-6">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                    Apa keuntungan layanan kami dibanding pesaing?
-                                </h3>
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
-                                    <p class="text-gray-600 leading-relaxed pb-4">
-                                        Keunggulan kami adalah harga kompetitif, proses transaksi instan, keamanan berlapis, dukungan 24/7, dan ekosistem lengkap yang mendukung pertumbuhan bisnis Anda.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="faq-icon w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full bg-gray-100 group-hover:bg-rose-100 transition-colors">
-                                <i class="fas fa-chevron-down text-gray-500 text-sm transition-transform duration-300 group-hover:text-rose-600"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>

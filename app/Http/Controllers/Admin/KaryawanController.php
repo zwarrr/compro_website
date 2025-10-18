@@ -71,7 +71,7 @@ class KaryawanController extends Controller
             'nik' => 'required|string|max:50|unique:karyawan,nik',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'status' => 'required|in:aktif,nonaktif',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
@@ -80,7 +80,7 @@ class KaryawanController extends Controller
             'nik.unique' => 'NIK sudah terdaftar',
             'nama.required' => 'Nama harus diisi',
             'foto.image' => 'File harus berupa gambar',
-            'foto.max' => 'Ukuran foto maksimal 2MB',
+            'foto.max' => 'Ukuran foto maksimal 5MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -189,7 +189,7 @@ class KaryawanController extends Controller
             'nik' => 'required|string|max:50|unique:karyawan,nik,' . $id . ',id_karyawan',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
             'status' => 'required|in:aktif,nonaktif',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',

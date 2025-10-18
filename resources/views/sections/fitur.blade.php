@@ -73,9 +73,9 @@
             <div class="relative">
                 <!-- Main illustration with floating animation -->
                 <div class="text-center">
-                    <img src="https://media.istockphoto.com/id/1499582865/id/vektor/karakter-bingung-berdiri-pada-tanda-tanya-dan-tanda-seru-besar-melambangkan-kebingungan.jpg?s=1024x1024&w=is&k=20&c=XVPhU1eIzZYW3W9-HCCkCX11M27X2rIs2XecH6w3YQA=" 
+                    <img src="{{ asset('img/jemput-marketing.svg') }}"
                          alt="TMS Features Illustration" 
-                         class="w-full max-w-md mx-auto h-auto object-contain rounded-2xl animate-float">
+                         class="w-full max-w-3xl mx-auto h-auto object-contain rounded-2xl animate-float">
                 </div>
             </div>
 

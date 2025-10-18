@@ -8,8 +8,11 @@
     .nav-link {
         position: relative;
         transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
     }
 
+    /* Underline effect */
     .nav-link::after {
         content: '';
         position: absolute;
@@ -21,33 +24,71 @@
         transition: width 0.3s ease;
     }
 
-    .nav-link:hover,
-    .nav-link.active {
-        color: #FD0103;
+    /* Hover state */
+    .nav-link:hover {
+        color: #d10002 !important;
     }
 
-    .nav-link:hover::after,
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    /* Active state */
+    .nav-link.active {
+        color: #FD0103 !important;
+    }
+
     .nav-link.active::after {
         width: 100%;
     }
 
-    /* Hover effect yang lebih kuat */
-    .nav-link:hover {
-        color: #d10002;
+    /* Dropdown toggle styling */
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+        transition: color 0.3s ease;
     }
 
-    .nav-link.active {
-        color: #FD0103;
-    }
-
-    /* Dropdown toggle hover effect untuk icon */
-    .dropdown-toggle:hover .dropdown-icon i,
     .dropdown-toggle:hover {
-        color: #d10002;
+        color: #d10002 !important;
     }
 
-    .dropdown-toggle:hover .dropdown-icon i {
-        color: #FD0103;
+    .dropdown-toggle:hover::after {
+        width: 100%;
+    }
+
+    /* Active state untuk dropdown toggle */
+    .dropdown-toggle.active {
+        color: #FD0103 !important;
+    }
+
+    .dropdown-toggle.active::after {
+        width: 100%;
+    }
+
+    .dropdown-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dropdown.active .dropdown-icon {
+        transform: rotate(90deg);
+    }
+
+    /* Dropdown hover effect - jika ada parent yang hover, tampilkan underline */
+    .dropdown:hover .dropdown-toggle::after {
+        width: 100%;
+    }
+
+    /* Hover active class untuk trigger underline */
+    .dropdown-toggle.hover-active::after {
+        width: 100% !important;
     }
 
     .mobile-menu {
@@ -76,28 +117,9 @@
         transform: rotate(-45deg) translate(7px, -6px);
     }
 
-    /* Tambahan dropdown */
+    /* Dropdown menu */
     .dropdown {
         position: relative;
-    }
-
-    .dropdown-toggle {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .dropdown-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 18px;
-        height: 18px;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .dropdown.active .dropdown-icon {
-        transform: rotate(90deg);
     }
 
     .dropdown-menu {
@@ -169,7 +191,7 @@
 
     /* Mobile menu active state */
     .mobile-menu .nav-link.active {
-        color: #FD0103;
+        color: #FD0103 !important;
         font-weight: 600;
     }
 </style>
@@ -192,7 +214,7 @@
                 <a href="{{ route('beranda') }}#beranda" class="nav-link" data-scroll="#beranda"
                     class="nav-link text-gray-700 transition-colors duration-200 font-medium">Beranda</a>
                 <a href="#fitur" class="nav-link text-gray-700 transition-colors duration-200 font-medium">Fitur</a>
-                <a href="#client" class="nav-link text-gray-700 transition-colors duration-200 font-medium">Client</a>
+                <a href="#layanan" class="nav-link text-gray-700 transition-colors duration-200 font-medium">Layanan</a>
                 <a href="#faq" class="nav-link text-gray-700 transition-colors duration-200 font-medium">FAQ</a>
 
                 <!-- Tentang Kami dengan dropdown -->
@@ -234,7 +256,7 @@
                 <nav class="space-y-4">
                     <a href="{{ route('beranda') }}" class="nav-link block text-gray-700 font-medium">Beranda</a>
                     <a href="#fitur" class="nav-link block text-gray-700 font-medium">Fitur</a>
-                    <a href="#client" class="nav-link block text-gray-700 font-medium">Client</a>
+                    <a href="#layanan" class="nav-link block text-gray-700 font-medium">Layanan</a>
                     <a href="#faq" class="nav-link block text-gray-700 font-medium">FAQ</a>
                     
                     <!-- Mobile Dropdown -->
@@ -267,12 +289,11 @@
             console.log('🚀 Initializing Header...');
 
             const header = document.querySelector('header');
-            const navLinks = document.querySelectorAll('.nav-link');
             const hamburger = document.querySelector('.hamburger-icon');
             const mobileMenu = document.querySelector('.mobile-menu');
             const dropdowns = document.querySelectorAll('.dropdown');
 
-            // Scroll effect
+            // Scroll effect pada header
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     header?.classList.add('scrolled');
@@ -296,87 +317,18 @@
                 }
             });
 
-            // Set active state untuk halaman beranda dan routes lainnya
-            const currentPath = window.location.pathname;
-            const allNavLinks = document.querySelectorAll('.nav-link, .dropdown-menu a');
-            
-            allNavLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                
-                // Reset semua active state terlebih dahulu
-                link.classList.remove('active');
-                
-                // Untuk halaman beranda
-                if (currentPath === '/' && (href === '{{ route("beranda") }}' || href === '/')) {
-                    link.classList.add('active');
-                }
-                // Untuk halaman profil-perusahaan
-                else if (currentPath === '/profil-perusahaan' && href === '{{ route("profil-perusahaan") }}') {
-                    link.classList.add('active');
-                }
-                // Untuk halaman team
-                else if (currentPath === '/team' && href === '{{ route("team") }}') {
-                    link.classList.add('active');
-                }
-                // Untuk halaman galeri
-                else if (currentPath === '/galeri' && href === '{{ route("galeri") }}') {
-                    link.classList.add('active');
-                }
-            });
-
-            // Active link on scroll (hanya untuk section IDs di halaman beranda)
-            const sections = document.querySelectorAll('section[id]');
-            window.addEventListener('scroll', () => {
-                // Hanya jalankan scroll detection jika di halaman beranda
-                if (currentPath !== '/') return;
-                
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 200) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    // Update active untuk link dengan section ID (#) hanya di halaman beranda
-                    if (href.startsWith('#')) {
-                        link.classList.remove('active');
-                        if (href === `#${current}`) {
-                            link.classList.add('active');
-                        }
-                    }
-                });
-            });
-
-            // Smooth scroll untuk link dengan #
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    
-                    // Jika link menggunakan # (section ID), gunakan smooth scroll
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        const targetSection = document.querySelector(href);
-                        if (targetSection) {
-                            targetSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                        mobileMenu?.classList.remove('active');
-                        hamburger?.classList.remove('active');
-                    }
-                    // Jika link menggunakan route, tutup mobile menu
-                    else {
-                        mobileMenu?.classList.remove('active');
-                        hamburger?.classList.remove('active');
-                    }
-                });
-            });
-
             // Mobile menu toggle
             hamburger?.addEventListener('click', () => {
                 hamburger.classList.toggle('active');
                 mobileMenu?.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!hamburger?.contains(e.target) && !mobileMenu?.contains(e.target)) {
+                    hamburger?.classList.remove('active');
+                    mobileMenu?.classList.remove('active');
+                }
             });
 
             console.log('✅ Header initialized');
@@ -393,188 +345,297 @@
 <script>
 (function() {
     const initAllNavLinks = () => {
-        // Semua nav links dengan section IDs dan routes
-        const navMappings = [
-            { selector: 'a[href="{{ route("beranda") }}#beranda"]', section: '#beranda', route: '/' },
-            { selector: 'a[href="#fitur"]', section: '#fitur', route: '/' },
-            { selector: 'a[href="#client"]', section: '#client', route: '/' },
-            { selector: 'a[href="#faq"]', section: '#faq', route: '/' },
-            { selector: 'a[href="{{ route("profil-perusahaan") }}"]', section: null, route: '/profil-perusahaan' },
-            { selector: 'a[href="{{ route("team") }}"]', section: null, route: '/team' },
-            { selector: 'a[href="{{ route("galeri") }}"]', section: null, route: '/galeri' }
-        ];
-
-        navMappings.forEach(mapping => {
-            const link = document.querySelector(mapping.selector);
-            if (!link) return;
-
-            // Untuk links dengan section (beranda, fitur, client, faq)
-            if (mapping.section) {
-                // Smooth scroll jika di halaman yang benar, redirect jika di halaman lain
-                link.addEventListener('click', (e) => {
+        console.log('🚀 Initializing Navigation Links with Section Support...');
+        
+        const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
+        
+        // Desktop navigation links
+        const navLinkElements = document.querySelectorAll('nav .nav-link:not(.dropdown-toggle)');
+        
+        navLinkElements.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Handle click untuk semua links
+            link.addEventListener('click', (e) => {
+                // Jika link memiliki # (section scroll)
+                if (href && href.includes('#')) {
                     e.preventDefault();
                     
-                    const target = document.querySelector(mapping.section);
+                    // Ambil section ID dari href
+                    const sectionId = href.substring(href.indexOf('#'));
+                    const sectionName = sectionId.replace('#', '');
                     
-                    // Jika di halaman beranda dan section ada, smooth scroll
-                    if (target && window.location.pathname === mapping.route) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Update URL tanpa hash menggunakan history API
-                        const sectionName = mapping.section.replace('#', '');
-                        const newUrl = sectionName === 'beranda' ? mapping.route : `${mapping.route}${sectionName}`;
-                        history.replaceState(null, '', newUrl);
+                    // Jika di halaman beranda, scroll ke section
+                    if (currentPath === '/' || currentPath === '/beranda') {
+                        const section = document.querySelector(sectionId);
+                        if (section) {
+                            section.scrollIntoView({ behavior: 'smooth' });
+                            // Update URL tanpa hashtag
+                            const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
+                            history.replaceState(null, '', newUrl);
+                            updateActiveLink(sectionId);
+                        }
                     }
-                    // Jika di halaman lain, redirect ke halaman beranda dengan section
+                    // Jika di halaman lain, redirect ke beranda dengan section
                     else {
-                        const sectionName = mapping.section.replace('#', '');
-                        const newUrl = sectionName === 'beranda' ? mapping.route : `${mapping.route}${sectionName}`;
+                        const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
                         window.location.href = newUrl;
                     }
-                });
-
-                // Set active berdasarkan URL path atau hash
-                const sectionName = mapping.section.replace('#', '');
-                const expectedPath = sectionName === 'beranda' ? '/' : `/${sectionName}`;
-                
-                if ((window.location.pathname === expectedPath) || 
-                    (window.location.pathname === mapping.route && window.location.hash === mapping.section)) {
-                    link.classList.add('active');
+                    
+                    // Tutup mobile menu jika ada
+                    const mobileMenu = document.querySelector('.mobile-menu');
+                    const hamburger = document.querySelector('.hamburger-icon');
+                    if (mobileMenu) mobileMenu.classList.remove('active');
+                    if (hamburger) hamburger.classList.remove('active');
                 }
+                // Jika link adalah route biasa
+                else {
+                    // Tutup mobile menu jika ada
+                    const mobileMenu = document.querySelector('.mobile-menu');
+                    const hamburger = document.querySelector('.hamburger-icon');
+                    if (mobileMenu) mobileMenu.classList.remove('active');
+                    if (hamburger) hamburger.classList.remove('active');
+                }
+            });
+            
+            // Set initial active state
+            setInitialActiveState(link, href, currentPath, currentHash);
+        });
 
-                // Deteksi scroll untuk section (hanya di halaman beranda)
-                if (window.location.pathname === mapping.route || window.location.pathname.startsWith('/' + sectionName)) {
-                    window.addEventListener('scroll', () => {
-                        const section = document.querySelector(mapping.section);
-                        if (!section) return;
+        // Mobile navigation links
+        const mobileNavLinks = document.querySelectorAll('.mobile-menu .nav-link:not(.dropdown-toggle)');
+        
+        mobileNavLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            link.addEventListener('click', (e) => {
+                // Jika link memiliki # (section scroll)
+                if (href && href.includes('#')) {
+                    e.preventDefault();
+                    
+                    // Ambil section ID dari href
+                    const sectionId = href.substring(href.indexOf('#'));
+                    const sectionName = sectionId.replace('#', '');
+                    
+                    // Jika di halaman beranda, scroll ke section
+                    if (currentPath === '/' || currentPath === '/beranda') {
+                        const section = document.querySelector(sectionId);
+                        if (section) {
+                            section.scrollIntoView({ behavior: 'smooth' });
+                            // Update URL tanpa hashtag
+                            const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
+                            history.replaceState(null, '', newUrl);
+                            updateActiveLink(sectionId);
+                        }
+                    }
+                    // Jika di halaman lain, redirect ke beranda dengan section
+                    else {
+                        const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
+                        window.location.href = newUrl;
+                    }
+                }
+                
+                // Tutup mobile menu
+                const mobileMenu = document.querySelector('.mobile-menu');
+                const hamburger = document.querySelector('.hamburger-icon');
+                if (mobileMenu) mobileMenu.classList.remove('active');
+                if (hamburger) hamburger.classList.remove('active');
+            });
+            
+            setInitialActiveState(link, href, currentPath, currentHash);
+        });
 
-                        const sectionTop = section.offsetTop;
-                        const sectionHeight = section.offsetHeight;
-                        const scrollPos = window.scrollY + 150; // offset
-
-                        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                            // Update URL without hash
-                            const currentSectionName = mapping.section.replace('#', '');
-                            const newUrl = currentSectionName === 'beranda' ? '/' : `/${currentSectionName}`;
-                            if (window.location.pathname !== newUrl) {
-                                history.replaceState(null, '', newUrl);
-                            }
-                            
-                            // Remove active dari semua links section lain di halaman yang sama
-                            navMappings.forEach(otherMapping => {
-                                if (otherMapping.route === mapping.route && otherMapping.section) {
-                                    const otherLink = document.querySelector(otherMapping.selector);
-                                    if (otherLink && otherMapping.section !== mapping.section) {
-                                        otherLink.classList.remove('active');
-                                    }
-                                }
-                            });
-                            link.classList.add('active');
+        // Dropdown links
+        const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        
+        dropdownLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Set active state untuk dropdown
+            if (href === '/profil-perusahaan' && currentPath === '/profil-perusahaan') {
+                link.classList.add('active');
+            } else if (href === '/team' && currentPath === '/team') {
+                link.classList.add('active');
+            } else if (href === '/galeri' && currentPath === '/galeri') {
+                link.classList.add('active');
+            }
+        });
+        
+        // Check dan set dropdown toggle active state saat awal
+        if (dropdownToggle) {
+            const hasActiveChild = Array.from(dropdownLinks).some(link => link.classList.contains('active'));
+            if (hasActiveChild) {
+                dropdownToggle.classList.add('active');
+                // Add hover effect juga
+                const dropdown = dropdownToggle.closest('.dropdown');
+                if (dropdown) {
+                    dropdown.addEventListener('mouseenter', () => {
+                        dropdownToggle.style.color = '#d10002';
+                    });
+                    dropdown.addEventListener('mouseleave', () => {
+                        // Jika ada child active, tetap merah
+                        if (hasActiveChild) {
+                            dropdownToggle.style.color = '#FD0103';
                         } else {
-                            link.classList.remove('active');
+                            dropdownToggle.style.color = '';
                         }
                     });
                 }
             }
-            // Untuk links route saja (profil-perusahaan, team, galeri)
-            else {
-                // Set active jika di halaman yang sesuai
-                if (window.location.pathname === mapping.route) {
-                    link.classList.add('active');
-                }
-            }
-        });
+        }
 
-        // Mobile menu links juga
-        const mobileNavMappings = [
-            { selector: '.mobile-menu a[href="{{ route("beranda") }}"]', route: '/' },
-            { selector: '.mobile-menu a[href="#fitur"]', section: '#fitur', route: '/' },
-            { selector: '.mobile-menu a[href="#client"]', section: '#client', route: '/' },
-            { selector: '.mobile-menu a[href="#faq"]', section: '#faq', route: '/' },
-            { selector: '.mobile-menu a[href="{{ route("profil-perusahaan") }}"]', route: '/profil-perusahaan' },
-            { selector: '.mobile-menu a[href="{{ route("team") }}"]', route: '/team' },
-            { selector: '.mobile-menu a[href="{{ route("galeri") }}"]', route: '/galeri' }
-        ];
-
-        mobileNavMappings.forEach(mapping => {
-            const link = document.querySelector(mapping.selector);
-            if (!link) return;
-
-            // Set active state untuk mobile menu
-            const sectionName = mapping.section ? mapping.section.replace('#', '') : null;
-            const expectedPath = sectionName ? (sectionName === 'beranda' ? '/' : `/${sectionName}`) : mapping.route;
+        // Scroll event untuk update active state
+        window.addEventListener('scroll', () => {
+            // Hanya jalankan di halaman beranda
+            if (currentPath !== '/' && currentPath !== '/beranda') return;
             
-            if (window.location.pathname === expectedPath || 
-                (window.location.pathname === mapping.route && window.location.hash === mapping.section)) {
-                link.classList.add('active');
-            }
-
-            // Add click handler untuk mobile links dengan section
-            if (mapping.section) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    const target = document.querySelector(mapping.section);
-                    
-                    // Jika di halaman beranda dan section ada, smooth scroll
-                    if (target && (window.location.pathname === mapping.route || window.location.pathname.startsWith('/' + sectionName))) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Update URL tanpa hash
-                        const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
-                        history.replaceState(null, '', newUrl);
-                        
-                        // Tutup mobile menu
-                        const mobileMenu = document.querySelector('.mobile-menu');
-                        const hamburger = document.querySelector('.hamburger-icon');
-                        mobileMenu?.classList.remove('active');
-                        hamburger?.classList.remove('active');
-                    }
-                    // Jika di halaman lain, redirect ke section yang tepat
-                    else {
-                        const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
-                        window.location.href = newUrl;
-                    }
-                });
-            }
-
-            // Scroll detection untuk mobile menu sections
-            if (mapping.section && (window.location.pathname === mapping.route || window.location.pathname.startsWith('/' + sectionName))) {
-                window.addEventListener('scroll', () => {
-                    const section = document.querySelector(mapping.section);
+            const sections = ['#beranda', '#fitur', '#layanan', '#faq'];
+            let currentSection = null;
+            let currentSectionName = null;
+            
+            // Deteksi apakah sudah scroll ke footer
+            const isAtFooter = window.scrollY + window.innerHeight >= document.body.scrollHeight - 200;
+            
+            if (isAtFooter) {
+                // Jika sudah di footer, remove semua active state
+                currentSection = null;
+            } else {
+                // Deteksi section mana yang sedang dilihat
+                sections.forEach(sectionId => {
+                    const section = document.querySelector(sectionId);
                     if (!section) return;
-
+                    
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.offsetHeight;
                     const scrollPos = window.scrollY + 150;
-
+                    
                     if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                        // Update URL without hash
-                        const newUrl = sectionName === 'beranda' ? '/' : `/${sectionName}`;
-                        if (window.location.pathname !== newUrl) {
-                            history.replaceState(null, '', newUrl);
-                        }
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
+                        currentSection = sectionId;
+                        currentSectionName = sectionId.replace('#', '');
                     }
                 });
             }
+            
+            // Update URL tanpa hashtag berdasarkan section yang aktif
+            if (currentSection && currentSectionName) {
+                const newUrl = currentSectionName === 'beranda' ? '/' : `/${currentSectionName}`;
+                if (window.location.pathname !== newUrl) {
+                    history.replaceState(null, '', newUrl);
+                }
+            }
+            
+            updateActiveLink(currentSection);
         });
+
+        // Function untuk set initial active state
+        function setInitialActiveState(link, href, currentPath, currentHash) {
+            const isAtFooter = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 100;
+            
+            if (isAtFooter) {
+                link.classList.remove('active');
+                return;
+            }
+            
+            // Check dropdown routes
+            if (href === '/profil-perusahaan' && currentPath === '/profil-perusahaan') {
+                link.classList.add('active');
+            } else if (href === '/team' && currentPath === '/team') {
+                link.classList.add('active');
+            } else if (href === '/galeri' && currentPath === '/galeri') {
+                link.classList.add('active');
+            } else if (href && href.includes('#')) {
+                const sectionId = href.substring(href.indexOf('#'));
+                const sectionName = sectionId.replace('#', '');
+                
+                // Check apakah current path matches clean URL
+                // Misal: /fitur, /layanan, /faq, /beranda, /
+                if (currentPath === `/${sectionName}` || (sectionName === 'beranda' && currentPath === '/')) {
+                    link.classList.add('active');
+                    return;
+                }
+                
+                // Jika di halaman beranda/beranda route, cek scroll position
+                if (currentPath === '/' || currentPath === '/beranda') {
+                    const section = document.querySelector(sectionId);
+                    if (section) {
+                        const rect = section.getBoundingClientRect();
+                        // Section dianggap aktif jika berada di viewport atas (150px dari top)
+                        if (rect.top <= 150 && rect.bottom >= 150) {
+                            link.classList.add('active');
+                            return;
+                        }
+                    }
+                    
+                    // Set Beranda active jika di top halaman
+                    if (sectionName === 'beranda' && window.scrollY < 100) {
+                        link.classList.add('active');
+                        return;
+                    }
+                }
+            }
+            
+            link.classList.remove('active');
+        }
+
+        // Function untuk update active link
+        function updateActiveLink(activeSection) {
+            // Update desktop nav links
+            document.querySelectorAll('nav .nav-link:not(.dropdown-toggle)').forEach(link => {
+                const href = link.getAttribute('href');
+                link.classList.remove('active');
+                
+                if (activeSection && href && href.includes('#')) {
+                    const sectionId = href.substring(href.indexOf('#'));
+                    if (sectionId === activeSection) {
+                        link.classList.add('active');
+                    }
+                }
+            });
+            
+            // Update mobile nav links
+            document.querySelectorAll('.mobile-menu .nav-link:not(.dropdown-toggle)').forEach(link => {
+                const href = link.getAttribute('href');
+                link.classList.remove('active');
+                
+                if (activeSection && href && href.includes('#')) {
+                    const sectionId = href.substring(href.indexOf('#'));
+                    if (sectionId === activeSection) {
+                        link.classList.add('active');
+                    }
+                }
+            });
+        }
         
-        // Auto scroll ke section saat page load berdasarkan URL
-        const currentPath = window.location.pathname;
-        const sectionMapping = {
+        // Auto scroll ke section saat page load berdasarkan path yang bersih
+        // Mapping untuk section routes
+        const sectionMap = {
             '/fitur': '#fitur',
-            '/client': '#client', 
-            '/faq': '#faq'
+            '/layanan': '#layanan',
+            '/faq': '#faq',
+            '/beranda': '#beranda'
         };
         
-        if (sectionMapping[currentPath]) {
+        if (sectionMap[currentPath]) {
             setTimeout(() => {
-                const targetSection = document.querySelector(sectionMapping[currentPath]);
+                const targetSection = document.querySelector(sectionMap[currentPath]);
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+        
+        // Jika ada hash di URL (dari redirect), juga auto-scroll
+        if (currentHash) {
+            setTimeout(() => {
+                const targetSection = document.querySelector(currentHash);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    // Update URL ke clean format (tanpa #)
+                    const hashName = currentHash.replace('#', '');
+                    const newUrl = hashName === 'beranda' ? '/' : `/${hashName}`;
+                    history.replaceState(null, '', newUrl);
                 }
             }, 100);
         }
