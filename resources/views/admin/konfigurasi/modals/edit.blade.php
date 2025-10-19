@@ -30,19 +30,19 @@
                 <div>
                     <label for="edit_kode_profile" class="block text-sm font-semibold text-gray-700 mb-2">Kode Profile</label>
                     <input id="edit_kode_profile" name="kode_profile" type="text" readonly
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                           class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_kode_profile"></span>
                 </div>
                 <div>
                     <label for="edit_nama_perusahaan" class="block text-sm font-semibold text-gray-700 mb-2">Nama Perusahaan <span class="text-red-500">*</span></label>
                     <input id="edit_nama_perusahaan" name="nama_perusahaan" type="text"
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                           class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_nama_perusahaan"></span>
                 </div>
                 <div class="md:col-span-2">
                     <label for="edit_slogan" class="block text-sm font-semibold text-gray-700 mb-2">Slogan</label>
                     <input id="edit_slogan" name="slogan" type="text"
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                           class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_slogan"></span>
                 </div>
             </div>
@@ -52,19 +52,19 @@
                 <div class="md:col-span-2">
                     <label for="edit_deskripsi" class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi <span class="text-red-500">*</span></label>
                     <textarea id="edit_deskripsi" name="deskripsi" rows="4"
-                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"></textarea>
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_deskripsi"></span>
                 </div>
                 <div>
                     <label for="edit_visi" class="block text-sm font-semibold text-gray-700 mb-2">Visi</label>
                     <textarea id="edit_visi" name="visi" rows="3"
-                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"></textarea>
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_visi"></span>
                 </div>
                 <div>
                     <label for="edit_misi" class="block text-sm font-semibold text-gray-700 mb-2">Misi</label>
                     <textarea id="edit_misi" name="misi" rows="3"
-                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"></textarea>
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_misi"></span>
                 </div>
             </div>
@@ -74,19 +74,19 @@
                 <div class="md:col-span-2">
                     <label for="edit_alamat" class="block text-sm font-semibold text-gray-700 mb-2">Alamat</label>
                     <textarea id="edit_alamat" name="alamat" rows="3"
-                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"></textarea>
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_alamat"></span>
                 </div>
                 <div>
                     <label for="edit_telepon" class="block text-sm font-semibold text-gray-700 mb-2">Telepon</label>
                     <input id="edit_telepon" name="telepon" type="tel"
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                           class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_telepon"></span>
                 </div>
                 <div>
                     <label for="edit_email" class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
                     <input id="edit_email" name="email" type="email"
-                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                           class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none">
                     <span class="text-xs text-red-500 mt-1 hidden" id="error_email"></span>
                 </div>
             </div>

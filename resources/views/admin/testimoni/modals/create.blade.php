@@ -36,7 +36,7 @@
                             </svg>
                         </div>
                         <input type="text" id="nama_testimoni" name="nama_testimoni" 
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" 
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none" 
                             placeholder="Masukkan nama lengkap">
                     </div>
                     <p id="error-nama_testimoni" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -54,7 +54,7 @@
                             </svg>
                         </div>
                         <input type="text" id="jabatan" name="jabatan" 
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" 
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none" 
                             placeholder="Contoh: CEO, Manager, dll">
                     </div>
                     <p id="error-jabatan" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -72,7 +72,7 @@
                             </svg>
                         </div>
                         <textarea id="pesan" name="pesan" rows="4"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none" 
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none resize-none" 
                             placeholder="Masukkan pesan testimoni"></textarea>
                     </div>
                     <p id="error-pesan" class="mt-1 text-sm text-red-600 hidden"></p>
@@ -90,7 +90,7 @@
                             </svg>
                         </div>
                         <select id="rating" name="rating" 
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none appearance-none bg-white">
                             <option value="">Pilih Rating</option>
                             <option value="5">⭐⭐⭐⭐⭐ (5 Bintang)</option>
                             <option value="4">⭐⭐⭐⭐ (4 Bintang)</option>
@@ -119,7 +119,7 @@
                             </svg>
                         </div>
                         <select id="status" name="status" 
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                            class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none appearance-none bg-white">
                             <option value="publik">Publish</option>
                             <option value="draft">Draft</option>
                         </select>

@@ -4,18 +4,18 @@
         class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-3xl mx-4 transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto">
         <!-- Header -->
         <div
-            class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-primary to-red-700 rounded-t-xl sticky top-0 z-10">
+            class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white rounded-t-2xl">
             <div class="flex items-center gap-3">
-                <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="bg-blue-500/10 p-2 rounded-lg">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-white">Detail FAQ</h3>
+                <h3 class="text-xl font-bold text-gray-800">Detail FAQ</h3>
             </div>
             <button onclick="closeDetailModal()"
-                class="text-white hover:bg-white/20 transition-colors rounded-full p-2">
+                class="text-gray-400 hover:text-gray-600 transition-colors rounded-full p-1 hover:bg-gray-200">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>

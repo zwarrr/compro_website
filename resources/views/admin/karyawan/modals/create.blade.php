@@ -43,7 +43,7 @@
                               </svg>
                           </div>
                           <select id="create_kategori_id" name="kategori_id" required
-                              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none appearance-none bg-white">
                               <option value="" disabled selected>Pilih kategori</option>
                               @foreach ($kategoris as $k)
                                   <option value="{{ $k->id_kategori }}">{{ $k->nama_kategori }}</option>
@@ -74,7 +74,7 @@
                               </svg>
                           </div>
                           <input type="text" id="create_nik" name="nik"
-                              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                               placeholder="Masukkan NIK">
                       </div>
                       <span class="text-red-500 text-xs mt-1 hidden" id="error_create_karyawan_nik"></span>
@@ -94,7 +94,7 @@
                               </svg>
                           </div>
                           <input type="text" id="create_nama" name="nama"
-                              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none"
                               placeholder="Masukkan nama">
                       </div>
                       <span class="text-red-500 text-xs mt-1 hidden" id="error_create_karyawan_nama"></span>
@@ -114,7 +114,7 @@
                               </svg>
                           </div>
                           <textarea id="create_deskripsi" name="deskripsi" rows="3"
-                              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none"
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none resize-none"
                               placeholder="Masukkan deskripsi karyawan (opsional)"></textarea>
                       </div>
                       <span class="text-red-500 text-xs mt-1 hidden" id="error_create_karyawan_deskripsi"></span>
@@ -134,7 +134,7 @@
                               </svg>
                           </div>
                           <select id="create_status" name="status"
-                              class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none bg-white">
+                              class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 transition-all outline-none appearance-none bg-white">
                               <option value="aktif">Aktif</option>
                               <option value="nonaktif">Nonaktif</option>
                           </select>

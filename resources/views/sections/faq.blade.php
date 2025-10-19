@@ -53,12 +53,6 @@
 
 <!-- FAQ Section -->
 <section id="faq" class="py-24 bg-white relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-10 w-32 h-32 bg-rose-300 rounded-full animate-pulse"></div>
-        <div class="absolute bottom-20 right-10 w-24 h-24 bg-blue-300 rounded-full animate-bounce"></div>
-        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-green-300 rounded-full animate-ping"></div>
-    </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16 scroll-reveal">
             <div class="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -71,21 +65,26 @@
 
         <!-- FAQ Grid Layout 2 Columns -->
         <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto faq-grid">
+            @php
+                $faqs_array = $faqs->toArray();
+                $mid = ceil(count($faqs_array) / 2);
+                $column1 = array_slice($faqs_array, 0, $mid);
+                $column2 = array_slice($faqs_array, $mid);
+            @endphp
+
             <!-- Column 1 -->
             <div class="space-y-6">
-                @php $faqCount = 0; @endphp
-                @forelse($faqs as $faq)
-                    @if($faqCount % 2 == 0)
+                @forelse($column1 as $faq)
                     <div class="faq-item cursor-pointer group">
                         <div class="border-b border-gray-200 pb-6">
                             <div class="flex items-start justify-between">
                                 <div class="flex-1 pr-4">
                                     <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                        {{ $faq->pertanyaan }}
+                                        {{ $faq['pertanyaan'] }}
                                     </h3>
                                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
                                         <p class="text-gray-600 leading-relaxed pb-4">
-                                            {{ $faq->jawaban }}
+                                            {{ $faq['jawaban'] }}
                                         </p>
                                     </div>
                                 </div>
@@ -95,8 +94,6 @@
                             </div>
                         </div>
                     </div>
-                    @php $faqCount++; @endphp
-                    @endif
                 @empty
                     <div class="text-center text-gray-500">
                         <p>Tidak ada FAQ yang tersedia</p>
@@ -106,19 +103,17 @@
 
             <!-- Column 2 -->
             <div class="space-y-6">
-                @php $faqCount = 0; @endphp
-                @forelse($faqs as $faq)
-                    @if($faqCount % 2 == 1)
+                @forelse($column2 as $faq)
                     <div class="faq-item cursor-pointer group">
                         <div class="border-b border-gray-200 pb-6">
                             <div class="flex items-start justify-between">
                                 <div class="flex-1 pr-4">
                                     <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
-                                        {{ $faq->pertanyaan }}
+                                        {{ $faq['pertanyaan'] }}
                                     </h3>
                                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0">
                                         <p class="text-gray-600 leading-relaxed pb-4">
-                                            {{ $faq->jawaban }}
+                                            {{ $faq['jawaban'] }}
                                         </p>
                                     </div>
                                 </div>
@@ -128,8 +123,6 @@
                             </div>
                         </div>
                     </div>
-                    @php $faqCount++; @endphp
-                    @endif
                 @empty
                     <div class="text-center text-gray-500">
                         <p>Tidak ada FAQ yang tersedia</p>

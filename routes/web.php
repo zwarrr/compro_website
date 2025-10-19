@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\KaryawanController;
 use App\Http\Controllers\Users\LayananController;
 use App\Http\Controllers\Users\FaqController;
+use App\Http\Controllers\Users\GaleriController;
+use App\Http\Controllers\Users\KontakController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +35,14 @@ Route::get('/profil-perusahaan', function () {
 
 Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
-Route::get('/galeri', function () {
-    return view('sections.galeri');
-})->name('galeri');
+Route::get('/galeri', [GaleriController::class, 'galeri'])->name('galeri');
+
+Route::get('/hubungi-kami', function () {
+    return view('hubungi_kami');
+})->name('hubungi-kami');
+
+// Contact form submission
+Route::post('/hubungi-kami', [KontakController::class, 'store'])->name('hubungi-kami.store');
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -50,6 +57,9 @@ Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/chart-data', [App\Http\Controllers\Admin\DashboardController::class, 'getChartData'])->name('dashboard.chart-data');
+    
+    // Spotlight Search
+    Route::get('search', [App\Http\Controllers\Admin\SearchController::class, 'search'])->name('search');
     
     // CRUD routes with resource controllers
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);

@@ -461,7 +461,7 @@
                                 <a href="#team-cards" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 text-center">
                                     Lihat Tim
                                 </a>
-                                <a href="#contact" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-center">
+                                <a href="{{ route('hubungi-kami') }}" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-center">
                                     Bergabung 
                                 </a>
                             </div>
@@ -530,12 +530,12 @@
                             <!-- FOTO PROFIL -->
                             <div class="team-avatar">
                                 @if($karyawan->foto)
-                                    <img src="{{ asset('images/karyawan/' . $karyawan->foto) }}" 
+                                    <img src="{{ asset('storage/karyawan/' . $karyawan->foto) }}" 
                                          alt="{{ $karyawan->nama }}" 
                                          class="team-member-photo"
                                          onerror="this.style.display='none'">
                                 @else
-                                    <img src="{{ asset('img/team_cards/eja.png') }}" 
+                                    <img src="{{ asset('img/team_cards/no_photo.png') }}" 
                                          alt="{{ $karyawan->nama }}" 
                                          class="team-member-photo"
                                          onerror="this.style.display='none'">
@@ -589,11 +589,11 @@
                         Kami selalu mencari talenta terbaik untuk bergabung dalam misi mengembangkan teknologi
                     </p>
                     <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                        <a href="#contact" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-lg">
+                        <a href="{{ route('hubungi-kami') }}" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-lg">
                             <i class="fas fa-users mr-2"></i>
                             Bergabung dengan Kami
                         </a>
-                        <a href="#careers" class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-lg">
+                        <a href="https://member.tms.web.id/" class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-lg">
                             <i class="fas fa-briefcase mr-2"></i>
                             Lihat Lowongan
                         </a>
