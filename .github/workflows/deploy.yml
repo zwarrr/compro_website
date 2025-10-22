@@ -1,0 +1,31 @@
+name: 🚀 Auto Deploy to Server
+
+on:
+  push:
+    branches:
+      - main   # Ganti sesuai branch utama kamu
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup SSH connection
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to server via SSH
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+          cd /www/wwwroot/web-tms.icikiwir.site/compro_website || exit 1
+          git pull origin main
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          php artisan migrate --force
+          php artisan optimize:clear
+          npm install
+          npm run build
+        "

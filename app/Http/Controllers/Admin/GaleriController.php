@@ -53,11 +53,30 @@ class GaleriController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
+        // Sorting
+        $allowedSorts = ['created_at', 'judul', 'kode_galeri'];
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'created_at';
+        }
+        if (!in_array(strtolower($direction), ['asc', 'desc'])) {
+            $direction = 'desc';
+        }
+        $query->orderBy($sort, $direction);
+
         // Pagination
-        $galeris = $query->latest()->paginate(10);
+        $galeris = $query->paginate(10)->appends($request->except('page'));
         $kategoris = Kategori::where('tipe', 'galeri')->get();
 
-        return view('admin.galeri.index', compact('galeris', 'kategoris'));
+        // AJAX/JSON response for async table reload
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('vlte3.galeri.partials.table', compact('galeris'))->render(),
+            ]);
+        }
+
+        return view('vlte3.galeri.index', compact('galeris', 'kategoris'));
     }
 
     /**
@@ -142,7 +161,7 @@ class GaleriController extends Controller
                 'judul' => $galeri->judul,
                 'deskripsi' => $galeri->deskripsi,
                 'gambar' => $galeri->gambar,
-                'gambar_url' => $galeri->gambar ? asset('images/galeri/' . $galeri->gambar) : null,
+                'gambar_url' => $galeri->gambar ? asset('storage/galeri/' . $galeri->gambar) : null,
                 'status' => $galeri->status,
                 'created_at_formatted' => $galeri->created_at ? $galeri->created_at->format('d M Y H:i') : '-',
                 'updated_at_formatted' => $galeri->updated_at ? $galeri->updated_at->format('d M Y H:i') : '-',
@@ -224,20 +243,11 @@ class GaleriController extends Controller
                 }
 
                 $file = $request->file('gambar');
-
-                // Ambil nama asli tanpa ekstensi
-                // $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                // Ambil ekstensi file
                 $ekstensi = $file->getClientOriginalExtension();
-                // Gabungkan jadi namaasli.ext
-                $filename = $request->judul . '.' . $ekstensi;
-
-                // Simpan ke storage/app/public/galeri
+                $filename = str_replace(' ', '_', strtolower($request->judul)) . '.' . $ekstensi;
                 $file->storeAs('public/galeri', $filename);
-
                 $data['gambar'] = $filename;
             }
-
 
             $galeri->update($data);
 
@@ -262,8 +272,8 @@ class GaleriController extends Controller
             $galeri = Galeri::findOrFail($id);
 
             // Delete image if exists
-            if ($galeri->gambar && file_exists(public_path('images/galeri/' . $galeri->gambar))) {
-                unlink(public_path('images/galeri/' . $galeri->gambar));
+            if ($galeri->gambar && file_exists(storage_path('app/public/galeri/' . $galeri->gambar))) {
+                unlink(storage_path('app/public/galeri/' . $galeri->gambar));
             }
 
             $galeri->delete();

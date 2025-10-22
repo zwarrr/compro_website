@@ -55,11 +55,23 @@ class KaryawanController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
+        // Sorting
+        $allowedSorts = ['created_at', 'nama', 'kode_karyawan', 'nik'];
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'created_at';
+        }
+        if (!in_array(strtolower($direction), ['asc', 'desc'])) {
+            $direction = 'desc';
+        }
+        $query->orderBy($sort, $direction);
+
         // Pagination
-        $karyawans = $query->latest()->paginate(10);
+        $karyawans = $query->paginate(10)->appends($request->except('page'));
         $kategoris = Kategori::where('tipe', 'karyawan')->get();
 
-        return view('admin.karyawan.index', compact('karyawans', 'kategoris'));
+        return view('vlte3.karyawan.index', compact('karyawans', 'kategoris', 'sort', 'direction'));
     }
 
     /**

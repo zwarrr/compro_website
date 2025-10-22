@@ -58,7 +58,7 @@ class TestimoniController extends Controller
         // Pagination
         $testimonis = $query->latest()->paginate(10);
 
-        return view('admin.testimoni.index', compact('testimonis'));
+        return view('vlte3.testimoni.index', compact('testimonis'));
     }
 
     /**

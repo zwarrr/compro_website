@@ -1,0 +1,273 @@
+/* ===========================
+   CUSTOM THEME COLORS
+   ========================== */
+
+:root {
+  /* Primary Color Variables - Ubah nilai di sini untuk mengganti semua warna primary */
+  --primary-color: #DC3545;          /* Warna utama - UBAH DISINI */
+  --primary-color-dark: #d10103;     /* Warna gelap (untuk hover) */
+  --primary-color-light: #ff4d4f;    /* Warna terang */
+  --primary-rgba: rgba(253, 1, 3, 0.25); /* RGBA untuk box-shadow */
+}
+
+/* ===========================
+   SIDEBAR STYLING
+   ========================== */
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-dark-primary .nav-sidebar > .nav-item.menu-open > .nav-link {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover {
+  background-color: var(--primary-color-light) !important;
+  color: #fff !important;
+}
+
+/* ===========================
+   BUTTONS
+   ========================== */
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active,
+.btn-primary.active {
+  background-color: var(--primary-color-dark) !important;
+  border-color: var(--primary-color-dark) !important;
+  box-shadow: 0 0 0 0.2rem var(--primary-rgba) !important;
+}
+
+.btn-outline-primary {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* ===========================
+   UTILITY CLASSES
+   ========================== */
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.border-primary {
+  border-color: var(--primary-color) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+a.text-primary:hover, 
+a.text-primary:focus {
+  color: var(--primary-color-dark) !important;
+}
+
+/* ===========================
+   SMALL BOXES (INFO CARDS)
+   ========================== */
+
+.small-box.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.small-box.bg-primary .small-box-footer {
+  background-color: var(--primary-color-dark) !important;
+}
+
+/* ===========================
+   CARDS
+   ========================== */
+
+.card-primary:not(.card-outline) > .card-header {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.card-primary.card-outline {
+  border-color: var(--primary-color) !important;
+}
+
+.card-primary.card-outline > .card-header {
+  color: var(--primary-color) !important;
+  border-bottom-color: var(--primary-color) !important;
+}
+
+/* ===========================
+   FORM CONTROLS
+   ========================== */
+
+.form-control:focus {
+  border-color: var(--primary-color-light) !important;
+  box-shadow: 0 0 0 0.2rem var(--primary-rgba) !important;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* ===========================
+   NAVIGATION
+   ========================== */
+
+.nav-pills .nav-link.active {
+  background-color: var(--primary-color) !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) var(--primary-color) #fff !important;
+}
+
+/* ===========================
+   PAGINATION
+   ========================== */
+
+.page-item.active .page-link {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.page-link {
+  color: var(--primary-color) !important;
+}
+
+.page-link:hover {
+  color: var(--primary-color-dark) !important;
+}
+
+/* ===========================
+   DROPDOWNS
+   ========================== */
+
+.dropdown-item.active, 
+.dropdown-item:active {
+  background-color: var(--primary-color) !important;
+}
+
+/* ===========================
+   PROGRESS BARS
+   ========================== */
+
+.progress-bar {
+  background-color: var(--primary-color) !important;
+}
+
+/* ===========================
+   BADGES
+   ========================== */
+
+.badge-primary {
+  background-color: var(--primary-color) !important;
+}
+
+/* ===========================
+   ALERTS
+   ========================== */
+
+.alert-primary {
+  color: #fff !important;
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color-dark) !important;
+}
+
+/* ===========================
+   BRAND LINK
+   ========================== */
+
+.brand-link {
+  border-bottom: 1px solid var(--primary-color-light) !important;
+}
+
+/* ===========================
+   TABLE STYLING
+   ========================== */
+
+.table-primary > th,
+.table-primary > td {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+/* ===========================
+   LOADING SPINNER
+   ========================== */
+
+.spinner-border-primary {
+  border-color: var(--primary-color) !important;
+  border-right-color: transparent !important;
+}
+
+/* ===========================
+   CUSTOM AVATAR STYLES
+   ========================== */
+
+.avatar-primary {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+/* ===========================
+   RESPONSIVE ADJUSTMENTS
+   ========================== */
+
+@media (max-width: 768px) {
+  .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: var(--primary-color) !important;
+  }
+}
+
+/* ===========================
+   HOVER EFFECTS
+   ========================== */
+
+.hover-primary:hover {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+  transition: all 0.3s ease;
+}
+
+/* ===========================
+   GRADIENT EFFECTS (Optional)
+   ========================== */
+
+.gradient-primary {
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-color-light)) !important;
+}
+
+/* ===========================
+   INSTRUCTIONS
+   ========================== */
+
+/*
+  CARA MENGUBAH WARNA:
+  
+  1. Ubah nilai --primary-color di bagian :root di atas
+  2. Ubah --primary-color-dark untuk warna yang lebih gelap
+  3. Ubah --primary-color-light untuk warna yang lebih terang
+  4. Ubah --primary-rgba untuk efek shadow (sesuaikan dengan warna utama)
+  
+  CONTOH WARNA:
+  - Merah: #FD0103 (default)
+  - Biru: #007bff
+  - Hijau: #28a745
+  - Ungu: #6f42c1
+  - Orange: #fd7e14
+  - Pink: #e83e8c
+  
+  Setelah mengubah, refresh halaman untuk melihat perubahan.
+*/

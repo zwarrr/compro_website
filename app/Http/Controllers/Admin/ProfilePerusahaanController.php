@@ -20,7 +20,7 @@ class ProfilePerusahaanController extends Controller
             ]);
         }
 
-        return view('admin.konfigurasi.index', compact('profile'));
+        return view('vlte3.konfigurasi.index', compact('profile'));
     }
 
     // Simpan profil baru (hanya jika belum ada)
