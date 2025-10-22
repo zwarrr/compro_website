@@ -56,11 +56,23 @@ class LayananController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
+        // Sorting
+        $allowedSorts = ['created_at', 'judul', 'kode_layanan'];
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'created_at';
+        }
+        if (!in_array(strtolower($direction), ['asc', 'desc'])) {
+            $direction = 'desc';
+        }
+        $query->orderBy($sort, $direction);
+
         // Pagination
-        $layanans = $query->latest()->paginate(10);
+        $layanans = $query->paginate(10)->appends($request->except('page'));
         $kategoris = Kategori::where('tipe', 'layanan')->get();
 
-        return view('admin.layanan.index', compact('layanans', 'kategoris'));
+        return view('vlte3.layanan.index', compact('layanans', 'kategoris'));
     }
 
     /**

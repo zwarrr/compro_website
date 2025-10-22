@@ -25,7 +25,7 @@ Route::get('/beranda', [LayananController::class, 'layanan'])->name('beranda.cle
 
 Route::get('/fitur', [LayananController::class, 'layanan'])->name('fitur');
 
-Route::get('/layanan', [LayananController::class, 'layanan'])->name('layanan');
+Route::get('/client', [LayananController::class, 'layanan'])->name('client');
 
 Route::get('/faq', [FaqController::class, 'faq'])->name('faq');
 
@@ -37,8 +37,12 @@ Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
 Route::get('/galeri', [GaleriController::class, 'galeri'])->name('galeri');
 
+Route::get('/loker', function () {
+    return view('sections.loker');
+})->name('loker');
+
 Route::get('/hubungi-kami', function () {
-    return view('hubungi_kami');
+    return view('sections.hubungi_kami');
 })->name('hubungi-kami');
 
 // Contact form submission
@@ -48,15 +52,17 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::middleware(['guest'])->group(function () {
+    Route::view('login', 'auth.login')->name('login');
+});
 // Auth routes (login/logout)
-Route::view('login', 'auth.login')->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 // Admin routes (protected)
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('dashboard/chart-data', [App\Http\Controllers\Admin\DashboardController::class, 'getChartData'])->name('dashboard.chart-data');
+    Route::get('dashboard/chart-data', [App\Http\Controllers\Admin\DashboardController::class, 'chartData'])->name('dashboard.chart-data');
     
     // Spotlight Search
     Route::get('search', [App\Http\Controllers\Admin\SearchController::class, 'search'])->name('search');
@@ -64,6 +70,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // CRUD routes with resource controllers
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);
     Route::resource('layanan', App\Http\Controllers\Admin\LayananController::class);
+    Route::resource('loker', App\Http\Controllers\Admin\LokerController::class);
+    Route::resource('lamaran', App\Http\Controllers\Admin\LamaranController::class);
+    Route::post('lamaran/{id}/reply', [App\Http\Controllers\Admin\LamaranController::class, 'reply'])->name('lamaran.reply');
     Route::resource('galeri', App\Http\Controllers\Admin\GaleriController::class);
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class);
     Route::resource('testimoni', App\Http\Controllers\Admin\TestimoniController::class);

@@ -13,7 +13,7 @@ class GaleriController extends Controller
      */
     public function galeri()
     {
-        $galeris = Galeri::where('status', 'publik')
+        $galeris = Galeri::where('status', 'aktif')
                          ->latest()
                          ->get();
         

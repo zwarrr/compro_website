@@ -1,5 +1,38 @@
-<!-- Hubungi Kami Section -->
-<section id="hubungi-kami" class="py-20 bg-white">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubungi Kami - PT. Technology Multi System</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_tms.png') }}">
+    
+    <!-- CSS External -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * { 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        html { 
+            scroll-behavior: smooth; 
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    @include('partials.header')
+    
+    <!-- Main Content with padding for fixed header -->
+    <main class="pt-20">
+        <!-- Hubungi Kami Section -->
+        <section id="hubungi-kami" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-12">
@@ -137,6 +170,10 @@
         </div>
     </div>
 </section>
+    </main>
+    
+    <!-- Footer -->
+    @include('partials.footer')
 
 <script>
 (function() {
@@ -313,3 +350,5 @@
     }
 })();
 </script>
+</body>
+</html>
