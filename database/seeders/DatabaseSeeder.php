@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
             GaleriSeeder::class,            // Depends on Kategori
             KaryawanSeeder::class,          // Depends on Kategori
             ClientSeeder::class,            // Depends on Kategori
+            LokerSeeder::class,
             TestimoniSeeder::class,         // Independent
+            LamaranSeeder::class,
             FaqSeeder::class,               // Independent
             SocialMediaSeeder::class,       // Independent
             KontakSeeder::class,            // Independent

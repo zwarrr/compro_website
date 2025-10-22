@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class KategoriController extends Controller
 {
@@ -48,10 +49,22 @@ class KategoriController extends Controller
             $query->where('tipe', $request->tipe);
         }
 
-        // Pagination
-        $kategoris = $query->latest()->paginate(10);
+        // Sorting
+        $allowedSorts = ['created_at', 'nama_kategori', 'kode_kategori'];
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'created_at';
+        }
+        if (!in_array(strtolower($direction), ['asc', 'desc'])) {
+            $direction = 'desc';
+        }
+        $query->orderBy($sort, $direction);
 
-        return view('admin.kategori.index', compact('kategoris'));
+        // Pagination
+        $kategoris = $query->paginate(10)->appends($request->except('page'));
+
+        return view('vlte3.kategori.index', compact('kategoris'));
     }
 
     /**
@@ -59,6 +72,9 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
+        // Debug log
+        Log::info('Kategori store request:', $request->all());
+        
         $validator = Validator::make($request->all(), [
             'nama_kategori' => 'required|string|max:255',
             'tipe' => 'required|string|max:100',
@@ -68,6 +84,7 @@ class KategoriController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Log::warning('Kategori validation failed:', $validator->errors()->toArray());
             return response()->json([
                 'success' => false,
                 'errors' => $validator->errors()
@@ -75,17 +92,22 @@ class KategoriController extends Controller
         }
 
         try {
-            Kategori::create([
+            $kategori = Kategori::create([
                 'kode_kategori' => $this->generateKode(),
                 'nama_kategori' => $request->nama_kategori,
                 'tipe' => $request->tipe,
             ]);
 
+            // Log::info('Kategori created successfully:', $kategori->toArray());
+
             return response()->json([
                 'success' => true,
-                'message' => 'Kategori berhasil ditambahkan!'
+                'message' => 'Kategori berhasil ditambahkan!',
+                // 'redirect' => route('admin.kategori.index') 
+
             ]);
         } catch (\Exception $e) {
+            Log::error('Kategori creation failed:', ['error' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -146,6 +168,8 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Log::info('Kategori update request for ID ' . $id . ':', $request->all());
+        
         $kategori = Kategori::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
@@ -157,6 +181,7 @@ class KategoriController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Log::warning('Kategori update validation failed:', $validator->errors()->toArray());
             return response()->json([
                 'success' => false,
                 'errors' => $validator->errors()
@@ -169,11 +194,14 @@ class KategoriController extends Controller
                 'tipe' => $request->tipe,
             ]);
 
+            Log::info('Kategori updated successfully:', $kategori->toArray());
+
             return response()->json([
                 'success' => true,
-                'message' => 'Kategori berhasil diperbarui!'
+                'message' => 'Kategori berhasil diperbarui!',
             ]);
         } catch (\Exception $e) {
+            Log::error('Kategori update failed:', ['error' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
