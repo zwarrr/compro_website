@@ -25,7 +25,7 @@ Route::get('/beranda', [LayananController::class, 'layanan'])->name('beranda.cle
 
 Route::get('/fitur', [LayananController::class, 'layanan'])->name('fitur');
 
-Route::get('/layanan', [LayananController::class, 'layanan'])->name('layanan');
+Route::get('/client', [LayananController::class, 'layanan'])->name('client');
 
 Route::get('/faq', [FaqController::class, 'faq'])->name('faq');
 
@@ -37,8 +37,12 @@ Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
 Route::get('/galeri', [GaleriController::class, 'galeri'])->name('galeri');
 
+Route::get('/loker', function () {
+    return view('sections.loker');
+})->name('loker');
+
 Route::get('/hubungi-kami', function () {
-    return view('hubungi_kami');
+    return view('sections.hubungi_kami');
 })->name('hubungi-kami');
 
 // Contact form submission
