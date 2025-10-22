@@ -11,6 +11,7 @@
             </div>
             <div class="modal-body">
                 <p>Apakah Anda yakin ingin menghapus layanan <strong id="delete_layanan_name"></strong>?</p>
+                <div id="delete_background" class="text-center mb-2"></div>
                 <p class="text-danger">
                     <i class="fas fa-exclamation-triangle"></i>
                     Data yang dihapus tidak dapat dikembalikan!

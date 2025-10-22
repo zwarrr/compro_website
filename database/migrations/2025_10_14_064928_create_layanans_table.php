@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('link')->nullable();
             $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();
+            $table->string('background')->nullable();
             $table->enum('status', ['publik', 'draft'])->default('publik');
             $table->timestamps();
         });

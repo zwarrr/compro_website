@@ -46,6 +46,7 @@
             document.getElementById('detail_created_at').value = layanan.created_at_formatted || '';
             document.getElementById('detail_updated_at').value = layanan.updated_at_formatted || '';
             document.getElementById('detail_gambar').innerHTML = layanan.gambar_url ? `<img src='${layanan.gambar_url}' class='img-fluid rounded shadow-sm' style='max-height:150px;max-width:100%;object-fit:contain;'>` : '-';
+            document.getElementById('detail_background').innerHTML = layanan.background_url ? `<img src='${layanan.background_url}' class='img-fluid rounded shadow-sm' style='max-height:150px;max-width:100%;object-fit:contain;'>` : '-';
             $('#detailData').removeClass('hidden');
         } catch (error) {
             showNotification('Gagal mengambil data layanan', 'error');
@@ -79,6 +80,18 @@
             $('#edit_link').val(layanan.link);
             $('#edit_deskripsi').val(layanan.deskripsi);
             $('#edit_status').val(layanan.status);
+            // Preview gambar
+            if (layanan.gambar_url) {
+                $('#preview-edit-img').attr('src', layanan.gambar_url).removeClass('d-none');
+            } else {
+                $('#preview-edit-img').attr('src', '#').addClass('d-none');
+            }
+            // Preview background
+            if (layanan.background_url) {
+                $('#preview-edit-bg').attr('src', layanan.background_url).removeClass('d-none');
+            } else {
+                $('#preview-edit-bg').attr('src', '#').addClass('d-none');
+            }
             $('#editFormContent').removeClass('hidden');
         } catch (error) {
             showNotification('Gagal mengambil data layanan', 'error');
@@ -94,6 +107,16 @@
         $('#deleteModal').modal('show');
         $('#delete_layanan_id').val(layananId);
         $('#delete_layanan_name').text(layananName);
+        // Fetch background image for delete modal
+        fetch(`{{ url('admin/layanan') }}/${layananId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.layanan && data.layanan.background_url) {
+                    $('#delete_background').html(`<img src='${data.layanan.background_url}' class='img-fluid rounded shadow-sm' style='max-height:100px;max-width:100%;object-fit:contain;'>`);
+                } else {
+                    $('#delete_background').html('-');
+                }
+            });
     }
 
     function closeDeleteModal() {

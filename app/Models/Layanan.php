@@ -20,6 +20,7 @@ class Layanan extends Model
         'link',
         'deskripsi',
         'gambar',
+        'background',
         'status',
     ];
 
