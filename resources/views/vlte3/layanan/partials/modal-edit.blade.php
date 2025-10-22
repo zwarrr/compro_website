@@ -103,6 +103,21 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
+                                    <label for="edit_background">Background (Gambar)</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                        </div>
+                                        <input type="file" class="form-control-file" id="edit_background" name="background" accept="image/*" onchange="previewEditBackground(event)">
+                                    </div>
+                                    <div class="text-center mb-2">
+                                        <img id="preview-edit-bg" src="#" alt="Preview Background" class="img-fluid rounded shadow-sm d-none" style="max-height: 180px; max-width: 100%; object-fit: contain;" />
+                                    </div>
+                                    <div class="invalid-feedback hidden" id="error_edit_background"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
                                     <label for="edit_status">Status <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -123,6 +138,21 @@
                     function previewEditImage(event) {
                         const input = event.target;
                         const preview = document.getElementById('preview-edit-img');
+                        if (input.files && input.files[0]) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                preview.src = e.target.result;
+                                preview.classList.remove('d-none');
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                        } else {
+                            preview.src = '#';
+                            preview.classList.add('d-none');
+                        }
+                    }
+                    function previewEditBackground(event) {
+                        const input = event.target;
+                        const preview = document.getElementById('preview-edit-bg');
                         if (input.files && input.files[0]) {
                             const reader = new FileReader();
                             reader.onload = function(e) {

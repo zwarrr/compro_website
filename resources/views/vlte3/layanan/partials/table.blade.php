@@ -16,6 +16,7 @@
                         <tr>
                             <th width="5%">No</th>
                             <th width="10%">Gambar</th>
+                            <th width="10%">Background</th>
                             <th width="13%">Kode</th>
                             <th width="20%">Judul</th>
                             <th width="13%">Kategori</th>
@@ -32,6 +33,13 @@
                                 <td>
                                     @if ($layanan->gambar)
                                         <img src="{{ asset('storage/' . $layanan->gambar) }}" alt="img" class="img-thumbnail" style="max-width: 60px; max-height: 60px; object-fit:cover;">
+                                    @else
+                                        <span class="text-muted"><i class="fas fa-image fa-lg"></i></span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($layanan->background)
+                                        <img src="{{ asset('storage/' . $layanan->background) }}" alt="bg" class="img-thumbnail" style="max-width: 60px; max-height: 60px; object-fit:cover;">
                                     @else
                                         <span class="text-muted"><i class="fas fa-image fa-lg"></i></span>
                                     @endif

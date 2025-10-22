@@ -86,6 +86,7 @@ class LayananController extends Controller
             'slog' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'background' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:publik,draft',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
@@ -93,6 +94,8 @@ class LayananController extends Controller
             'judul.required' => 'Judul harus diisi',
             'gambar.image' => 'File harus berupa gambar',
             'gambar.max' => 'Ukuran gambar maksimal 10MB',
+            'background.image' => 'File background harus berupa gambar',
+            'background.max' => 'Ukuran background maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -117,15 +120,21 @@ class LayananController extends Controller
             // Handle upload gambar
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');
-                $slugJudul = Str::slug($request->judul); // bikin slug dari judul
+                $slugJudul = Str::slug($request->judul);
                 $extension = $file->getClientOriginalExtension();
                 $filename = "{$slugJudul}.{$extension}";
-
-                // Simpan ke storage/app/public/layanan
                 $path = $file->storeAs('public/layanan', $filename);
-
-                // Simpan path relatif ke database (tanpa 'public/')
                 $data['gambar'] = str_replace('public/', '', $path);
+            }
+
+            // Handle upload background
+            if ($request->hasFile('background')) {
+                $fileBg = $request->file('background');
+                $slugJudul = Str::slug($request->judul);
+                $extensionBg = $fileBg->getClientOriginalExtension();
+                $filenameBg = "{$slugJudul}-bg.{$extensionBg}";
+                $pathBg = $fileBg->storeAs('public/layanan', $filenameBg);
+                $data['background'] = str_replace('public/', '', $pathBg);
             }
 
             Layanan::create($data);
@@ -160,6 +169,8 @@ class LayananController extends Controller
                 'slog' => $layanan->slog,
                 'link' => $layanan->link,
                 'deskripsi' => $layanan->deskripsi,
+                'background' => $layanan->background,
+                'background_url' => $layanan->background ? asset('storage/' . $layanan->background) : null,
                 'gambar' => $layanan->gambar,
                 'gambar_url' => $layanan->gambar ? asset('storage/' . $layanan->gambar) : null,
                 'status' => $layanan->status,
@@ -211,6 +222,7 @@ class LayananController extends Controller
             'slog' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'background' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:publik,draft',
         ], [
             'kategori_id.required' => 'Kategori harus dipilih',
@@ -218,6 +230,8 @@ class LayananController extends Controller
             'judul.required' => 'Judul harus diisi',
             'gambar.image' => 'File harus berupa gambar',
             'gambar.max' => 'Ukuran gambar maksimal 10MB',
+            'background.image' => 'File background harus berupa gambar',
+            'background.max' => 'Ukuran background maksimal 10MB',
             'status.required' => 'Status harus dipilih',
         ]);
 
@@ -238,27 +252,36 @@ class LayananController extends Controller
                 'status' => $request->status,
             ];
 
-            // Handle file upload
+            // Handle file upload gambar
             if ($request->hasFile('gambar')) {
-                // Delete old image if exists
                 if ($layanan->gambar) {
                     $oldImagePath = storage_path('app/public/' . $layanan->gambar);
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath);
                     }
                 }
-
-                // Upload gambar baru dengan format slug judul + extension (sama seperti store)
                 $file = $request->file('gambar');
                 $slugJudul = Str::slug($request->judul);
                 $extension = $file->getClientOriginalExtension();
                 $filename = "{$slugJudul}.{$extension}";
-
-                // Simpan ke storage/app/public/layanan
                 $path = $file->storeAs('public/layanan', $filename);
-
-                // Simpan path relatif ke database (tanpa 'public/')
                 $data['gambar'] = str_replace('public/', '', $path);
+            }
+
+            // Handle file upload background
+            if ($request->hasFile('background')) {
+                if ($layanan->background) {
+                    $oldBgPath = storage_path('app/public/' . $layanan->background);
+                    if (file_exists($oldBgPath)) {
+                        unlink($oldBgPath);
+                    }
+                }
+                $fileBg = $request->file('background');
+                $slugJudul = Str::slug($request->judul);
+                $extensionBg = $fileBg->getClientOriginalExtension();
+                $filenameBg = "{$slugJudul}-bg.{$extensionBg}";
+                $pathBg = $fileBg->storeAs('public/layanan', $filenameBg);
+                $data['background'] = str_replace('public/', '', $pathBg);
             }
 
             $layanan->update($data);

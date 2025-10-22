@@ -106,10 +106,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="text-center">
                                     <label class="mb-1"><i class="fas fa-image mr-1"></i>Gambar</label>
                                     <div id="detail_gambar"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="text-center">
+                                    <label class="mb-1"><i class="fas fa-image mr-1"></i>Background</label>
+                                    <div id="detail_background"></div>
                                 </div>
                             </div>
                         </div>
