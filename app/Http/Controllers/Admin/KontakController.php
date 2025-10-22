@@ -34,11 +34,29 @@ class KontakController extends Controller
         }
 
         $pesan = $query->orderBy('created_at', 'desc')->paginate(10);
-        
         // Hitung jumlah pesan belum dibaca
         $unreadCount = Kontak::where('status_baca', 'belum')->count();
 
-        return view('admin.pesan.index', compact('pesan', 'unreadCount'));
+        // Jika request AJAX, return partial table dan pagination dalam JSON
+        if ($request->ajax()) {
+            $tableHtml = view('vlte3.pesan.partials.table', compact('pesan'))->render();
+            // Ambil hanya tbody dan pagination
+            $tableDom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $tableDom->loadHTML('<?xml encoding="utf-8" ?>' . $tableHtml);
+            $tbody = $tableDom->getElementsByTagName('tbody')->item(0);
+            $tbodyHtml = $tableDom->saveHTML($tbody);
+            $paginationDiv = $tableDom->getElementById('pagination');
+            $paginationHtml = $paginationDiv ? $tableDom->saveHTML($paginationDiv) : '';
+            libxml_clear_errors();
+            return response()->json([
+                'tableHtml' => $tbodyHtml,
+                'paginationHtml' => $paginationHtml,
+                'total' => $pesan->total(),
+            ]);
+        }
+
+        return view('vlte3.pesan.index', compact('pesan', 'unreadCount'));
     }
 
     /**

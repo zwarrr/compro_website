@@ -46,20 +46,49 @@ class ClientController extends Controller
         }
 
         // Filter by kategori
-        if ($request->has('kategori') && $request->kategori != '') {
-            $query->where('kategori_id', $request->kategori);
+        if ($request->has('kategori_id') && $request->kategori_id != '') {
+            $query->where('kategori_id', $request->kategori_id);
         }
 
-        // Filter by status
+        // Filter by status (frontend uses aktif/nonaktif, backend uses publik/draft)
         if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+            $status = $request->status;
+            if ($status === 'aktif') $status = 'publik';
+            if ($status === 'nonaktif') $status = 'draft';
+            $query->where('status', $status);
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'created_at_desc');
+        switch ($sort) {
+            case 'created_at_asc':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'nama_asc':
+                $query->orderBy('nama_client', 'asc');
+                break;
+            case 'nama_desc':
+                $query->orderBy('nama_client', 'desc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
         }
 
         // Pagination
-        $clients = $query->latest()->paginate(10);
+        $clients = $query->paginate(10)->appends($request->except('page'));
         $kategoris = Kategori::where('tipe', 'client')->get();
 
-        return view('admin.client.index', compact('clients', 'kategoris'));
+        // // AJAX response for table reload
+        // if ($request->ajax()) {
+        //     $tableHtml = view('vlte3.client.partials.table', compact('clients'))->render();
+        //     $paginationHtml = $clients->links('pagination::bootstrap-4')->render();
+        //     return response()->json([
+        //         'tableHtml' => $tableHtml,
+        //         'paginationHtml' => $paginationHtml
+        //     ]);
+        // }
+
+        return view('vlte3.client.index', compact('clients', 'kategoris'));
     }
 
     /**

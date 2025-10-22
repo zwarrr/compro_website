@@ -34,7 +34,7 @@ class FaqController extends Controller
 
         $faqs = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('admin.faq.index', compact('faqs'));
+        return view('vlte3.faq.index', compact('faqs'));
     }
 
     /**
