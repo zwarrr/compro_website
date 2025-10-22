@@ -59,6 +59,14 @@
         width: 100%;
     }
 
+    .dropdown-toggle:hover .dropdown-icon {
+        color: #d10002 !important;
+    }
+
+    .dropdown-toggle:hover .dropdown-icon i {
+        color: #d10002 !important;
+    }
+
     /* Active state untuk dropdown toggle */
     .dropdown-toggle.active {
         color: #FD0103 !important;
@@ -74,7 +82,8 @@
         justify-content: center;
         width: 18px;
         height: 18px;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #9ca3af;
+        transition: color 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .dropdown.active .dropdown-icon {
@@ -214,16 +223,16 @@
                 <a href="{{ route('beranda') }}#beranda" class="nav-link" data-scroll="#beranda"
                     class="nav-link text-gray-700 transition-colors duration-200 font-medium">Beranda</a>
                 <a href="#fitur" class="nav-link text-gray-700 transition-colors duration-200 font-medium">Fitur</a>
-                <a href="#layanan" class="nav-link text-gray-700 transition-colors duration-200 font-medium">Layanan</a>
+                <a href="#client" class="nav-link text-gray-700 transition-colors duration-200 font-medium">Client</a>
                 <a href="#faq" class="nav-link text-gray-700 transition-colors duration-200 font-medium">FAQ</a>
 
                 <!-- Tentang Kami dengan dropdown -->
                 <div class="dropdown">
-                    <a href="#tentangkami"
-                        class="nav-link dropdown-toggle text-gray-700 transition-colors duration-200 font-medium flex items-center">
+                    <a href="javascript:void(0)"
+                        class="nav-link dropdown-toggle text-gray-700 transition-colors duration-200 font-medium flex items-center cursor-pointer">
                         Tentang Kami
                         <span class="dropdown-icon">
-                            <i class="fas fa-chevron-right text-gray-500"></i>
+                            <i class="fas fa-chevron-right"></i>
                         </span>
                     </a>
                     <div class="dropdown-menu">
@@ -238,6 +247,10 @@
                         <a href="{{ route('galeri') }}">
                             <i class="fas fa-images"></i>
                             <span>Galeri</span>
+                        </a>
+                        <a href="{{ route('loker') }}">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Lowongan Kerja</span>
                         </a>
                         <a href="{{ route('hubungi-kami') }}">
                             <i class="fas fa-envelope"></i>
@@ -260,7 +273,7 @@
                 <nav class="space-y-4">
                     <a href="{{ route('beranda') }}" class="nav-link block text-gray-700 font-medium">Beranda</a>
                     <a href="#fitur" class="nav-link block text-gray-700 font-medium">Fitur</a>
-                    <a href="#layanan" class="nav-link block text-gray-700 font-medium">Layanan</a>
+                    <a href="#client" class="nav-link block text-gray-700 font-medium">Client</a>
                     <a href="#faq" class="nav-link block text-gray-700 font-medium">FAQ</a>
                     
                     <!-- Mobile Dropdown -->
@@ -278,6 +291,10 @@
                             <a href="{{ route('galeri') }}" class="nav-link block text-gray-600 flex items-center gap-2">
                                 <i class="fas fa-images text-sm"></i>
                                 <span>Galeri</span>
+                            </a>
+                            <a href="{{ route('loker') }}" class="nav-link block text-gray-600 flex items-center gap-2">
+                                <i class="fas fa-briefcase text-sm"></i>
+                                <span>Lowongan Kerja</span>
                             </a>
                             <a href="{{ route('hubungi-kami') }}" class="nav-link block text-gray-600 flex items-center gap-2">
                                 <i class="fas fa-envelope text-sm"></i>
@@ -501,7 +518,7 @@
             // Hanya jalankan di halaman beranda
             if (currentPath !== '/' && currentPath !== '/beranda') return;
             
-            const sections = ['#beranda', '#fitur', '#layanan', '#faq'];
+            const sections = ['#beranda', '#fitur', '#client', '#faq'];
             let currentSection = null;
             let currentSectionName = null;
             
@@ -642,7 +659,7 @@
         // Mapping untuk section routes
         const sectionMap = {
             '/fitur': '#fitur',
-            '/layanan': '#layanan',
+            '/client': '#client',
             '/faq': '#faq',
             '/beranda': '#beranda'
         };

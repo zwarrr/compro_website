@@ -6,18 +6,18 @@
 
 <style>
 /* ========== STYLING TETAP SAMA, TIDAK DIUBAH SEDIKITPUN ========== */
-.layanan-card {
+.client-card {
   width: 380px;
   height: 450px;
   flex-shrink: 0;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.layanan-card:hover {
+.client-card:hover {
   transform: translateY(-12px) scale(1.02);
 }
 
-.layanan-swiper {
+.client-swiper {
   padding: 30px 0 80px;
   overflow: visible;
   /* Ensure smooth autoplay */
@@ -28,13 +28,13 @@
 }
 
 /* Force hardware acceleration for smooth animations */
-.layanan-swiper .swiper-wrapper {
+.client-swiper .swiper-wrapper {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
 }
 
-.layanan-swiper .swiper-slide {
+.client-swiper .swiper-slide {
   width: 380px;
   height: auto;
   transition: all 0.4s ease;
@@ -42,49 +42,49 @@
 }
 
 /* Center card effect - Card yang berada di tengah dengan styling yang stabil */
-.layanan-swiper .swiper-slide .swiper-center-card {
+.client-swiper .swiper-slide .swiper-center-card {
   transform: scale(1.05) !important;
   z-index: 10 !important;
   transition: all 0.4s ease !important;
 }
 
-.layanan-swiper .swiper-slide .swiper-center-card .bg-white {
+.client-swiper .swiper-slide .swiper-center-card .bg-white {
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Side cards effect - Card yang berada di samping */
-.layanan-swiper .swiper-slide .swiper-side-card {
+.client-swiper .swiper-slide .swiper-side-card {
   transform: scale(0.95);
   opacity: 0.8;
   transition: all 0.4s ease;
 }
 
 /* Default state untuk semua slides - PASTIKAN DESKTOP BERFUNGSI */
-.layanan-swiper .swiper-slide-active .layanan-card {
+.client-swiper .swiper-slide-active .client-card {
   transform: scale(1.05) !important;
   z-index: 10 !important;
   transition: all 0.4s ease !important;
 }
 
-.layanan-swiper .swiper-slide-active .layanan-card .bg-white {
+.client-swiper .swiper-slide-active .client-card .bg-white {
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Non-active slides styling - Side cards dengan opacity yang jelas */
-.layanan-swiper .swiper-slide:not(.swiper-slide-active) .layanan-card {
+.client-swiper .swiper-slide:not(.swiper-slide-active) .client-card {
   transform: scale(0.9);
   opacity: 0.5; /* Opacity lebih rendah untuk efek fade yang jelas */
   transition: all 0.4s ease;
 }
 
 /* Pastikan hanya 3 slide yang terlihat dengan fade effect di sisi */
-.layanan-swiper .swiper-slide {
+.client-swiper .swiper-slide {
   opacity: 1;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* Slide yang tidak berada di posisi tengah 3 frame */
-.layanan-swiper .swiper-slide:not(.swiper-slide-prev):not(.swiper-slide-active):not(.swiper-slide-next) {
+.client-swiper .swiper-slide:not(.swiper-slide-prev):not(.swiper-slide-active):not(.swiper-slide-next) {
   opacity: 0; /* Sembunyikan slide di luar frame 3 */
   pointer-events: none;
 }
@@ -93,11 +93,11 @@
 
 /* Mobile - 480px ke bawah */
 @media (max-width: 480px) {
-  .layanan-swiper .swiper-slide {
+  .client-swiper .swiper-slide {
     width: 300px !important;
   }
   
-  .layanan-card {
+  .client-card {
     width: 300px;
   }
   
@@ -113,7 +113,7 @@
 
 /* Tablet - 481px sampai 768px */
 @media (min-width: 481px) and (max-width: 768px) {
-  .layanan-swiper .swiper-slide {
+  .client-swiper .swiper-slide {
     width: 340px !important;
   }
   
@@ -129,20 +129,20 @@
 
 /* Desktop - 769px ke atas - FOKUS UTAMA */
 @media (min-width: 769px) {
-  .layanan-swiper .swiper-slide {
+  .client-swiper .swiper-slide {
     width: 380px !important;
   }
   
-  .layanan-card {
+  .client-card {
     width: 380px;
   }
   
   /* Pastikan center effect berfungsi di desktop */
-  .layanan-swiper .swiper-slide-active .layanan-card {
+  .client-swiper .swiper-slide-active .client-card {
     transform: scale(1.05) !important;
   }
   
-  .layanan-swiper .swiper-slide .swiper-center-card {
+  .client-swiper .swiper-slide .swiper-center-card {
     transform: scale(1.05) !important;
   }
   
@@ -158,14 +158,14 @@
 
 /* Large Desktop - 1280px ke atas */
 @media (min-width: 1280px) {
-  .layanan-swiper .swiper-slide {
+  .client-swiper .swiper-slide {
     width: 380px !important;
   }
 }
 
 /* Compatibility untuk mobile yang sangat kecil */
 @media (max-width: 320px) {
-  .layanan-card {
+  .client-card {
     width: 280px;
     margin: 0 auto;
   }
@@ -173,7 +173,7 @@
 </style>
 
 <!-- Layanan Section -->
-<section id="layanan" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+<section id="client" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
     <!-- Background decoration -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute top-20 left-10 w-32 h-32 bg-rose-300 rounded-full animate-pulse"></div>
@@ -185,305 +185,124 @@
     <div class="text-center mb-16">
       <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
         <i class="fas fa-briefcase"></i>
-        LAYANAN KAMI
+        CLIENT KAMI
       </div>
       <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                Layanan Unggulan Kami
+                Client Unggulan Kami
             </h2>
       <p class="text-gray-600 text-xl max-w-3xl mx-auto">
         Bergabunglah dengan ribuan perusahaan yang telah merasakan transformasi bisnis bersama solusi teknologi kami
       </p>
     </div>
 
-    <!-- Layanan Swiper Slider -->
+    <!-- Client Swiper Slider -->
     <div class="relative">
         <!-- Gradient Fade Overlay untuk efek fade di sisi kiri dan kanan - LEBIH TEBAL -->
         <div class="absolute inset-0 z-10 pointer-events-none">
         </div>
         
-        <div class="swiper layanan-swiper">
+        <div class="swiper client-swiper">
             <div class="swiper-wrapper">
-                <!-- KRESYA Card -->
-                <div class="swiper-slide">
-                    <div class="layanan-card group cursor-pointer" data-layanan="kresya">
-                        <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                            <!-- Visual Header with Icon -->
-                            <div class="h-40 bg-gradient-to-br from-rose-500 to-pink-600 relative overflow-hidden p-6 flex items-center justify-center">
-                                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                    <i class="fas fa-handshake text-white text-3xl"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Content -->
-                            <div class="p-6 flex-1 flex flex-col">
-                                <!-- Title & Icon -->
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-900">KRESYA</h3>
-                                    <div class="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center">
-                                        <i class="fas fa-external-link-alt text-rose-600 text-sm"></i>
-                                    </div>
-                                </div>
-                                
-                                <!-- Badge & Stats -->
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="px-2 py-1.5 bg-rose-100 text-rose-700 rounded-full text-[10px] font-medium">Kredit Syariah</span>
-                                    <div class="flex items-center gap-2 text-gray-600">
-                                        <i class="fas fa-users text-sm"></i>
-                                        <span class="text-sm font-semibold counter" data-target="15420">15420</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-                                    Program kredit produk/barang dengan prinsip syari'ah yang dijalankan tanpa bunga dan riba. Solusi pembiayaan yang aman dan sesuai syariah untuk kebutuhan bisnis modern.
-                                </p>
-                                
-                                <!-- Link Button -->
-                                <div class="flex justify-end">
-                                    <button class="client-detail-btn flex items-center gap-2 text-rose-600 hover:text-rose-700 font-semibold text-sm transition-all duration-300 group">
-                                        Lihat Detail 
-                                        <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @php
+                    $gradients = [
+                        'from-rose-500 to-pink-600',
+                        'from-blue-500 to-indigo-600',
+                        'from-green-500 to-emerald-600',
+                        'from-purple-500 to-indigo-600',
+                        'from-pink-500 to-rose-600',
+                        'from-orange-500 to-red-600'
+                    ];
+                    $icons = [
+                        'fa-handshake',
+                        'fa-cash-register',
+                        'fa-credit-card',
+                        'fa-mobile-alt',
+                        'fa-piggy-bank',
+                        'fa-city'
+                    ];
+                    $colorSchemes = [
+                        ['bg' => 'rose', 'text' => 'rose'],
+                        ['bg' => 'blue', 'text' => 'blue'],
+                        ['bg' => 'green', 'text' => 'green'],
+                        ['bg' => 'purple', 'text' => 'purple'],
+                        ['bg' => 'pink', 'text' => 'pink'],
+                        ['bg' => 'orange', 'text' => 'orange']
+                    ];
+                @endphp
 
-                <!-- TMS POS Card -->
-                <div class="swiper-slide">
-                    <div class="layanan-card group cursor-pointer" data-layanan="tms-pos">
-                        <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                            <!-- Visual Header with Icon -->
-                            <div class="h-40 bg-gradient-to-br from-blue-500 to-indigo-600 relative overflow-hidden p-6 flex items-center justify-center">
-                                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                    <i class="fas fa-cash-register text-white text-3xl"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Content -->
-                            <div class="p-6 flex-1 flex flex-col">
-                                <!-- Title & Icon -->
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-900">TMS POS</h3>
-                                    <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                                        <i class="fas fa-external-link-alt text-blue-600 text-sm"></i>
+                @forelse($layanans as $index => $layanan)
+                    @php
+                        $gradient = $gradients[$index % count($gradients)];
+                        $colorScheme = $colorSchemes[$index % count($colorSchemes)];
+                        $gambarPath = $layanan->gambar ? asset('storage/' . $layanan->gambar) : asset('images/placeholder-layanan.jpg');
+                    @endphp
+                    <div class="swiper-slide">
+                        <div class="client-card group cursor-pointer" data-client="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}">
+                            <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
+                                <!-- Visual Header with Background Image -->
+                                <div class="h-40 relative overflow-hidden flex items-center justify-center bg-gray-200">
+                                    <!-- Background Image (Empty for now) -->
+                                    <div class="absolute inset-0 bg-gray-300"></div>
+                                    
+                                    <!-- Icon di atas background -->
+                                    <div class="relative z-10">
+                                        @if($layanan->gambar)
+                                            <img src="{{ $gambarPath }}" alt="{{ $layanan->judul }}" class="w-24 h-24 object-cover rounded-[20px] group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                                        @else
+                                            <div class="w-24 h-24 bg-white rounded-[20px] flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                                                <i class="fas fa-image text-gray-400 text-3xl"></i>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 
-                                <!-- Badge & Stats -->
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="px-2 py-1.5 bg-blue-100 text-blue-700 rounded-full text-[10px] font-medium">Point of Sale</span>
-                                    <div class="flex items-center gap-2 text-gray-600">
-                                        <i class="fas fa-users text-sm"></i>
-                                        <span class="text-sm font-semibold counter" data-target="8750">8750</span>
+                                <!-- Content -->
+                                <div class="p-6 flex-1 flex flex-col">
+                                    <!-- Title & Icon -->
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg font-bold text-gray-900 truncate">{{ strtoupper($layanan->judul) }}</h3>
+                                        <div class="w-10 h-10 bg-black bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-2">
+                                            <i class="fas fa-external-link-alt text-black text-sm"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-                                    Sistem POS modern dengan fitur lengkap untuk mengelola transaksi dan inventory bisnis Anda dengan mudah dan efisien.
-                                </p>
-                                
-                                <!-- Link Button -->
-                                <div class="flex justify-end">
-                                    <button class="client-detail-btn flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-all duration-300 group">
-                                        Lihat Detail 
-                                        <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TMS PAY Card -->
-                <div class="swiper-slide">
-                    <div class="layanan-card group cursor-pointer" data-layanan="tms-pay">
-                        <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                            <!-- Visual Header with Icon -->
-                            <div class="h-40 bg-gradient-to-br from-green-500 to-emerald-600 relative overflow-hidden p-6 flex items-center justify-center">
-                                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                    <i class="fas fa-credit-card text-white text-3xl"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Content -->
-                            <div class="p-6 flex-1 flex flex-col">
-                                <!-- Title & Icon -->
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-900">TMS PAY</h3>
-                                    <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
-                                        <i class="fas fa-external-link-alt text-green-600 text-sm"></i>
+                                    
+                                    <!-- Badge & Stats -->
+                                    <div class="flex items-center justify-between mb-6">
+                                        <span class="px-2 py-1.5 bg-red-100 text-red-700 rounded-full text-[10px] font-medium">{{ $layanan->slog ?? 'Layanan' }}</span>
+                                        <div class="flex items-center gap-2 text-gray-600">
+                                            <i class="fas fa-users text-sm"></i>
+                                            <span class="text-sm font-semibold">100+</span>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Badge & Stats -->
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="px-2 py-1.5 bg-green-100 text-green-700 rounded-full text-[10px] font-medium">Payment Gateway</span>
-                                    <div class="flex items-center gap-2 text-gray-600">
-                                        <i class="fas fa-users text-sm"></i>
-                                        <span class="text-sm font-semibold counter" data-target="12340">12340</span>
+                                    
+                                    <!-- Description -->
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                        {{ $layanan->deskripsi ?? 'Layanan terpercaya untuk mendukung bisnis Anda.' }}
+                                    </p>
+                                    
+                                    <!-- Link Button -->
+                                    <div class="flex justify-end">
+                                        <button class="client-detail-btn flex items-center gap-2 text-black hover:text-red-600 font-semibold text-sm transition-all duration-300 group">
+                                            Lihat Detail 
+                                            <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                                        </button>
                                     </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-                                    Solusi payment gateway terpercaya dengan berbagai metode pembayaran. Transaksi aman, cepat, dan terintegrasi dengan sistem bisnis Anda.
-                                </p>
-                                
-                                <!-- Link Button -->
-                                <div class="flex justify-end">
-                                    <button class="client-detail-btn flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold text-sm transition-all duration-300 group">
-                                        Lihat Detail 
-                                        <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- TMS PPOB Card -->
-                <div class="swiper-slide">
-                    <div class="layanan-card group cursor-pointer" data-layanan="tms-ppob">
-                        <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                            <!-- Visual Header with Icon -->
-                            <div class="h-40 bg-gradient-to-br from-purple-500 to-indigo-600 relative overflow-hidden p-6 flex items-center justify-center">
-                                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                    <i class="fas fa-mobile-alt text-white text-3xl"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Content -->
-                            <div class="p-6 flex-1 flex flex-col">
-                                <!-- Title & Icon -->
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-900">TMS PPOB</h3>
-                                    <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
-                                        <i class="fas fa-external-link-alt text-purple-600 text-sm"></i>
-                                    </div>
-                                </div>
-                                
-                                <!-- Badge & Stats -->
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="px-2 py-1.5 bg-purple-100 text-purple-700 rounded-full text-[10px] font-medium">Payment & Bills</span>
-                                    <div class="flex items-center gap-2 text-gray-600">
-                                        <i class="fas fa-users text-sm"></i>
-                                        <span class="text-sm font-semibold counter" data-target="25670">25670</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-                                    Layanan PPOB terlengkap untuk pembayaran tagihan, pulsa, token listrik, dan berbagai kebutuhan sehari-hari dengan harga terbaik.
-                                </p>
-                                
-                                <!-- Link Button -->
-                                <div class="flex justify-end">
-                                    <button class="client-detail-btn flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold text-sm transition-all duration-300 group">
-                                        Lihat Detail 
-                                        <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                    </button>
+                @empty
+                    <div class="swiper-slide">
+                        <div class="client-card">
+                            <div class="bg-white rounded-3xl shadow-xl overflow-hidden h-full flex items-center justify-center p-6">
+                                <div class="text-center">
+                                    <i class="fas fa-inbox text-4xl text-gray-300 mb-4"></i>
+                                    <p class="text-gray-500">Tidak ada client yang tersedia</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- TASYA Card -->
-                <div class="swiper-slide">
-                    <div class="layanan-card group cursor-pointer" data-layanan="tasya">
-                        <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                            <!-- Visual Header with Icon -->
-                            <div class="h-40 bg-gradient-to-br from-pink-500 to-rose-600 relative overflow-hidden p-6 flex items-center justify-center">
-                                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                    <i class="fas fa-piggy-bank text-white text-3xl"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Content -->
-                            <div class="p-6 flex-1 flex flex-col">
-                                <!-- Title & Icon -->
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-900">TASYA</h3>
-                                    <div class="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center">
-                                        <i class="fas fa-external-link-alt text-pink-600 text-sm"></i>
-                                    </div>
-                                </div>
-                                
-                                <!-- Badge & Stats -->
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="px-2 py-1.5 bg-pink-100 text-pink-700 rounded-full text-[10px] font-medium">Tabungan Syariah</span>
-                                    <div class="flex items-center gap-2 text-gray-600">
-                                        <i class="fas fa-users text-sm"></i>
-                                        <span class="text-sm font-semibold counter" data-target="18950">18950</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-                                    Tabungan dengan sistem syariah tanpa menggunakan bunga dan admin. Solusi menabung yang aman dan berkah sesuai prinsip Islam.
-                                </p>
-                                
-                                <!-- Link Button -->
-                                <div class="flex justify-end">
-                                    <button class="client-detail-btn flex items-center gap-2 text-pink-600 hover:text-pink-700 font-semibold text-sm transition-all duration-300 group">
-                                        Lihat Detail 
-                                        <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KOCI Card -->
-                <div class="swiper-slide">
-                    <div class="layanan-card group cursor-pointer" data-layanan="koci">
-                        <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
-                            <!-- Visual Header with Icon -->
-                            <div class="h-40 bg-gradient-to-br from-orange-500 to-red-600 relative overflow-hidden p-6 flex items-center justify-center">
-                                <div class="w-20 h-20 bg-white bg-opacity-20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                    <i class="fas fa-city text-white text-3xl"></i>
-                                </div>
-                            </div>
-                            
-                            <!-- Content -->
-                            <div class="p-6 flex-1 flex flex-col">
-                                <!-- Title & Icon -->
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-2xl font-bold text-gray-900">KOCI</h3>
-                                    <div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center">
-                                        <i class="fas fa-external-link-alt text-orange-600 text-sm"></i>
-                                    </div>
-                                </div>
-                                
-                                <!-- Badge & Stats -->
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="px-2 py-1.5 bg-orange-100 text-orange-700 rounded-full text-[10px] font-medium">Kota Ciamis</span>
-                                    <div class="flex items-center gap-2 text-gray-600">
-                                        <i class="fas fa-users text-sm"></i>
-                                        <span class="text-sm font-semibold counter" data-target="32100">32100</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Description -->
-                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
-                                    Portal resmi Kota Ciamis yang menyediakan layanan digital terintegrasi untuk masyarakat. Memudahkan akses informasi dan layanan publik.
-                                </p>
-                                
-                                <!-- Link Button -->
-                                <div class="flex justify-end">
-                                    <button class="client-detail-btn flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold text-sm transition-all duration-300 group">
-                                        Lihat Detail 
-                                        <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
 
             </div>
         </div>
@@ -496,18 +315,18 @@
 (function () {
   'use strict';
   
-  const initLayananSwiper = () => {
-    const container = document.querySelector('.layanan-swiper');
+  const initClientSwiper = () => {
+    const container = document.querySelector('.client-swiper');
     if (!container) return;
 
     // Sembunyikan container untuk prevent flicker
     container.style.opacity = '0';
     container.style.transition = 'opacity 0.4s ease-out';
 
-    const totalSlides = document.querySelectorAll('.layanan-swiper .swiper-slide').length;
+    const totalSlides = document.querySelectorAll('.client-swiper .swiper-slide').length;
     const centerIndex = Math.floor(totalSlides / 2); // Index tengah
 
-    const swiper = new Swiper('.layanan-swiper', {
+    const swiper = new Swiper('.client-swiper', {
       // === CORE CONFIGURATION ===
       loop: true,
       centeredSlides: true,
@@ -598,7 +417,7 @@
       const activeIndex = swiperInstance.activeIndex;
       
       slides.forEach((slide, index) => {
-        const card = slide.querySelector('.layanan-card');
+        const card = slide.querySelector('.client-card');
         if (!card) return;
         
         // Reset all classes
@@ -649,40 +468,16 @@
     return swiper;
   };
 
-  // === COUNTER ANIMATION ===
-  const animateCounters = () => {
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach((counter) => {
-      const target = parseInt(counter.getAttribute('data-target'));
-      const duration = 2000;
-      const increment = target / (duration / 16);
-      let current = 0;
-
-      const updateCounter = () => {
-        current += increment;
-        if (current < target) {
-          counter.textContent = Math.floor(current).toLocaleString();
-          requestAnimationFrame(updateCounter);
-        } else {
-          counter.textContent = target.toLocaleString();
-        }
-      };
-      updateCounter();
-    });
-  };
-
   // === INITIALIZATION ===
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        initLayananSwiper();
-        animateCounters();
+        initClientSwiper();
       }, 100);
     });
   } else {
     setTimeout(() => {
-      initLayananSwiper();
-      animateCounters();
+      initClientSwiper();
     }, 100);
   }
 })();

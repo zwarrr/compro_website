@@ -42,6 +42,13 @@
     #chatMessages {
       scroll-behavior: smooth;
     }
+
+    .quick-question-box.clicked {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
   </style>
 
   <!-- Include Modal Informasi Teks Kosong -->
@@ -64,8 +71,8 @@
       <!-- Initial greeting injected dynamically -->
     </div>
 
-    <!-- Input -->
-    <form id="chatForm" class="px-4 py-3 border-t bg-gray-50 flex items-center space-x-2" onsubmit="event.preventDefault(); sendMessage();">
+    <!-- Input Area -->
+    <form id="chatForm" class="hidden px-4 py-3 border-t bg-gray-50 flex items-center space-x-2" onsubmit="event.preventDefault(); sendMessage();">
       <input id="chatInput" type="text" placeholder="Type your message..." maxlength="250"
         class="flex-grow max-w-[calc(100%-50px)] px-3 py-2 border border-gray-300 rounded-md text-sm bg-white text-gray-700 focus:outline-none transition" autocomplete="off" />
       <button id="sendBtn" type="submit" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm transition flex items-center justify-center">
@@ -133,52 +140,111 @@
       }, 300);
     }
 
-    // Default AI Response Generator (Fallback jika knowledge.js tidak ditemukan)
-    function generateAIResponse(message) {
-      const lowerMessage = message.toLowerCase();
+    // generateAIResponse akan dimuat dari knowledge.js
+
+    // Quick Questions Data - Static
+    const quickQuestions = [
+      { icon: 'fa-building', text: 'Apa itu TMS?', query: 'apa itu tms', clicked: false },
+      { icon: 'fa-list', text: 'Layanan apa saja?', query: 'layanan apa saja', clicked: false },
+      { icon: 'fa-phone', text: 'Informasi Kontak', query: 'kontak tms', clicked: false },
+      { icon: 'fa-dollar-sign', text: 'Informasi Harga', query: 'harga layanan', clicked: false },
+      { icon: 'fa-user-plus', text: 'Cara Mendaftar', query: 'cara daftar', clicked: false },
+      { icon: 'fa-clock', text: 'Jam Operasional', query: 'jam operasional', clicked: false },
+      { icon: 'fa-info-circle', text: 'Tentang KOCI', query: 'tentang koci', clicked: false },
+      { icon: 'fa-star', text: 'Keunggulan TMS', query: 'keunggulan tms', clicked: false },
+    ];
+
+    // Function to render quick questions
+    function renderQuickQuestions() {
+      const chatBox = document.getElementById('chatMessages');
+      if (!chatBox) return;
+
+      // Check if quick questions already exist
+      const existingQuestions = document.getElementById('quickQuestionsWrapper');
+      if (existingQuestions) {
+        existingQuestions.remove();
+      }
+
+      // Filter only unclicked questions
+      const availableQuestions = quickQuestions.filter(q => !q.clicked);
       
-      // Default responses dengan lebih banyak keywords
-      const responses = {
-        'halo|hai|hello': 'Halo! Ada yang bisa saya bantu?',
-        'siapa|apa itu|tms|technology': 'Saya TechAI, asisten virtual dari Technology Multi Sistem (TMS). Kami adalah penyedia solusi teknologi terdepan yang berdiri sejak 2005.',
-        'tentang': 'Kami adalah penyedia solusi teknologi terdepan. Berdiri sejak 2005, TMS telah melayani ratusan klien dengan berbagai solusi digital.',
-        'layanan|service|produk|solusi': 'TMS menyediakan berbagai layanan seperti: KOCI, TMS SERVER, UMKM, TASYA, KRESYA, dan KOCI MARKET.',
-        'kontak|hubungi|contact|nomor|email': 'Hubungi kami di:\nPhone: 085223035426\nEmail: kocicenter@gmail.com\nAlamat: JL. Ciamis-Banjar Dusun Kidul RT/RW 007/003 Cijeungjing, Ciamis',
-        'team|tim|staff': 'Kami memiliki tim profesional yang berpengalaman di bidang teknologi dan inovasi digital.',
-        'default': 'Maaf, saya belum memahami pertanyaan Anda. Coba tanyakan tentang: Siapa kami, Layanan, Kontak, atau hal lainnya tentang TMS.'
-      };
-
-      // Check keyword matches - improved logic
-      for (const [keys, response] of Object.entries(responses)) {
-        if (keys !== 'default') {
-          const keywordArray = keys.split('|');
-          for (const keyword of keywordArray) {
-            if (lowerMessage.includes(keyword)) {
-              return response;
-            }
-          }
-        }
+      // Jika tidak ada pertanyaan yang tersisa, jangan render
+      if (availableQuestions.length === 0) {
+        return;
       }
 
-      for (const [key, response] of Object.entries(responses)) {
-        if (key !== 'default' && lowerMessage.includes(key)) {
-          return response;
-        }
-      }
+      // Create wrapper
+      const wrapper = document.createElement('div');
+      wrapper.id = 'quickQuestionsWrapper';
+      wrapper.className = 'mt-3';
+      
+      // Create container with Tailwind
+      const container = document.createElement('div');
+      container.className = 'grid grid-cols-2 gap-2';
+      
+      availableQuestions.forEach((q, index) => {
+        const questionBox = document.createElement('div');
+        questionBox.className = 'bg-white border-2 border-gray-200 rounded-lg p-3 cursor-pointer transition-all duration-300 hover:border-gray-600 hover:bg-gray-50 hover:-translate-y-1 hover:shadow-lg flex items-center gap-2 text-xs';
+        questionBox.dataset.query = q.query;
+        questionBox.innerHTML = `
+          <i class="fas ${q.icon} text-gray-600 text-sm min-w-[18px] text-center"></i>
+          <span class="font-medium text-gray-700 leading-tight">${q.text}</span>
+        `;
+        
+        questionBox.addEventListener('click', function() {
+          handleQuickQuestion(q, this);
+        });
+        
+        container.appendChild(questionBox);
+      });
 
-      return responses.default;
+      wrapper.appendChild(container);
+      chatBox.appendChild(wrapper);
+      scrollToBottom();
     }
 
-    // Auto show welcome message on load
+    // Handle quick question click
+    function handleQuickQuestion(questionObj, element) {
+      // Mark question as clicked
+      questionObj.clicked = true;
+      
+      // Add clicked animation to the specific box
+      element.classList.add('clicked');
+      
+      // Remove the box after animation completes
+      setTimeout(() => {
+        element.remove();
+      }, 300);
+
+      // Set input value and send
+      const input = document.getElementById('chatInput');
+      input.value = questionObj.query;
+      sendMessage();
+    }
+
+    // Auto show welcome message and quick questions on load
     window.addEventListener('DOMContentLoaded', () => {
       const msgContainer = document.getElementById('chatMessages');
       if (!document.getElementById('welcomeMsg')) {
         const botReply = document.createElement('div');
         botReply.id = 'welcomeMsg';
-        botReply.className = 'bg-white border border-gray-300 p-2 rounded-md max-w-[80%] break-words';
-        botReply.textContent = "Halo! Saya TechAI, asisten virtual dari Technology Multi Sistem (TMS). Saya siap membantu dan menjawab pertanyaan Anda seputar TMS.";
-        msgContainer.appendChild(botReply);
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        botReply.className = 'bg-white border border-gray-300 p-3 rounded-md max-w-[85%] break-words shadow-sm';
+        botReply.innerHTML = `
+          <div class="flex items-start gap-2">
+            <i class="fas fa-robot text-gray-600 mt-1"></i>
+            <div>
+              <p class="font-semibold text-gray-800 mb-1">Halo! 👋</p>
+              <p class="text-gray-700">Saya <strong>TechAI</strong>, asisten virtual dari Technology Multi System (TMS).</p>
+              <p class="text-gray-600 text-xs mt-2">Silakan pilih pertanyaan yang tersedia atau ketik pertanyaan Anda sendiri:</p>
+            </div>
+          </div>
+        `;
+        msgContainer.insertBefore(botReply, msgContainer.firstChild);
+        
+        // Render quick questions
+        renderQuickQuestions();
+        
+        scrollToBottom();
       }
     });
 
@@ -218,7 +284,7 @@
 
       const thinking = document.createElement('div');
       thinking.className = 'text-xs text-gray-500 italic thinking-dots';
-      thinking.textContent = 'TechAI is thinking';
+      thinking.textContent = 'TechAI sedang memproses';
       thinking.id = 'thinking';
       chatBox.appendChild(thinking);
       scrollToBottom();
@@ -235,6 +301,11 @@
         chatBox.appendChild(botReply);
         scrollToBottom();
 
+        // Render quick questions setelah jawaban AI
+        setTimeout(() => {
+          renderQuickQuestions();
+        }, 300);
+
         input.disabled = false;
         sendBtn.disabled = false;
         sendIcon.textContent = '➤';
@@ -247,12 +318,12 @@
   <!-- Load Knowledge Base -->
   <script src="{{ asset('js/knowledge.js') }}"></script>
   <script>
-    // Ensure knowledge base is loaded before using chatbot
+    // Memastikan basis pengetahuan telah dimuat sebelum menggunakan chatbot
     let knowledgeLoaded = false;
     
-    // Check if knowledge.js has loaded
+    // Memeriksa apakah knowledge.js telah dimuat
     if (typeof generateAIResponse !== 'undefined') {
       knowledgeLoaded = true;
-      console.log('✅ Knowledge base loaded');
+      console.log('✅ Basis pengetahuan berhasil dimuat');
     }
   </script>

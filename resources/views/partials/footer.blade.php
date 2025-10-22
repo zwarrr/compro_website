@@ -89,8 +89,8 @@
                                     class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Team</a></li>
                             <li><a href="{{ route('profil-perusahaan') }}"
                                     class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Profil Perusahaan</a></li>
-                            <li><a href="{{ route('layanan') }}"
-                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Layanan</a></li>
+                            <li><a href="{{ route('client') }}"
+                                    class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Client</a></li>
                             <li><a href="{{ route('galeri') }}"
                                     class="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200">Galeri</a>
                             </li>

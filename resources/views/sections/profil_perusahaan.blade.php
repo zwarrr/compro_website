@@ -446,6 +446,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Struktur Organisasi Section -->
+                @include('sections.struktur')
             </div>
         </section>
     </main>

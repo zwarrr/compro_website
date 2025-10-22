@@ -31,7 +31,22 @@
                     colors: {
                         primary: '#FD0103',
                         secondary: '#0066CC',
-                    }
+                    },
+                    keyframes: {
+                        modalSlideIn: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'scale(0.95) translateY(-20px)',
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'scale(1) translateY(0)',
+                            },
+                        },
+                    },
+                    animation: {
+                        modalSlideIn: 'modalSlideIn 0.3s ease-out',
+                    },
                 }
             }
         }
@@ -43,151 +58,9 @@
             font-family: 'Inter', sans-serif;
         }
         
-        .smooth-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
-        }
-        
-        .bg-pattern {
-            background-image: radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0);
-            background-size: 40px 40px;
-        }
-        
-        .colored-text {
-            color: #FD0103;
-        }
-        
-        /* Scroll animations */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        .scroll-animate.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Gallery hover effects */
-        .gallery-item {
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .gallery-item:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-        }
-        
-        .gallery-overlay {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 100%);
-        }
-        
-        .gallery-text {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        /* Lightbox styles */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        
-        .lightbox.active {
-            display: flex;
-        }
-        
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            animation: slideUp 0.3s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .counter:hover {
-            transform: translateY(-4px);
-        }
-        
-        .counter-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        .counter:hover .counter-icon {
-            transform: scale(1.2) rotateY(180deg);
-        }
-        
-        /* Scroll to top button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 8px;
-            left: 8px;
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #FD0103, #ff0000ff);
-            color: white;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            z-index: 40;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .scroll-to-top:hover {
-            background: linear-gradient(135deg, #B80000, #ff0000ff);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -199,18 +72,18 @@
     <!-- Main Content -->
     <main>
         <section class="relative min-h-screen bg-gray-50 pt-24 pb-16">
-            <div class="absolute inset-0 bg-pattern opacity-20"></div>
+            <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0); background-size: 40px 40px;"></div>
             <!-- Background decoration -->
-            <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
                 <div class="absolute top-20 left-10 w-32 h-32 bg-rose-300 rounded-full animate-pulse"></div>
                 <div class="absolute bottom-20 right-10 w-24 h-24 bg-blue-300 rounded-full animate-bounce"></div>
                 <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-green-300 rounded-full animate-ping"></div>
             </div>
             
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-animate">
+                <div class="text-center mb-16 opacity-0 translate-y-8 transition-all duration-700 scroll-animate">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                        Galeri <span class="colored-text">Perusahaan</span>
+                        Galeri <span class="text-red-600">Perusahaan</span>
                     </h1>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         Dokumentasi perjalanan, pencapaian, dan momen berkesan dalam pengembangan Technology Multi System
@@ -220,21 +93,25 @@
                 <!-- Gallery Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                     @forelse($galeris as $galeri)
-                        <?php
-                            $gambarPath = $galeri->gambar ? asset('storage/galeri/' . $galeri->gambar) : 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
-                        ?>
-                        <div class="gallery-item group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer scroll-animate" 
-                             onclick="openLightbox('{{ $gambarPath }}')">
-                            <img src="{{ $gambarPath }}" 
+                        <div class="group relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer opacity-0 translate-y-8 transition-all duration-700 scroll-animate hover:-translate-y-3 hover:scale-105" 
+                             onclick="openDetailModal({
+                                'gambar': '{{ asset('storage/galeri/' . $galeri->gambar) }}',
+                                'judul': '{{ addslashes($galeri->judul) }}',
+                                'deskripsi': '{{ addslashes($galeri->deskripsi) }}',
+                                'kategori': '{{ addslashes($galeri->kategori?->nama_kategori ?? 'Umum') }}',
+                                'tanggal': '{{ $galeri->created_at->format('d M Y') }}'
+                             })">
+                            <img src="{{ asset('storage/galeri/' . $galeri->gambar) }}" 
                                  alt="{{ $galeri->judul }}" 
-                                 class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                                 class="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500"
+                                 onerror="this.src='https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/85 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                             <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
                                 <h4 class="text-xl font-bold mb-2">{{ $galeri->judul }}</h4>
-                                <p class="text-sm opacity-90">{{ $galeri->deskripsi }}</p>
+                                <p class="text-sm opacity-90">{{ Str::limit($galeri->deskripsi, 60) }}</p>
                                 <div class="flex items-center mt-2">
-                                    <i class="fas fa-expand-arrows-alt mr-2"></i>
-                                    <span class="text-xs">Klik untuk memperbesar</span>
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    <span class="text-xs">Klik untuk detail</span>
                                 </div>
                             </div>
                         </div>
@@ -246,9 +123,9 @@
                 </div>
 
                 <!-- Statistics Section -->
-                <div class="mb-16 scroll-animate">
+                <div class="mb-16 opacity-0 translate-y-8 transition-all duration-700 scroll-animate">
                     <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16 text-center">
-                        Pencapaian <span class="colored-text">Kami</span>
+                        Pencapaian <span class="text-red-600">Kami</span>
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div class="text-center p-8 bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
@@ -287,9 +164,9 @@
                 </div>
 
                 <!-- CTA Section -->
-                <div class="text-center scroll-animate">
+                <div class="text-center opacity-0 translate-y-8 transition-all duration-700 scroll-animate">
                     <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                        Ingin Melihat <span class="colored-text">Portfolio Lengkap?</span>
+                        Ingin Melihat <span class="text-red-600">Portfolio Lengkap?</span>
                     </h3>
                     <p class="text-lg text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto">
                         Jelajahi lebih banyak proyek dan pencapaian yang telah kami raih bersama klien-klien terbaik
@@ -309,39 +186,33 @@
         </section>
     </main>
     
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <button class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 transition-colors duration-300" onclick="closeLightbox()">
-            <i class="fas fa-times"></i>
-        </button>
-        <img id="lightbox-img" src="" alt="Gallery Image" class="rounded-2xl shadow-2xl">
-    </div>
+    <!-- Include Modal Galeri -->
+    @include('partials.modal_galeri')
     
     <!-- Include Footer -->
     @include('partials.footer')
     
     <!-- Scripts -->
     <script>
-        // Lightbox functionality
-        function openLightbox(imageSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = imageSrc;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-8');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }
+                });
+            }, observerOptions);
 
-        // Close lightbox with ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
         });
 
         // Counter Animation
@@ -361,55 +232,39 @@
             }, 40);
         };
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Scroll animations
-                    if (entry.target.classList.contains('scroll-animate')) {
-                        entry.target.classList.add('active');
-                    }
-                    
-                    // Counter animations
-                    const counter = entry.target.querySelector('[data-count]');
-                    if (counter && !counter.classList.contains('counted')) {
-                        counter.classList.add('counted');
-                        startCounter(counter);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Initialize animations
+        // Initialize counter animations
         document.addEventListener('DOMContentLoaded', () => {
-            // Observe scroll animations
-            document.querySelectorAll('.scroll-animate').forEach(el => {
-                observer.observe(el);
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target.querySelector('[data-count]');
+                        if (counter && !counter.classList.contains('counted')) {
+                            counter.classList.add('counted');
+                            startCounter(counter);
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('[data-count]').forEach(counter => {
+                const parent = counter.closest('.bg-white');
+                if (parent) counterObserver.observe(parent);
             });
-            
-            // Observe counter section
-            const counterSection = document.querySelector('[data-count]')?.closest('.bg-white');
-            if (counterSection) {
-                observer.observe(counterSection);
-            }
-            
+
             // Scroll to Top Button
             const scrollTopBtn = document.createElement('button');
-            scrollTopBtn.className = 'scroll-to-top';
+            scrollTopBtn.className = 'fixed bottom-2 left-2 w-12 h-12 bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl flex items-center justify-center opacity-0 invisible translate-y-5 transition-all duration-300 z-40 border-0 shadow-md hover:bg-gradient-to-br hover:from-red-700 hover:to-red-800 hover:-translate-y-1 hover:shadow-xl';
             scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
             document.body.appendChild(scrollTopBtn);
             
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 300) {
-                    scrollTopBtn.classList.add('show');
+                    scrollTopBtn.classList.remove('opacity-0', 'invisible', 'translate-y-5');
+                    scrollTopBtn.classList.add('opacity-100', 'visible', 'translate-y-0');
                 } else {
-                    scrollTopBtn.classList.remove('show');
+                    scrollTopBtn.classList.add('opacity-0', 'invisible', 'translate-y-5');
+                    scrollTopBtn.classList.remove('opacity-100', 'visible', 'translate-y-0');
                 }
             });
             
@@ -423,12 +278,12 @@
 
         // Smooth page transitions
         window.addEventListener('beforeunload', () => {
-            document.body.style.opacity = '0';
+            document.body.classList.add('opacity-0');
         });
 
         window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-            document.body.style.transition = 'opacity 0.3s ease-in-out';
+            document.body.classList.remove('opacity-0');
+            document.body.classList.add('opacity-100', 'transition-opacity', 'duration-300');
         });
     </script>
 </body>
