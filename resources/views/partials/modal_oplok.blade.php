@@ -15,7 +15,9 @@
 
     <!-- Body Modal - 2 Columns Layout -->
     <div class="p-8">
-      <form id="formLamaran">
+      <form id="formLamaran" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" id="lokerId" name="loker_id">
         <div class="grid grid-cols-2 gap-6">
           
           <!-- Kolom Kiri -->
@@ -138,13 +140,22 @@
 
 <script>
   let currentJobTitle = '';
+  let currentLokerId = null;
 
   // Fungsi untuk membuka modal lamaran
-  function openModalLamaran(jobTitle) {
+  function openModalLamaran(jobTitle, lokerId) {
     currentJobTitle = jobTitle;
+    currentLokerId = lokerId;
+    
     const modal = document.getElementById('modalLamaran');
     const modalContent = document.getElementById('modalContent');
     const modalTitle = document.getElementById('modalTitle');
+    const lokerIdInput = document.getElementById('lokerId');
+    
+    // Set loker_id ke hidden input
+    if (lokerIdInput) {
+      lokerIdInput.value = lokerId;
+    }
     
     // Set judul sesuai posisi
     modalTitle.textContent = `Formulir Lamaran ${jobTitle}`;
@@ -217,6 +228,11 @@
         const fileInput = document.getElementById('resume');
         const file = fileInput.files[0];
         
+        if (!file) {
+          alert('Silakan upload file resume terlebih dahulu!');
+          return;
+        }
+        
         if (file && file.size > 5 * 1024 * 1024) { // 5MB
           alert('Ukuran file terlalu besar! Maksimal 5MB.');
           return;
@@ -229,22 +245,55 @@
           return;
         }
         
-        // Simulasi pengiriman (bisa diganti dengan AJAX request ke server)
-        console.log('Form submitted:', {
-          namaLengkap: document.getElementById('namaLengkap').value,
-          email: document.getElementById('email').value,
-          resume: file ? file.name : '',
-          deskripsi: deskripsi,
-          posisi: currentJobTitle
+        // Kirim data menggunakan FormData
+        const formData = new FormData(form);
+        
+        // Disable button saat submit
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Mengirim...';
+        
+        // Kirim data ke server
+        fetch('{{ route("loker.lamar") }}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          
+          if (data.success) {
+            // Tutup modal form
+            closeModalLamaran();
+            
+            // Tampilkan modal sukses
+            setTimeout(() => {
+              openModalSukses();
+            }, 400);
+          } else {
+            // Tampilkan error
+            if (data.errors) {
+              let errorMsg = 'Terjadi kesalahan:\n';
+              for (let key in data.errors) {
+                errorMsg += '- ' + data.errors[key].join('\n- ') + '\n';
+              }
+              alert(errorMsg);
+            } else {
+              alert(data.message || 'Terjadi kesalahan saat mengirim lamaran.');
+            }
+          }
+        })
+        .catch(error => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          console.error('Error:', error);
+          alert('Terjadi kesalahan saat mengirim lamaran. Silakan coba lagi.');
         });
-        
-        // Tutup modal form
-        closeModalLamaran();
-        
-        // Tampilkan modal sukses
-        setTimeout(() => {
-          openModalSukses();
-        }, 400);
       });
     }
   });

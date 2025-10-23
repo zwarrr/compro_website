@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Lowongan Kerja - PT. Technology Multi System</title>
     
     <!-- Favicon -->
@@ -153,6 +154,7 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
 
+        @forelse($lokers as $loker)
         <!-- Card Lowongan -->
         <article
           class="border border-gray-200 rounded-xl shadow-md bg-white flex flex-col
@@ -163,35 +165,43 @@
             <div class="flex items-center mb-4 space-x-4">
               <img src="{{ asset('img/logo_oplok.png') }}" alt="Logo TMS" class="rounded-full w-16 h-16 object-cover border-2 border-red-300 transition-all duration-300 group-hover:brightness-110">
               <div>
-                <h3 class="text-xl font-semibold text-red-700 transition-all duration-300">Frontend Developer</h3>
-                <p class="text-sm text-gray-500 transition-all duration-300 group-hover:text-red-500">PT. Teknologi Nusantara</p>
+                <h3 class="text-xl font-semibold text-red-700 transition-all duration-300">{{ $loker->posisi }}</h3>
+                <p class="text-sm text-gray-500 transition-all duration-300 group-hover:text-red-500">{{ $loker->perusahaan }}</p>
               </div>
             </div>
             <p class="card-content text-gray-600 mb-4 flex-grow leading-relaxed text-sm">
-              Kami mencari Frontend Developer berpengalaman yang mahir React.js untuk membangun aplikasi web berkinerja tinggi.
+              {{ $loker->deskripsi ?? 'Deskripsi pekerjaan tidak tersedia.' }}
             </p>
             <ul class="mb-6 space-y-1 text-sm text-gray-600">
               <li class="flex transition-all duration-300 group-hover:translate-x-1">
                 <span class="w-28 font-semibold text-red-700">Lokasi</span>
-                <span>Jakarta</span>
+                <span>{{ $loker->lokasi }}</span>
               </li>
               <li class="flex transition-all duration-300 group-hover:translate-x-1">
                 <span class="w-28 font-semibold text-red-700">Gaji</span>
-                <span>Rp 8.000.000 - Rp 12.000.000</span>
+                <span>
+                  @if($loker->gaji_awal && $loker->gaji_akhir)
+                    Rp {{ number_format($loker->gaji_awal, 0, ',', '.') }} - Rp {{ number_format($loker->gaji_akhir, 0, ',', '.') }}
+                  @elseif($loker->gaji_awal)
+                    Rp {{ number_format($loker->gaji_awal, 0, ',', '.') }}
+                  @else
+                    Negosiable
+                  @endif
+                </span>
               </li>
               <li class="flex transition-all duration-300 group-hover:translate-x-1">
                 <span class="w-28 font-semibold text-red-700">Pengalaman</span>
-                <span>2+ Tahun</span>
+                <span>{{ $loker->pengalaman ?? '-' }}</span>
               </li>
               <li class="flex transition-all duration-300 group-hover:translate-x-1">
                 <span class="w-28 font-semibold text-red-700">Pendidikan</span>
-                <span>S1 Teknik Informatika</span>
+                <span>{{ $loker->pendidikan ?? '-' }}</span>
               </li>
             </ul>
           </div>
           <div class="p-6 border-t border-gray-100 bg-red-50 rounded-b-xl transition-all duration-300 group-hover:bg-red-100">
             <button
-              onclick="openModalLamaran('Frontend Developer')"
+              onclick="openModalLamaran('{{ $loker->posisi }}', {{ $loker->id_loker }})"
               class="relative w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold py-3 rounded-lg shadow-md
                      hover:shadow-2xl hover:from-red-700 hover:to-red-800 transition duration-300 ease-in-out
                      overflow-hidden hover:-translate-y-1 active:translate-y-0 before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-white/20 before:transition-all before:duration-500 hover:before:left-full"
@@ -200,102 +210,16 @@
             </button>
           </div>
         </article>
-
-        <!-- Card Lowongan -->
-        <article
-          class="border border-gray-200 rounded-xl shadow-md bg-white flex flex-col
-                 card-hover animate-slideInCard
-                 cursor-pointer group"
-          >
-          <div class="p-6 flex flex-col flex-grow">
-            <div class="flex items-center mb-4 space-x-4">
-              <img src="{{ asset('img/logo_oplok.png') }}" alt="Logo TMS" class="rounded-full w-16 h-16 object-cover border-2 border-red-300 transition-all duration-300 group-hover:brightness-110">
-              <div>
-                <h3 class="text-xl font-semibold text-red-700 transition-all duration-300">Digital Marketing Specialist</h3>
-                <p class="text-sm text-gray-500 transition-all duration-300 group-hover:text-red-500">PT. Kreatif Digital</p>
-              </div>
-            </div>
-            <p class="card-content text-gray-600 mb-4 flex-grow leading-relaxed text-sm">
-              Bertanggung jawab mengelola strategi digital marketing dan kampanye iklan di berbagai platform online.
-            </p>
-            <ul class="mb-6 space-y-1 text-sm text-gray-600">
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Lokasi</span>
-                <span>Bandung</span>
-              </li>
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Gaji</span>
-                <span>Rp 6.000.000 - Rp 8.500.000</span>
-              </li>
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Pengalaman</span>
-                <span>1+ Tahun</span>
-              </li>
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Pendidikan</span>
-                <span>D3/S1</span>
-              </li>
-            </ul>
+        @empty
+        <!-- Pesan jika tidak ada lowongan -->
+        <div class="col-span-full text-center py-16">
+          <div class="mb-4">
+            <i class="fas fa-briefcase text-6xl text-gray-300"></i>
           </div>
-          <div class="p-6 border-t border-gray-100 bg-red-50 rounded-b-xl transition-all duration-300 group-hover:bg-red-100">
-            <button
-              onclick="openModalLamaran('Digital Marketing Specialist')"
-              class="relative w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold py-3 rounded-lg shadow-md
-                     hover:shadow-2xl hover:from-red-700 hover:to-red-800 transition duration-300 ease-in-out
-                     overflow-hidden hover:-translate-y-1 active:translate-y-0 before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-white/20 before:transition-all before:duration-500 hover:before:left-full"
-            >
-              Lamar Sekarang
-            </button>
-          </div>
-        </article>
-
-        <!-- Card Lowongan -->
-        <article
-          class="border border-gray-200 rounded-xl shadow-md bg-white flex flex-col
-                 card-hover animate-slideInCard
-                 cursor-pointer group"
-          >
-          <div class="p-6 flex flex-col flex-grow">
-            <div class="flex items-center mb-4 space-x-4">
-              <img src="{{ asset('img/logo_oplok.png') }}" alt="Logo TMS" class="rounded-full w-16 h-16 object-cover border-2 border-red-300 transition-all duration-300 group-hover:brightness-110">
-              <div>
-                <h3 class="text-xl font-semibold text-red-700 transition-all duration-300">UI/UX Designer</h3>
-                <p class="text-sm text-gray-500 transition-all duration-300 group-hover:text-red-500">PT. Desain Inovatif</p>
-              </div>
-            </div>
-            <p class="card-content text-gray-600 mb-4 flex-grow leading-relaxed text-sm">
-              Mencari desainer UI/UX kreatif yang mampu membuat prototipe dan desain aplikasi dengan fokus pengalaman pengguna.
-            </p>
-            <ul class="mb-6 space-y-1 text-sm text-gray-600">
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Lokasi</span>
-                <span>Surabaya</span>
-              </li>
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Gaji</span>
-                <span>Rp 7.000.000 - Rp 9.000.000</span>
-              </li>
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Pengalaman</span>
-                <span>2+ Tahun</span>
-              </li>
-              <li class="flex transition-all duration-300 group-hover:translate-x-1">
-                <span class="w-28 font-semibold text-red-700">Pendidikan</span>
-                <span>S1 Desain Komunikasi Visual</span>
-              </li>
-            </ul>
-          </div>
-          <div class="p-6 border-t border-gray-100 bg-red-50 rounded-b-xl transition-all duration-300 group-hover:bg-red-100">
-            <button
-              onclick="openModalLamaran('UI/UX Designer')"
-              class="relative w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold py-3 rounded-lg shadow-md
-                     hover:shadow-2xl hover:from-red-700 hover:to-red-800 transition duration-300 ease-in-out
-                     overflow-hidden hover:-translate-y-1 active:translate-y-0 before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-white/20 before:transition-all before:duration-500 hover:before:left-full"
-            >
-              Lamar Sekarang
-            </button>
-          </div>
-        </article>
+          <h3 class="text-2xl font-semibold text-gray-600 mb-2">Belum Ada Lowongan Tersedia</h3>
+          <p class="text-gray-500">Saat ini belum ada lowongan kerja yang tersedia. Silakan cek kembali nanti.</p>
+        </div>
+        @endforelse
 
       </div>
     </div>

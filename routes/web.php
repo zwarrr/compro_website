@@ -6,6 +6,7 @@ use App\Http\Controllers\Users\LayananController;
 use App\Http\Controllers\Users\FaqController;
 use App\Http\Controllers\Users\GaleriController;
 use App\Http\Controllers\Users\KontakController;
+use App\Http\Controllers\Users\LokerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +38,10 @@ Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
 Route::get('/galeri', [GaleriController::class, 'galeri'])->name('galeri');
 
-Route::get('/loker', function () {
-    return view('sections.loker');
-})->name('loker');
+Route::get('/loker', [LokerController::class, 'index'])->name('loker');
+
+// Submit lamaran
+Route::post('/loker/lamar', [LokerController::class, 'store'])->name('loker.lamar');
 
 Route::get('/hubungi-kami', function () {
     return view('sections.hubungi_kami');

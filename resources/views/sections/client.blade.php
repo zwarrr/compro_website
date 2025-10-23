@@ -241,8 +241,11 @@
                                 : asset('images/placeholder-layanan.jpg');
                         @endphp
                         <div class="swiper-slide">
-                            <div class="client-card group cursor-pointer"
-                                data-client="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}">
+                            <div class="client-card group {{ $layanan->link ? 'cursor-pointer' : 'cursor-default' }}"
+                                data-client="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}"
+                                @if($layanan->link)
+                                    onclick="window.open('{{ $layanan->link }}', '_blank')"
+                                @endif>
                                 <div
                                     class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
                                     <!-- Visual Header with Background Image -->
@@ -284,10 +287,20 @@
                                         <div class="flex items-center justify-between mb-4">
                                             <h3 class="text-lg font-bold text-gray-900 truncate">
                                                 {{ strtoupper($layanan->judul) }}</h3>
-                                            <div
-                                                class="w-10 h-10 bg-black bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-2">
-                                                <i class="fas fa-external-link-alt text-black text-sm"></i>
-                                            </div>
+                                            @if($layanan->link)
+                                                <a href="{{ $layanan->link }}" 
+                                                   target="_blank" 
+                                                   rel="noopener noreferrer"
+                                                   onclick="event.stopPropagation()"
+                                                   class="w-10 h-10 bg-black bg-opacity-10 hover:bg-red-600 hover:bg-opacity-100 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 transition-all duration-300 group"
+                                                   title="Buka Link">
+                                                    <i class="fas fa-external-link-alt text-black group-hover:text-white text-sm transition-colors duration-300"></i>
+                                                </a>
+                                            @else
+                                                <div class="w-10 h-10 bg-black bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 opacity-50 cursor-not-allowed">
+                                                    <i class="fas fa-external-link-alt text-black text-sm"></i>
+                                                </div>
+                                            @endif
                                         </div>
 
                                         <!-- Badge & Stats -->
@@ -307,12 +320,23 @@
 
                                         <!-- Link Button -->
                                         <div class="flex justify-end">
-                                            <button
-                                                class="client-detail-btn flex items-center gap-2 text-black hover:text-red-600 font-semibold text-sm transition-all duration-300 group">
-                                                Lihat Detail
-                                                <i
-                                                    class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-                                            </button>
+                                            @if($layanan->link)
+                                                <a href="{{ $layanan->link }}" 
+                                                   target="_blank" 
+                                                   rel="noopener noreferrer"
+                                                   onclick="event.stopPropagation()"
+                                                   class="client-detail-btn flex items-center gap-2 text-black hover:text-red-600 font-semibold text-sm transition-all duration-300 group">
+                                                    Lihat Detail
+                                                    <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                                                </a>
+                                            @else
+                                                <button
+                                                    disabled
+                                                    class="client-detail-btn flex items-center gap-2 text-gray-400 font-semibold text-sm cursor-not-allowed opacity-50">
+                                                    Lihat Detail
+                                                    <i class="fas fa-arrow-right text-[10px]"></i>
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
