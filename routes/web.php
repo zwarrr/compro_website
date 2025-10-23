@@ -1,5 +1,7 @@
 <?php
 
+// Struktur Organisasi
+use App\Http\Controllers\Users\StrukturController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\KaryawanController;
 use App\Http\Controllers\Users\LayananController;
@@ -7,6 +9,9 @@ use App\Http\Controllers\Users\FaqController;
 use App\Http\Controllers\Users\GaleriController;
 use App\Http\Controllers\Users\KontakController;
 use App\Http\Controllers\Users\LokerController;
+
+use App\Http\Controllers\Admin\ProfilePerusahaanController;
+use App\Http\Controllers\Users\ProfilPerusahaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +35,7 @@ Route::get('/client', [LayananController::class, 'layanan'])->name('client');
 
 Route::get('/faq', [FaqController::class, 'faq'])->name('faq');
 
-Route::get('/profil-perusahaan', function () {
-    return view('sections.profil_perusahaan');
-})->name('profil-perusahaan');
+Route::get('/profil-perusahaan', [ProfilPerusahaanController::class, 'index'])->name('profil-perusahaan');
 
 Route::get('/team', [KaryawanController::class, 'team'])->name('team');
 
@@ -76,7 +79,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('lamaran', App\Http\Controllers\Admin\LamaranController::class);
     Route::post('lamaran/{id}/reply', [App\Http\Controllers\Admin\LamaranController::class, 'reply'])->name('lamaran.reply');
     Route::resource('galeri', App\Http\Controllers\Admin\GaleriController::class);
+    Route::get('karyawan/posisi-data', [App\Http\Controllers\Admin\KaryawanController::class, 'posisiData'])->name('karyawan.posisi-data');
+    Route::post('karyawan/update-posisi', [App\Http\Controllers\Admin\KaryawanController::class, 'updatePosisi'])->name('karyawan.update-posisi');
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class);
+    // Tambahan route untuk posisi modal
     Route::resource('testimoni', App\Http\Controllers\Admin\TestimoniController::class);
     Route::resource('client', App\Http\Controllers\Admin\ClientController::class);
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);

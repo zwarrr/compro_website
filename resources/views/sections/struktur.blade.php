@@ -114,7 +114,6 @@
                     Struktur organisasi Technology Multi System
                 </p>
             </div>
-
             <!-- Image Container -->
             <div class="w-full">
                  <img src="{{ asset('img/struktur.png') }}" class="w-full h-auto">
@@ -161,4 +160,4 @@
         });
     </script>
 </body>
-</html>
+</html> 

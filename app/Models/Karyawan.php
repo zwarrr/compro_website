@@ -17,9 +17,11 @@ class Karyawan extends Model
         'kategori_id',
         'nik',
         'nama',
+        'staff',
         'foto',
         'deskripsi',
         'status',
+        'posisi', // tambahkan posisi agar bisa diisi dan diupdate
     ];
 
     public function kategori()

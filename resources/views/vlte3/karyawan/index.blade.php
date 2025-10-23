@@ -31,5 +31,6 @@
     @include('vlte3.karyawan.partials.modal-edit')
     @include('vlte3.karyawan.partials.modal-detail')
     @include('vlte3.karyawan.partials.modal-delete')
+    @include('vlte3.karyawan.partials.posisi-modal')
     @include('vlte3.karyawan.partials.scripts')
 </x-vlte3.app>
