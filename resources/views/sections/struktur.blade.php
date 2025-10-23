@@ -94,7 +94,7 @@
 </head>
 <body class="bg-white">
     <!-- Struktur Organisasi Section -->
-    <section class="relative bg-gray-50 py-24">
+    <section class="relative bg-gray-50 py-0">
         <div class="absolute inset-0 bg-pattern opacity-20"></div>
 
         <!-- Background decoration -->
@@ -104,121 +104,19 @@
             <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-green-300 rounded-full animate-ping"></div>
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative w-full">
             <!-- Header -->
-            <div class="text-center mb-24">
+            <div class="text-center py-16 px-4">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                     Struktur <span class="colored-text">Organisasi</span>
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Hierarki dan struktur organisasi Technology Multi System
+                    Struktur organisasi Technology Multi System
                 </p>
             </div>
-
-            <!-- Chart Container -->
-            <div class="flex flex-col items-center w-full">
-                <!-- Level 1: General Manager -->
-                <div class="mb-20 flex flex-col items-center w-full">
-                    <h3 class="text-xl md:text-2xl font-bold text-rose-700 mb-6 text-center">General Manager</h3>
-                    @if($generalManager)
-                        <button class="avatar-item avatar-wrapper" data-role="ceo" tabindex="0">
-                            <img src="{{ $generalManager->foto ? asset('storage/karyawan/' . $generalManager->foto) : 'https://randomuser.me/api/portraits/men/45.jpg' }}" alt="General Manager"
-                                class="avatar-img w-40 h-40 rounded-full object-cover border-4 border-white shadow-xl">
-                        </button>
-                        <div class="profile-info pointer-events-none h-20 mt-4 flex flex-col items-center justify-center text-center transition-all duration-400">
-                            <p class="font-bold text-gray-900 text-lg">{{ $generalManager->nama }}</p>
-                            <p class="text-gray-600 text-sm font-semibold">{{ $generalManager->staff ?? 'General Manager' }}</p>
-                        </div>
-                    @endif
-                </div>
-
-                <!-- Level 2: Marketing & SDM -->
-                <div class="mb-20 w-full">
-                    <h3 class="text-xl md:text-2xl font-bold text-blue-700 mb-6 text-center">Marketing & SDM</h3>
-                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
-                        @foreach($marketings as $marketing)
-                            <div class="flex flex-col items-center mb-8">
-                                <button class="avatar-item avatar-wrapper" data-role="marketing" tabindex="0">
-                                    <img src="{{ $marketing->foto ? asset('storage/karyawan/' . $marketing->foto) : 'https://randomuser.me/api/portraits/men/22.jpg' }}" alt="marketing"
-                                        class="avatar-img w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
-                                </button>
-                                <div class="profile-info pointer-events-none h-16 mt-3 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="font-bold text-gray-900">{{ $marketing->nama }}</p>
-                                    <p class="text-gray-600 text-xs font-semibold">{{ $marketing->staff ?? 'marketing' }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                        @foreach($sdms as $sdm)
-                            <div class="flex flex-col items-center mb-8">
-                                <button class="avatar-item avatar-wrapper" data-role="sdm" tabindex="0">
-                                    <img src="{{ $sdm->foto ? asset('storage/karyawan/' . $sdm->foto) : 'https://randomuser.me/api/portraits/men/33.jpg' }}" alt="sdm"
-                                        class="avatar-img w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
-                                </button>
-                                <div class="profile-info pointer-events-none h-16 mt-3 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="font-bold text-gray-900">{{ $sdm->nama }}</p>
-                                    <p class="text-gray-600 text-xs font-semibold">{{ $sdm->staff ?? 'sdm' }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Level 3: Accounting -->
-                <div class="mb-20 w-full">
-                    <h3 class="text-xl md:text-2xl font-bold text-green-700 mb-6 text-center">Accounting</h3>
-                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
-                        @foreach($accountings as $accounting)
-                            <div class="flex flex-col items-center mb-8">
-                                <button class="avatar-item avatar-wrapper" data-role="accounting" tabindex="0">
-                                    <img src="{{ $accounting->foto ? asset('storage/karyawan/' . $accounting->foto) : 'https://randomuser.me/api/portraits/men/80.jpg' }}" alt="accounting"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">{{ $accounting->nama }}</p>
-                                    <p class="text-xs text-gray-600">{{ $accounting->staff ?? 'accounting' }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Level 4: Support -->
-                <div class="mb-20 w-full">
-                    <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-6 text-center">Support</h3>
-                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
-                        @foreach($supports as $support)
-                            <div class="flex flex-col items-center mb-8">
-                                <button class="avatar-item avatar-wrapper" data-role="support" tabindex="0">
-                                    <img src="{{ $support->foto ? asset('storage/karyawan/' . $support->foto) : 'https://randomuser.me/api/portraits/men/80.jpg' }}" alt="support"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">{{ $support->nama }}</p>
-                                    <p class="text-xs text-gray-600">{{ $support->staff ?? 'support' }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Level 5: UMB -->
-                <div class="mb-20 w-full">
-                    <h3 class="text-xl md:text-2xl font-bold text-yellow-700 mb-6 text-center">UMB</h3>
-                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
-                        @foreach($umbs as $umb)
-                            <div class="flex flex-col items-center mb-8">
-                                <button class="avatar-item avatar-wrapper" data-role="umb" tabindex="0">
-                                    <img src="{{ $umb->foto ? asset('storage/karyawan/' . $umb->foto) : 'https://randomuser.me/api/portraits/men/80.jpg' }}" alt="umb"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">{{ $umb->nama }}</p>
-                                    <p class="text-xs text-gray-600">{{ $umb->staff ?? 'umb' }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+            <!-- Image Container -->
+            <div class="w-full">
+                 <img src="{{ asset('img/struktur.png') }}" class="w-full h-auto">
             </div>
         </div>
     </section>

@@ -73,7 +73,7 @@
             <div class="relative">
                 <!-- Main illustration with floating animation -->
                 <div class="text-center">
-                    <img src="{{ asset('img/jemput-marketing.svg') }}"
+                    <img src="{{ asset('img/featurs_yesorno.svg') }}"
                          alt="TMS Features Illustration" 
                          class="w-full max-w-3xl mx-auto h-auto object-contain rounded-2xl animate-float">
                 </div>
