@@ -43,7 +43,7 @@
                              alt="PT. Technology Multi System Logo" 
                              class="w-full max-w-sm h-auto mx-auto" 
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="hidden w-full max-w-sm h-80 bg-gradient-to-br from-rose-100 via-blue-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto">
+                        <div class="hidden w-full max-w-sm h-80 bg-gradient-to-br from-rose-100 via-blue-100 to-purple-100 rounded-2xl items-center justify-center mx-auto">
                             <div class="text-center p-8">
                                 <div class="w-24 h-24 bg-gradient-to-br from-rose-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                                     <span class="text-white text-2xl font-bold">TMS</span>

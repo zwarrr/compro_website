@@ -13,12 +13,11 @@ class KaryawanController extends Controller
      */
     public function team()
     {
-        // Ambil semua karyawan dengan status aktif
+        // Ambil semua karyawan dengan status aktif, urutkan sesuai posisi
         $karyawans = Karyawan::with('kategori')
-                             ->where('status', 'aktif')
-                             ->latest()
-                             ->get();
-        
+            ->where('status', 'aktif')
+            ->orderByRaw('ISNULL(posisi), posisi ASC, id_karyawan ASC')
+            ->get();
         return view('sections.team', compact('karyawans'));
     }
 

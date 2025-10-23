@@ -60,6 +60,18 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
+                                    <label for="edit_staff">Staff <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="edit_staff" name="staff" required>
+                                    </div>
+                                    <div class="invalid-feedback hidden" id="error_edit_staff"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
                                     <label for="edit_status">Status <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">

@@ -118,228 +118,105 @@
             <!-- Chart Container -->
             <div class="flex flex-col items-center w-full">
                 <!-- Level 1: General Manager -->
-                <div class="mb-20 flex flex-col items-center">
-                    <button class="avatar-item avatar-wrapper" data-role="ceo" tabindex="0">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="General Manager"
-                            class="avatar-img w-40 h-40 rounded-full object-cover border-4 border-white shadow-xl">
-                    </button>
-                    <div class="profile-info pointer-events-none h-20 mt-4 flex flex-col items-center justify-center text-center transition-all duration-400">
-                        <p class="font-bold text-gray-900 text-lg">John Smith</p>
-                        <p class="text-gray-600 text-sm font-semibold">General Manager</p>
-                    </div>
-                </div>
-
-                <!-- Level 2: Directors & Managers -->
-                <div class="flex justify-center gap-16 mb-20 w-full">
-                    <!-- Director -->
-                    <div class="flex flex-col items-center">
-                        <button class="avatar-item avatar-wrapper" data-role="director" tabindex="0">
-                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Director"
-                                class="avatar-img w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
+                <div class="mb-20 flex flex-col items-center w-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-rose-700 mb-6 text-center">General Manager</h3>
+                    @if($generalManager)
+                        <button class="avatar-item avatar-wrapper" data-role="ceo" tabindex="0">
+                            <img src="{{ $generalManager->foto ? asset('storage/karyawan/' . $generalManager->foto) : 'https://randomuser.me/api/portraits/men/45.jpg' }}" alt="General Manager"
+                                class="avatar-img w-40 h-40 rounded-full object-cover border-4 border-white shadow-xl">
                         </button>
-                        <div class="profile-info pointer-events-none h-16 mt-3 flex flex-col items-center justify-center text-center transition-all duration-400">
-                            <p class="font-bold text-gray-900">Sarah Johnson</p>
-                            <p class="text-gray-600 text-xs font-semibold">Director Operations</p>
+                        <div class="profile-info pointer-events-none h-20 mt-4 flex flex-col items-center justify-center text-center transition-all duration-400">
+                            <p class="font-bold text-gray-900 text-lg">{{ $generalManager->nama }}</p>
+                            <p class="text-gray-600 text-sm font-semibold">{{ $generalManager->staff ?? 'General Manager' }}</p>
                         </div>
+                    @endif
+                </div>
 
-                        <!-- Level 3: Director's Team -->
-                        <div class="flex gap-12 mt-12">
-                            <div class="flex flex-col items-center">
-                                <button class="avatar-item avatar-wrapper" data-role="team1" tabindex="0">
-                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Team"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
+                <!-- Level 2: Marketing & SDM -->
+                <div class="mb-20 w-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-blue-700 mb-6 text-center">Marketing & SDM</h3>
+                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
+                        @foreach($marketings as $marketing)
+                            <div class="flex flex-col items-center mb-8">
+                                <button class="avatar-item avatar-wrapper" data-role="marketing" tabindex="0">
+                                    <img src="{{ $marketing->foto ? asset('storage/karyawan/' . $marketing->foto) : 'https://randomuser.me/api/portraits/men/22.jpg' }}" alt="marketing"
+                                        class="avatar-img w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
                                 </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">Emma Wilson</p>
-                                    <p class="text-xs text-gray-600">Team Lead</p>
+                                <div class="profile-info pointer-events-none h-16 mt-3 flex flex-col items-center justify-center text-center transition-all duration-400">
+                                    <p class="font-bold text-gray-900">{{ $marketing->nama }}</p>
+                                    <p class="text-gray-600 text-xs font-semibold">{{ $marketing->staff ?? 'marketing' }}</p>
                                 </div>
                             </div>
-
-                            <div class="flex flex-col items-center">
-                                <button class="avatar-item avatar-wrapper" data-role="team2" tabindex="0">
-                                    <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Team"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
+                        @endforeach
+                        @foreach($sdms as $sdm)
+                            <div class="flex flex-col items-center mb-8">
+                                <button class="avatar-item avatar-wrapper" data-role="sdm" tabindex="0">
+                                    <img src="{{ $sdm->foto ? asset('storage/karyawan/' . $sdm->foto) : 'https://randomuser.me/api/portraits/men/33.jpg' }}" alt="sdm"
+                                        class="avatar-img w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
                                 </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">Michael Brown</p>
-                                    <p class="text-xs text-gray-600">Specialist</p>
+                                <div class="profile-info pointer-events-none h-16 mt-3 flex flex-col items-center justify-center text-center transition-all duration-400">
+                                    <p class="font-bold text-gray-900">{{ $sdm->nama }}</p>
+                                    <p class="text-gray-600 text-xs font-semibold">{{ $sdm->staff ?? 'sdm' }}</p>
                                 </div>
                             </div>
-
-                            <div class="flex flex-col items-center">
-                                <button class="avatar-item avatar-wrapper" data-role="team3" tabindex="0">
-                                    <img src="https://randomuser.me/api/portraits/women/66.jpg" alt="Team"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">Lisa Anderson</p>
-                                    <p class="text-xs text-gray-600">Coordinator</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Manager -->
-                    <div class="flex flex-col items-center">
-                        <button class="avatar-item avatar-wrapper" data-role="manager" tabindex="0">
-                            <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Manager"
-                                class="avatar-img w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
-                        </button>
-                        <div class="profile-info pointer-events-none h-16 mt-3 flex flex-col items-center justify-center text-center transition-all duration-400">
-                            <p class="font-bold text-gray-900">David Lee</p>
-                            <p class="text-gray-600 text-xs font-semibold">Manager IT</p>
-                        </div>
-
-                        <!-- Level 3: Manager's Team -->
-                        <div class="flex gap-12 mt-12">
-                            <div class="flex flex-col items-center">
-                                <button class="avatar-item avatar-wrapper" data-role="team4" tabindex="0">
-                                    <img src="https://randomuser.me/api/portraits/men/60.jpg" alt="Team"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">Chris Martin</p>
-                                    <p class="text-xs text-gray-600">Senior Dev</p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col items-center">
-                                <button class="avatar-item avatar-wrapper" data-role="team5" tabindex="0">
-                                    <img src="https://randomuser.me/api/portraits/men/61.jpg" alt="Team"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">Robert Garcia</p>
-                                    <p class="text-xs text-gray-600">QA Engineer</p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col items-center">
-                                <button class="avatar-item avatar-wrapper" data-role="team6" tabindex="0">
-                                    <img src="https://randomuser.me/api/portraits/women/70.jpg" alt="Team"
-                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                                </button>
-                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                    <p class="text-sm font-semibold text-gray-900">Jennifer Davis</p>
-                                    <p class="text-xs text-gray-600">DevOps</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
-                <!-- Level 3: Additional Team Members in Row Below -->
-                <div class="flex justify-center items-start gap-16 w-full">
-                    <!-- Left Side - 3 Additional Members -->
-                    <div class="flex gap-12">
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team11" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/men/80.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Kevin Harris</p>
-                                <p class="text-xs text-gray-600">Support Lead</p>
+                <!-- Level 3: Accounting -->
+                <div class="mb-20 w-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-green-700 mb-6 text-center">Accounting</h3>
+                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
+                        @foreach($accountings as $accounting)
+                            <div class="flex flex-col items-center mb-8">
+                                <button class="avatar-item avatar-wrapper" data-role="accounting" tabindex="0">
+                                    <img src="{{ $accounting->foto ? asset('storage/karyawan/' . $accounting->foto) : 'https://randomuser.me/api/portraits/men/80.jpg' }}" alt="accounting"
+                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
+                                </button>
+                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
+                                    <p class="text-sm font-semibold text-gray-900">{{ $accounting->nama }}</p>
+                                    <p class="text-xs text-gray-600">{{ $accounting->staff ?? 'accounting' }}</p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team12" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/women/80.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Amanda Clark</p>
-                                <p class="text-xs text-gray-600">HR Manager</p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team7" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">James Taylor</p>
-                                <p class="text-xs text-gray-600">Analyst</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Right Side - 3 Additional Members -->
-                    <div class="flex gap-12">
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team8" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Patricia Moore</p>
-                                <p class="text-xs text-gray-600">Supervisor</p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team9" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/men/72.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Daniel White</p>
-                                <p class="text-xs text-gray-600">Backend Dev</p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team10" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/women/72.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Nancy Miller</p>
-                                <p class="text-xs text-gray-600">UI/UX Designer</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
-                <!-- Level 4: Another Row of Team Members -->
-                <div class="flex justify-center items-start gap-16 w-full mt-20">
-                    <!-- Left Side - 3 Additional Members -->
-                    <div class="flex gap-12">
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team13" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Brian Cooper</p>
-                                <p class="text-xs text-gray-600">Project Manager</p>
+                <!-- Level 4: Support -->
+                <div class="mb-20 w-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-6 text-center">Support</h3>
+                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
+                        @foreach($supports as $support)
+                            <div class="flex flex-col items-center mb-8">
+                                <button class="avatar-item avatar-wrapper" data-role="support" tabindex="0">
+                                    <img src="{{ $support->foto ? asset('storage/karyawan/' . $support->foto) : 'https://randomuser.me/api/portraits/men/80.jpg' }}" alt="support"
+                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
+                                </button>
+                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
+                                    <p class="text-sm font-semibold text-gray-900">{{ $support->nama }}</p>
+                                    <p class="text-xs text-gray-600">{{ $support->staff ?? 'support' }}</p>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
+                    </div>
+                </div>
 
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team14" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/women/85.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Rachel Green</p>
-                                <p class="text-xs text-gray-600">Business Analyst</p>
+                <!-- Level 5: UMB -->
+                <div class="mb-20 w-full">
+                    <h3 class="text-xl md:text-2xl font-bold text-yellow-700 mb-6 text-center">UMB</h3>
+                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 w-full">
+                        @foreach($umbs as $umb)
+                            <div class="flex flex-col items-center mb-8">
+                                <button class="avatar-item avatar-wrapper" data-role="umb" tabindex="0">
+                                    <img src="{{ $umb->foto ? asset('storage/karyawan/' . $umb->foto) : 'https://randomuser.me/api/portraits/men/80.jpg' }}" alt="umb"
+                                        class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
+                                </button>
+                                <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
+                                    <p class="text-sm font-semibold text-gray-900">{{ $umb->nama }}</p>
+                                    <p class="text-xs text-gray-600">{{ $umb->staff ?? 'umb' }}</p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="flex flex-col items-center">
-                            <button class="avatar-item avatar-wrapper" data-role="team15" tabindex="0">
-                                <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Team"
-                                    class="avatar-img w-28 h-28 rounded-full object-cover border-3 border-white shadow-md">
-                            </button>
-                            <div class="profile-info pointer-events-none h-14 mt-2 flex flex-col items-center justify-center text-center transition-all duration-400">
-                                <p class="text-sm font-semibold text-gray-900">Steven Miller</p>
-                                <p class="text-xs text-gray-600">Network Admin</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -385,4 +262,4 @@
         });
     </script>
 </body>
-</html>
+</html> 

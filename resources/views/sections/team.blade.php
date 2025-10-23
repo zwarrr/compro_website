@@ -553,7 +553,7 @@
                         <!-- Konten bawah putih -->
                         <div class="team-info-box">
                             <h3 class="name-title">{{ strtoupper($karyawan->nama) }}</h3>
-                            <p class="job-title">{{ $karyawan->kategori->nama_kategori ?? '-' }}</p>
+                            <p class="job-title">{{ $karyawan->staff ?? '-' }}</p>
                             <p class="nik-number">NIK : {{ $karyawan->nik }}</p>
                             <p class="description-text">
                                 {{ $karyawan->deskripsi ?? 'Tim profesional yang siap memberikan solusi terbaik.' }}

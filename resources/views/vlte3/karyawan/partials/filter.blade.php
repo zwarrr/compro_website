@@ -1,5 +1,5 @@
 @php
-// $kategoris harus sudah tersedia dari controller
+    // $kategoris harus sudah tersedia dari controller
 @endphp
 <div class="card">
     <div class="card-header">
@@ -10,6 +10,9 @@
         <div class="card-tools">
             <button type="button" class="btn btn-primary btn-sm" onclick="openCreateModal()">
                 <i class="fas fa-plus"></i> Tambah Karyawan
+            </button>
+            <button type="button" class="btn btn-warning btn-sm ml-2" onclick="openPosisiModal()">
+                <i class="fas fa-arrows-alt"></i> Atur Posisi
             </button>
         </div>
     </div>
@@ -26,8 +29,7 @@
                                 </span>
                             </div>
                             <input type="text" name="search" value="{{ request('search') }}"
-                                placeholder="Cari nama/kode/NIK..." class="form-control"
-                                id="searchInput">
+                                placeholder="Cari nama/kode/NIK..." class="form-control" id="searchInput">
                         </div>
                     </div>
                 </div>
@@ -42,8 +44,10 @@
                             </div>
                             <select name="kategori_id" class="form-control" id="kategoriSelect">
                                 <option value="">Semua Kategori</option>
-                                @foreach($kategoris as $kategori)
-                                    <option value="{{ $kategori->id_kategori }}" {{ request('kategori_id') == $kategori->id_kategori ? 'selected' : '' }}>{{ $kategori->nama_kategori }}</option>
+                                @foreach ($kategoris as $kategori)
+                                    <option value="{{ $kategori->id_kategori }}"
+                                        {{ request('kategori_id') == $kategori->id_kategori ? 'selected' : '' }}>
+                                        {{ $kategori->nama_kategori }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -60,8 +64,10 @@
                             </div>
                             <select name="status" class="form-control" id="statusSelect">
                                 <option value="">Semua Status</option>
-                                <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif
+                                </option>
+                                <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>
+                                    Nonaktif</option>
                             </select>
                         </div>
                     </div>
@@ -74,18 +80,26 @@
                                 <span class="input-group-text"><i class="fas fa-sort"></i></span>
                             </div>
                             <select name="sort" class="form-control mr-2" id="sortSelect">
-                                <option value="created_at" {{ request('sort', 'created_at') == 'created_at' && request('direction', 'desc') == 'desc' ? 'selected' : '' }}>Terbaru</option>
-                                <option value="created_at" {{ request('sort', 'created_at') == 'created_at' && request('direction') == 'asc' ? 'selected' : '' }}>Terlama</option>
+                                <option value="created_at"
+                                    {{ request('sort', 'created_at') == 'created_at' && request('direction', 'desc') == 'desc' ? 'selected' : '' }}>
+                                    Terbaru</option>
+                                <option value="created_at"
+                                    {{ request('sort', 'created_at') == 'created_at' && request('direction') == 'asc' ? 'selected' : '' }}>
+                                    Terlama</option>
                                 <option value="nama" {{ request('sort') == 'nama' ? 'selected' : '' }}>Nama</option>
-                                <option value="kode_karyawan" {{ request('sort') == 'kode_karyawan' ? 'selected' : '' }}>Kode</option>
+                                <option value="kode_karyawan"
+                                    {{ request('sort') == 'kode_karyawan' ? 'selected' : '' }}>Kode</option>
                                 <option value="nik" {{ request('sort') == 'nik' ? 'selected' : '' }}>NIK</option>
                             </select>
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-light border" id="sortDirectionBtn" title="Urutkan {{ request('direction', 'desc') == 'desc' ? 'Dari Besar ke Kecil' : 'Dari Kecil ke Besar' }}">
-                                    <span id="sortArrow" style="font-size:1.2em;line-height:1;">{!! request('direction', 'desc') == 'desc' ? '&#8595;' : '&#8593;' !!}</span>
+                                <button type="button" class="btn btn-light border" id="sortDirectionBtn"
+                                    title="Urutkan {{ request('direction', 'desc') == 'desc' ? 'Dari Besar ke Kecil' : 'Dari Kecil ke Besar' }}">
+                                    <span id="sortArrow"
+                                        style="font-size:1.2em;line-height:1;">{!! request('direction', 'desc') == 'desc' ? '&#8595;' : '&#8593;' !!}</span>
                                 </button>
                             </div>
-                            <input type="hidden" name="direction" id="directionInput" value="{{ request('direction', 'desc') }}">
+                            <input type="hidden" name="direction" id="directionInput"
+                                value="{{ request('direction', 'desc') }}">
                         </div>
                     </div>
                 </div>
@@ -111,8 +125,12 @@
         const sortBtn = document.getElementById('sortDirectionBtn');
         const directionInput = document.getElementById('directionInput');
         const sortSelect = document.getElementById('sortSelect');
-        if (kategoriSelect) kategoriSelect.addEventListener('change', function() { form.submit(); });
-        if (statusSelect) statusSelect.addEventListener('change', function() { form.submit(); });
+        if (kategoriSelect) kategoriSelect.addEventListener('change', function() {
+            form.submit();
+        });
+        if (statusSelect) statusSelect.addEventListener('change', function() {
+            form.submit();
+        });
         if (sortBtn) {
             sortBtn.addEventListener('click', function(e) {
                 e.preventDefault();
