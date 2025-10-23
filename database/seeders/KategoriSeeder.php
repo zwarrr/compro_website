@@ -29,11 +29,12 @@ class KategoriSeeder extends Seeder
             ['kode_kategori' => 'GAL-005', 'nama_kategori' => 'Team Activities', 'tipe' => 'galeri'],
             
             // Kategori Karyawan (11-15)
-            ['kode_kategori' => 'KAR-001', 'nama_kategori' => 'Management', 'tipe' => 'karyawan'],
-            ['kode_kategori' => 'KAR-002', 'nama_kategori' => 'Developer', 'tipe' => 'karyawan'],
-            ['kode_kategori' => 'KAR-003', 'nama_kategori' => 'Designer', 'tipe' => 'karyawan'],
-            ['kode_kategori' => 'KAR-004', 'nama_kategori' => 'Marketing', 'tipe' => 'karyawan'],
-            ['kode_kategori' => 'KAR-005', 'nama_kategori' => 'Support', 'tipe' => 'karyawan'],
+            ['kode_kategori' => 'KAR-001', 'nama_kategori' => 'Manajer', 'tipe' => 'karyawan'],
+            ['kode_kategori' => 'KAR-002', 'nama_kategori' => 'Marketing', 'tipe' => 'karyawan'],
+            ['kode_kategori' => 'KAR-003', 'nama_kategori' => 'SDM', 'tipe' => 'karyawan'],
+            ['kode_kategori' => 'KAR-004', 'nama_kategori' => 'Accounting', 'tipe' => 'karyawan'],
+            ['kode_kategori' => 'KAR-005', 'nama_kategori' => 'UMB', 'tipe' => 'karyawan'],
+            ['kode_kategori' => 'KAR-006', 'nama_kategori' => 'Support', 'tipe' => 'karyawan'],
             
             // Kategori Client (16-20)
             ['kode_kategori' => 'CLI-001', 'nama_kategori' => 'Government', 'tipe' => 'client'],

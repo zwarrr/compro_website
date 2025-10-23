@@ -12,6 +12,44 @@ use Illuminate\Support\Facades\Validator;
 class KaryawanController extends Controller
 {
     /**
+     * Ambil data karyawan dan kategori untuk modal posisi
+     */
+    public function posisiData()
+    {
+        // Ambil semua karyawan, urutkan: jika ada posisi pakai posisi ASC, jika null taruh di bawah (pakai id_karyawan ASC)
+        $karyawans = Karyawan::with('kategori')
+            ->orderByRaw('ISNULL(posisi), posisi ASC, id_karyawan ASC')
+            ->get();
+        $karyawans = $karyawans->map(function ($k) {
+            return [
+                'id_karyawan' => $k->id_karyawan,
+                'nama' => $k->nama,
+                'nik' => $k->nik,
+                'foto' => $k->foto,
+                'kategori_id' => $k->kategori_id,
+                'kategori_nama' => $k->kategori ? $k->kategori->nama_kategori : '-',
+            ];
+        });
+        $kategoris = Kategori::where('tipe', 'karyawan')->get();
+        return response()->json([
+            'success' => true,
+            'karyawans' => $karyawans,
+            'kategoris' => $kategoris,
+        ]);
+    }
+
+    /**
+     * Update posisi karyawan
+     */
+    public function updatePosisi(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        foreach ($ids as $i => $id) {
+            Karyawan::where('id_karyawan', $id)->update(['posisi' => $i + 1]);
+        }
+        return response()->json(['success' => true]);
+    }
+    /**
      * Generate kode karyawan otomatis
      */
     private function generateKode()
@@ -33,7 +71,7 @@ class KaryawanController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Karyawan::with('kategori');
+    $query = Karyawan::with('kategori');
 
         // Search functionality
         if ($request->has('search') && $request->search != '') {
@@ -56,22 +94,28 @@ class KaryawanController extends Controller
         }
 
         // Sorting
-        $allowedSorts = ['created_at', 'nama', 'kode_karyawan', 'nik'];
-        $sort = $request->get('sort', 'created_at');
-        $direction = $request->get('direction', 'desc');
-        if (!in_array($sort, $allowedSorts)) {
-            $sort = 'created_at';
+        $allowedSorts = ['created_at', 'nama', 'kode_karyawan', 'nik', 'posisi'];
+        $sort = $request->get('sort', null);
+        $direction = $request->get('direction', 'asc');
+        if ($sort === null) {
+            // Default: urutkan berdasarkan posisi jika ada kolom posisi, lalu id_karyawan
+            $query->orderByRaw('ISNULL(posisi), posisi ASC, id_karyawan ASC');
+            $sort = 'posisi';
+        } else {
+            if (!in_array($sort, $allowedSorts)) {
+                $sort = 'created_at';
+            }
+            if (!in_array(strtolower($direction), ['asc', 'desc'])) {
+                $direction = 'desc';
+            }
+            $query->orderBy($sort, $direction);
         }
-        if (!in_array(strtolower($direction), ['asc', 'desc'])) {
-            $direction = 'desc';
-        }
-        $query->orderBy($sort, $direction);
 
-        // Pagination
-        $karyawans = $query->paginate(10)->appends($request->except('page'));
-        $kategoris = Kategori::where('tipe', 'karyawan')->get();
+    // Pagination
+    $karyawans = $query->paginate(10)->appends($request->except('page'));
+    $kategoris = Kategori::where('tipe', 'karyawan')->get();
 
-        return view('vlte3.karyawan.index', compact('karyawans', 'kategoris', 'sort', 'direction'));
+    return view('vlte3.karyawan.index', compact('karyawans', 'kategoris', 'sort', 'direction'));
     }
 
     /**
@@ -83,6 +127,7 @@ class KaryawanController extends Controller
             'kategori_id' => 'required|exists:kategori,id_kategori',
             'nik' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
+            'staff' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // Maks 10MB
             'status' => 'required|in:aktif,nonaktif',
@@ -91,6 +136,7 @@ class KaryawanController extends Controller
             'kategori_id.exists' => 'Kategori tidak valid',
             'nik.required' => 'NIK harus diisi',
             'nama.required' => 'Nama harus diisi',
+            'staff.required' => 'Staff harus diisi',
             'foto.image' => 'File harus berupa gambar',
             'foto.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'foto.max' => 'Ukuran foto maksimal 10MB',
@@ -110,6 +156,7 @@ class KaryawanController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'staff' => $request->staff,
                 'deskripsi' => $request->deskripsi,
                 'status' => $request->status,
             ];
@@ -209,6 +256,7 @@ class KaryawanController extends Controller
             'kategori_id' => 'required|exists:kategori,id_kategori',
             'nik' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
+            'staff' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:aktif,nonaktif',
@@ -226,6 +274,7 @@ class KaryawanController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'staff' => $request->staff,
                 'deskripsi' => $request->deskripsi,
                 'status' => $request->status,
             ];

@@ -12,9 +12,11 @@ return new class extends Migration {
             $table->foreignId('kategori_id')->constrained('kategori', 'id_kategori')->onDelete('cascade');
             $table->string('nik')->default('-');
             $table->string('nama');
+            $table->string('staff');
             $table->string('foto')->nullable();
             $table->text('deskripsi')->nullable();
             $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
+            $table->integer('posisi')->nullable(); // Tambah kolom posisi, bisa diupdate nanti
             $table->timestamps();
         });
     }
