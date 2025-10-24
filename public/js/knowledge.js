@@ -50,13 +50,7 @@ const knowledgeBase = {
   },
 
   // Respon default
-  default: [
-    "Terima kasih atas pertanyaannya! Saya akan membantu sebaik mungkin.",
-    "Menarik pertanyaannya. Bisa Anda jelaskan lebih detail?",
-    "Saya sedang belajar lebih banyak tentang topik ini. Silakan hubungi tim kami untuk informasi lebih akurat.",
-    "Apakah pertanyaan Anda terkait dengan layanan TMS?",
-    "Saya di sini untuk membantu. Ada yang bisa saya jelaskan?"
-  ]
+  default: "Hubungi kami melalui:\n\n📞 Telepon: 085223035426\n📧 Email: kocicenter@gmail.com\n\nuntuk informasi lebih lanjut"
 };
 
 // Function untuk generate AI Response
@@ -130,9 +124,8 @@ function generateAIResponse(message) {
     return knowledgeBase.pricing.response;
   }
 
-  // Return random default response
-  const defaultResponses = knowledgeBase.default;
-  return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+  // Return default response
+  return knowledgeBase.default;
 }
 
 console.log('✅ Basis pengetahuan TechAI berhasil dimuat (Bahasa Indonesia)');
