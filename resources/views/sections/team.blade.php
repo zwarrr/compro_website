@@ -144,6 +144,9 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             border: none !important;
             outline: none !important;
+            display: flex;
+            flex-direction: column;
+            height: auto;
         }
         
         .team-card:hover {
@@ -204,40 +207,73 @@
         }
         
         .team-info-box {
-            padding: 0 32px 40px;
+            padding: 0 20px 28px;
             text-align: center;
+            max-width: 100%;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
         }
         
         .name-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 900;
             color: #1e3a8a;
-            margin-bottom: 8px;
-            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
             line-height: 1.2;
             text-transform: uppercase;
-            white-space: nowrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            min-height: 32px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
         .job-title {
             color: #4b5563;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+            max-width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 28px;
         }
         
         .nik-number {
             color: #9ca3af;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 500;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.2;
+            min-height: 16px;
         }
         
         .description-text {
             color: #4b5563;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 12px;
+            line-height: 1.4;
             text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            min-height: auto;
+            display: block;
+            overflow: visible;
         }
         
         /* Scroll to top button */
@@ -553,10 +589,10 @@
                         <!-- Konten bawah putih -->
                         <div class="team-info-box">
                             <h3 class="name-title">{{ strtoupper($karyawan->nama) }}</h3>
-                            <p class="job-title">{{ $karyawan->staff ?? '-' }}</p>
+                            <p class="job-title">{{ $karyawan->staffKategori->nama_kategori ?? '-' }}</p>
                             <p class="nik-number">NIK : {{ $karyawan->nik }}</p>
                             <p class="description-text">
-                                {{ $karyawan->deskripsi ?? 'Tim profesional yang siap memberikan solusi terbaik.' }}
+                                "{{ $karyawan->deskripsi ?? 'Tim profesional yang siap memberikan solusi terbaik.' }}"
                             </p>
                         </div>
                     </div>

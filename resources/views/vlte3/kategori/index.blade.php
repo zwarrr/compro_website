@@ -7,7 +7,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Manajemen Kategori</h1>
-                    <p class="text-muted">Kelola kategori layanan, galeri, dan karyawan</p>
+                    <p class="text-muted">Kelola kategori layanan, galeri, karyawan, divisi, dan client</p>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

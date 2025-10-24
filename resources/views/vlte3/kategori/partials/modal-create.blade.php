@@ -25,6 +25,8 @@
                             <option value="layanan">Layanan</option>
                             <option value="galeri">Galeri</option>
                             <option value="karyawan">Karyawan</option>
+                            <option value="divisi">Divisi</option>
+                            <option value="client">Client</option>
                         </select>
                         <div class="invalid-feedback hidden" id="error_create_tipe"></div>
                     </div>

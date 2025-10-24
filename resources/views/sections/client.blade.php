@@ -182,7 +182,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 scroll-reveal">
             <div
                 class="inline-flex items-center gap-2 bg-rose-100 text-rose-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
                 <i class="fas fa-briefcase"></i>
@@ -198,7 +198,7 @@
         </div>
 
         <!-- Client Swiper Slider -->
-        <div class="relative">
+        <div class="relative scroll-reveal">
             <!-- Gradient Fade Overlay untuk efek fade di sisi kiri dan kanan - LEBIH TEBAL -->
             <div class="absolute inset-0 z-10 pointer-events-none">
             </div>

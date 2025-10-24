@@ -43,11 +43,11 @@
                                 </span>
                             </div>
                             <select name="kategori_id" class="form-control" id="kategoriSelect">
-                                <option value="">Semua Kategori</option>
-                                @foreach ($kategoris as $kategori)
-                                    <option value="{{ $kategori->id_kategori }}"
-                                        {{ request('kategori_id') == $kategori->id_kategori ? 'selected' : '' }}>
-                                        {{ $kategori->nama_kategori }}</option>
+                                <option value="">Semua Divisi</option>
+                                @foreach ($divisis as $divisi)
+                                    <option value="{{ $divisi->id_kategori }}"
+                                        {{ request('kategori_id') == $divisi->id_kategori ? 'selected' : '' }}>
+                                        {{ $divisi->nama_kategori }}</option>
                                 @endforeach
                             </select>
                         </div>

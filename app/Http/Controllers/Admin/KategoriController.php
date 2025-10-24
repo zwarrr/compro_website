@@ -11,20 +11,40 @@ use Illuminate\Support\Facades\Log;
 class KategoriController extends Controller
 {
     /**
-     * Generate kode kategori otomatis
+     * Generate kode kategori otomatis yang unik
      */
     private function generateKode()
     {
+        // Cari nomor tertinggi dari semua kode kategori
         $lastKategori = Kategori::orderBy('id_kategori', 'desc')->first();
         
         if (!$lastKategori) {
             return 'KAT-001';
         }
         
-        $lastNumber = intval(substr($lastKategori->kode_kategori, 4));
-        $newNumber = $lastNumber + 1;
+        // Ambil semua kode kategori yang ada
+        $allKodes = Kategori::pluck('kode_kategori')->toArray();
         
-        return 'KAT-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+        // Extract semua nomor yang ada
+        $numbers = [];
+        foreach ($allKodes as $kode) {
+            if (preg_match('/KAT-(\d+)/', $kode, $matches)) {
+                $numbers[] = intval($matches[1]);
+            }
+        }
+        
+        // Cari nomor terbesar dan tambah 1
+        $maxNumber = empty($numbers) ? 0 : max($numbers);
+        $newNumber = $maxNumber + 1;
+        
+        // Loop untuk memastikan kode benar-benar unik
+        $kode = 'KAT-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+        while (Kategori::where('kode_kategori', $kode)->exists()) {
+            $newNumber++;
+            $kode = 'KAT-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+        }
+        
+        return $kode;
     }
 
     /**

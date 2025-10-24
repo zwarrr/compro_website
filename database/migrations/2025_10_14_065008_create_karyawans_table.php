@@ -10,13 +10,13 @@ return new class extends Migration {
             $table->id('id_karyawan');
             $table->string('kode_karyawan')->unique();
             $table->foreignId('kategori_id')->constrained('kategori', 'id_kategori')->onDelete('cascade');
+            $table->unsignedBigInteger('staff_id')->nullable();
             $table->string('nik')->default('-');
             $table->string('nama');
-            $table->string('staff');
             $table->string('foto')->nullable();
             $table->text('deskripsi')->nullable();
             $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
-            $table->integer('posisi')->nullable(); // Tambah kolom posisi, bisa diupdate nanti
+            $table->integer('posisi')->nullable();
             $table->timestamps();
         });
     }

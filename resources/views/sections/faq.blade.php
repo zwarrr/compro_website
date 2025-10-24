@@ -64,7 +64,7 @@
         </div>
 
         <!-- FAQ Grid Layout 2 Columns -->
-        <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto faq-grid">
+        <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto faq-grid scroll-reveal">
             @php
                 $faqs_array = $faqs->toArray();
                 $mid = ceil(count($faqs_array) / 2);

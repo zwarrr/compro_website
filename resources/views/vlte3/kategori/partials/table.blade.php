@@ -39,9 +39,21 @@
                                         <span class="badge badge-success">
                                             <i class="fas fa-images"></i> Galeri
                                         </span>
-                                    @else
+                                    @elseif($kategori->tipe == 'karyawan')
                                         <span class="badge badge-warning">
                                             <i class="fas fa-user-tie"></i> Karyawan
+                                        </span>
+                                    @elseif($kategori->tipe == 'divisi')
+                                        <span class="badge badge-info">
+                                            <i class="fas fa-building"></i> Divisi
+                                        </span>
+                                    @elseif($kategori->tipe == 'client')
+                                        <span class="badge badge-danger">
+                                            <i class="fas fa-handshake"></i> Client
+                                        </span>
+                                    @else
+                                        <span class="badge badge-secondary">
+                                            <i class="fas fa-tag"></i> {{ ucfirst($kategori->tipe) }}
                                         </span>
                                     @endif
                                 </td>
