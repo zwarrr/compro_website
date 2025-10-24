@@ -115,8 +115,32 @@
                 </p>
             </div>
             <!-- Image Container -->
-            <div class="w-full">
-                 <img src="{{ asset('img/struktur.png') }}" class="w-full h-auto">
+            <div class="flex justify-center px-4 pb-16">
+                <div class="w-full max-w-5xl">
+                    <!-- PDF Viewer Container -->
+                    <div class="bg-white rounded-lg shadow-2xl overflow-hidden">
+                        <!-- PDF Toolbar -->
+                        <div class="bg-gray-900 text-white px-6 py-4 flex items-center justify-between">
+                            <div class="text-sm font-semibold">
+                                <i class="fas fa-file-pdf text-red-500 mr-2"></i>
+                                Struktur Organisasi
+                            </div>
+                            <a href="{{ asset('pdf/struktur.pdf') }}" target="_blank" 
+                               class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded flex items-center gap-2 transition-colors">
+                                <i class="fas fa-expand"></i>
+                                <span class="text-sm">Fullscreen</span>
+                            </a>
+                        </div>
+                        
+                        <!-- PDF/Image Content -->
+                        <div class="bg-gray-100 overflow-auto flex justify-center items-start pt-4 p-4" style="max-height: 900px;">
+                            <img id="struktur-image" 
+                                 src="{{ asset('img/struktur.png') }}" 
+                                 alt="Struktur Organisasi TMS"
+                                 class="max-w-full h-auto bg-white p-4 rounded shadow-lg">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
