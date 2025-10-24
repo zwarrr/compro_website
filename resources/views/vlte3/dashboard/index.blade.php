@@ -155,7 +155,7 @@
             <!-- Chart Section -->
             <div class="row">
                 <!-- Pie Chart - Data per Kategori -->
-                <div class="col-lg-4 col-md-12 mb-3">
+                {{-- <div class="col-lg-4 col-md-12 mb-3">
                     <div class="card h-100">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -197,10 +197,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Line Chart - Tren Data Berdasarkan Waktu -->
-                <div class="col-lg-8 col-md-12 mb-3">
+                <div class="col-lg-12 col-md-12 mb-3">
                     <div class="card h-100">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -735,13 +735,8 @@
         // Prepare data from server
         const serverData = {
             kategori: {
-                @if(isset($kategoriData) && count($kategoriData) > 0)
-                    labels: {!! json_encode($kategoriData->pluck('nama')->toArray()) !!},
-                    data: {!! json_encode($kategoriData->pluck('layanan_count')->toArray()) !!}
-                @else
-                    labels: ['Belum ada data'],
-                    data: [0]
-                @endif
+                labels: {!! json_encode($kategoriData->pluck('nama')->map(function($n){ return $n ?: 'Tidak Ada Data'; })->toArray()) !!},
+                data: {!! json_encode($kategoriData->pluck('layanan_count')->map(function($c){ return $c ?: 1; })->toArray()) !!}
             },
             layanan: {
                 labels: ['Web Development', 'Mobile App', 'Design', 'Consulting', 'SEO'],

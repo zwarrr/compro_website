@@ -36,6 +36,36 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Fallback: jika tidak ada data kategori atau semua count 0
+        if ($kategoriData->isEmpty() || $kategoriData->pluck('layanan_count')->sum() == 0) {
+            $kategoriData = collect([
+                (object)['nama' => 'Web Development', 'layanan_count' => 5],
+                (object)['nama' => 'Mobile App', 'layanan_count' => 3],
+                (object)['nama' => 'Design', 'layanan_count' => 2],
+                (object)['nama' => 'Consulting', 'layanan_count' => 1],
+                (object)['nama' => 'SEO', 'layanan_count' => 1],
+            ]);
+        }
+
+        // Data untuk chart pie - Layanan per Kategori
+        $pieChartData = [
+            'kategori' => [
+                'labels' => $kategoriData->pluck('nama')->map(function($name) {
+                    return $name ?: 'Tidak Ada Data';
+                })->toArray(),
+                'data' => $kategoriData->pluck('layanan_count')->toArray()
+            ],
+            'layanan' => [
+                'labels' => ['Web Development', 'Mobile App', 'Design', 'Consulting', 'SEO'],
+                'data' => [22, 29, 22, 15, 12] // Persentase dalam jumlah
+            ],
+            'client' => [
+                'labels' => ['Active', 'Pending', 'Completed'],
+                'data' => [37, 37, 26] // Persentase dalam jumlah
+            ],
+            'testimoni' => $this->getTestimoniRatingData()
+        ];
+
         // Recent Messages (5 terbaru)
         $recentMessages = Kontak::latest()->take(5)->get();
 
@@ -48,10 +78,45 @@ class DashboardController extends Controller
         return view('vlte3.dashboard.index', compact(
             'statistics',
             'kategoriData',
+            'pieChartData',
             'recentMessages',
             'recentTestimonials',
             'companyProfile'
         ));
+    }
+
+    /**
+     * Get testimoni rating distribution data
+     */
+    private function getTestimoniRatingData()
+    {
+        $ratings = Testimoni::selectRaw('rating, COUNT(*) as count')
+            ->groupBy('rating')
+            ->orderBy('rating', 'desc')
+            ->get();
+
+        // Jika tidak ada data testimoni, beri data dummy
+        if ($ratings->isEmpty()) {
+            return [
+                'labels' => ['⭐⭐⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐', '⭐⭐', '⭐'],
+                'data' => [10, 8, 5, 2, 1]
+            ];
+        }
+
+        $labels = [];
+        $data = [];
+
+        // Generate data untuk semua rating 1-5
+        for ($i = 5; $i >= 1; $i--) {
+            $ratingData = $ratings->firstWhere('rating', $i);
+            $labels[] = str_repeat('⭐', $i);
+            $data[] = $ratingData ? $ratingData->count : 0;
+        }
+
+        return [
+            'labels' => $labels,
+            'data' => $data
+        ];
     }
 
     public function chartData(Request $request)
