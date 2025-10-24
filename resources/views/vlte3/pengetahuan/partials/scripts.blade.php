@@ -1,9 +1,9 @@
 <script>
 // ==================== JAVASCRIPT ====================
 function showNotification(message, type = 'success') {
-    $('#notification').remove();
+    jQuery('#notification').remove();
     const icon = type === 'success' ? '<i class="fas fa-check-circle mr-2"></i>' : '<i class="fas fa-exclamation-circle mr-2"></i>';
-    const notification = $(`
+    const notification = jQuery(`
         <div id="notification" class="alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show" role="alert" style="position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
             ${icon}${message}
             <button type="button" class="close" data-dismiss="alert">
@@ -11,28 +11,28 @@ function showNotification(message, type = 'success') {
             </button>
         </div>
     `);
-    $('body').append(notification);
+    jQuery('body').append(notification);
     setTimeout(() => {
         notification.alert('close');
     }, 5000);
 }
 
 function openCreateModal() {
-    $('#modal-create').modal('show');
-    $('#form-create-pengetahuan')[0].reset();
+    jQuery('#modal-create').modal('show');
+    jQuery('#form-create-pengetahuan')[0].reset();
     clearErrors('create');
     // Fetch next kode_pengetahuan from backend and autofill
     fetch('/admin/pengetahuan/next-kode')
         .then(res => res.json())
         .then(data => {
-            $('#create-kode-pengetahuan').val(data.kode_pengetahuan || '(otomatis)');
+            jQuery('#create-kode-pengetahuan').val(data.kode_pengetahuan || '(otomatis)');
         });
 }
 function closeCreateModal() {
-    $('#modal-create').modal('hide');
+    jQuery('#modal-create').modal('hide');
 }
 async function showDetail(id) {
-    $('#modal-detail').modal('show');
+    jQuery('#modal-detail').modal('show');
     try {
         const response = await fetch(`{{ url('admin/pengetahuan') }}/${id}`, {
             method: 'GET',
@@ -43,10 +43,10 @@ async function showDetail(id) {
         });
         const res = await response.json();
         if (!res.success) throw res.message;
-        $('#detail-kode_pengetahuan').text(res.pengetahuan.kode_pengetahuan);
-        $('#detail-kategori_pertanyaan').text(res.pengetahuan.kategori_pertanyaan);
-        $('#detail-sub_kategori').text(res.pengetahuan.sub_kategori);
-        $('#detail-jawaban').text(res.pengetahuan.jawaban);
+        jQuery('#detail-kode_pengetahuan').text(res.pengetahuan.kode_pengetahuan);
+        jQuery('#detail-kategori_pertanyaan').text(res.pengetahuan.kategori_pertanyaan);
+        jQuery('#detail-sub_kategori').text(res.pengetahuan.sub_kategori);
+        jQuery('#detail-jawaban').text(res.pengetahuan.jawaban);
     } catch (err) {
         showNotification('Gagal mengambil detail', 'danger');
         console.error('Detail error:', err);
@@ -54,10 +54,10 @@ async function showDetail(id) {
     }
 }
 function closeDetailModal() {
-    $('#modal-detail').modal('hide');
+    jQuery('#modal-detail').modal('hide');
 }
 async function openEditModal(id) {
-    $('#modal-edit').modal('show');
+    jQuery('#modal-edit').modal('show');
     clearErrors('edit');
     try {
         const response = await fetch(`{{ url('admin/pengetahuan') }}/${id}/edit`, {
@@ -69,11 +69,11 @@ async function openEditModal(id) {
         });
         const res = await response.json();
         if (!res.success) throw res.message;
-        $('#edit-id-pengetahuan').val(res.pengetahuan.id_pengetahuan);
-        $('#edit-kode_pengetahuan').val(res.pengetahuan.kode_pengetahuan);
-        $('#edit-kategori_pertanyaan').val(res.pengetahuan.kategori_pertanyaan);
-        $('#edit-sub_kategori').val(res.pengetahuan.sub_kategori);
-        $('#edit-jawaban').val(res.pengetahuan.jawaban);
+        jQuery('#edit-id-pengetahuan').val(res.pengetahuan.id_pengetahuan);
+        jQuery('#edit-kode_pengetahuan').val(res.pengetahuan.kode_pengetahuan);
+        jQuery('#edit-kategori_pertanyaan').val(res.pengetahuan.kategori_pertanyaan);
+        jQuery('#edit-sub_kategori').val(res.pengetahuan.sub_kategori);
+        jQuery('#edit-jawaban').val(res.pengetahuan.jawaban);
     } catch (err) {
         showNotification('Gagal mengambil data edit', 'danger');
         console.error('Edit error:', err);
@@ -81,14 +81,14 @@ async function openEditModal(id) {
     }
 }
 function closeEditModal() {
-    $('#modal-edit').modal('hide');
+    jQuery('#modal-edit').modal('hide');
 }
 function confirmDelete(id) {
-    $('#modal-delete').modal('show');
-    $('#delete-id-pengetahuan').val(id);
+    jQuery('#modal-delete').modal('show');
+    jQuery('#delete-id-pengetahuan').val(id);
 }
 function closeDeleteModal() {
-    $('#modal-delete').modal('hide');
+    jQuery('#modal-delete').modal('hide');
 }
 
 async function submitCreate(event) {
@@ -133,7 +133,7 @@ async function submitEdit(event) {
     event.preventDefault();
     const form = document.getElementById('form-edit-pengetahuan');
     const submitBtn = form.querySelector('button[type="submit"]');
-    const id = $('#edit-id-pengetahuan').val();
+    const id = jQuery('#edit-id-pengetahuan').val();
     const formData = new FormData(form);
     formData.append('_method', 'PUT');
     submitBtn.disabled = true;
@@ -173,7 +173,7 @@ async function submitDelete(event) {
     event.preventDefault();
     const form = document.getElementById('form-delete-pengetahuan');
     const submitBtn = form.querySelector('button[type="submit"]');
-    const id = $('#delete-id-pengetahuan').val();
+    const id = jQuery('#delete-id-pengetahuan').val();
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
     try {
@@ -205,35 +205,37 @@ async function submitDelete(event) {
 }
 
 function clearErrors(prefix) {
-    $(`[id^="error_${prefix}_"]`).addClass('d-none').text('');
-    $(`#form-${prefix}-pengetahuan .form-control`).removeClass('is-invalid');
+    jQuery(`[id^="error_${prefix}_"]`).addClass('d-none').text('');
+    jQuery(`#form-${prefix}-pengetahuan .form-control`).removeClass('is-invalid');
 }
+
 function displayErrors(prefix, errors) {
     for (const [field, messages] of Object.entries(errors)) {
-        $(`#error_${prefix}_${field}`).removeClass('d-none').text(messages[0]);
-        $(`#form-${prefix}-pengetahuan [name='${field}']`).addClass('is-invalid');
+        jQuery(`#error_${prefix}_${field}`).removeClass('d-none').text(messages[0]);
+        jQuery(`#form-${prefix}-pengetahuan [name='${field}']`).addClass('is-invalid');
     }
 }
 
-$(function() {
+// Initialize when page is ready
+jQuery(function() {
     // Modal triggers
-    $(document).on('click', '[data-toggle="modal-create"]', openCreateModal);
-    $(document).on('click', '[data-toggle="modal-detail"]', function() {
-        showDetail($(this).data('id'));
+    jQuery(document).on('click', '[data-toggle="modal-create"]', openCreateModal);
+    jQuery(document).on('click', '[data-toggle="modal-detail"]', function() {
+        showDetail(jQuery(this).data('id'));
     });
-    $(document).on('click', '[data-toggle="modal-edit"]', function() {
-        openEditModal($(this).data('id'));
+    jQuery(document).on('click', '[data-toggle="modal-edit"]', function() {
+        openEditModal(jQuery(this).data('id'));
     });
-    $(document).on('click', '[data-toggle="modal-delete"]', function() {
-        confirmDelete($(this).data('id'));
+    jQuery(document).on('click', '[data-toggle="modal-delete"]', function() {
+        confirmDelete(jQuery(this).data('id'));
     });
 
     // Form submits
-    $('#form-create-pengetahuan').off('submit').on('submit', submitCreate);
-    $('#form-edit-pengetahuan').off('submit').on('submit', submitEdit);
-    $('#form-delete-pengetahuan').off('submit').on('submit', submitDelete);
+    jQuery('#form-create-pengetahuan').off('submit').on('submit', submitCreate);
+    jQuery('#form-edit-pengetahuan').off('submit').on('submit', submitEdit);
+    jQuery('#form-delete-pengetahuan').off('submit').on('submit', submitDelete);
 
     // Tooltip
-    $('[data-toggle="tooltip"]').tooltip();
+    jQuery('[data-toggle="tooltip"]').tooltip();
 });
 </script>
