@@ -119,8 +119,8 @@
 <div id="modalSukses" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
   <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all duration-300 scale-95 opacity-0" id="modalSuksesContent">
     <div class="mb-4">
-      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
-        <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100">
+        <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>
       </div>
