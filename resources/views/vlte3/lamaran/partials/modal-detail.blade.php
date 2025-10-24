@@ -8,14 +8,16 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="currentLamaranId" value="">
                 <div id="lamaranDetailContent">
                     <div class="text-center py-5 text-muted">Memuat...</div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" id="btnReply">Balas</button>
-                <button type="button" class="btn btn-danger" id="btnReject">Tolak</button>
+                <!-- UBAH MENGGUNAKAN ONCLICK LANGSUNG -->
+                <button type="button" class="btn btn-primary" onclick="openReplyModal()">Balas</button>
+                <button type="button" class="btn btn-danger" onclick="rejectLamaranFromModal()">Tolak</button>
             </div>
         </div>
     </div>
