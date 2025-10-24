@@ -1,17 +1,20 @@
 <style>
     /* Hero section styles - animasi dihandle oleh landing page */
     @keyframes fadeInOut1 {
-        0% { opacity: 1; }
+        0%, 100% { opacity: 1; }
         40% { opacity: 1; }
         50% { opacity: 0; }
-        100% { opacity: 0; }
     }
     
     @keyframes fadeInOut2 {
-        0% { opacity: 0; }
+        0%, 100% { opacity: 0; }
         50% { opacity: 0; }
         60% { opacity: 1; }
-        100% { opacity: 1; }
+    }
+
+    @keyframes floating {
+        0%, 100% { transform: translate(-50%, -50%); }
+        50% { transform: translate(-50%, calc(-50% - 15px)); }
     }
     
     .carousel-container {
@@ -29,14 +32,15 @@
         height: 100%;
         object-fit: contain;
         transition: opacity 0.5s ease-in-out;
+        animation: floating 4s ease-in-out infinite;
     }
     
     .carousel-img:nth-child(1) {
-        animation: fadeInOut1 20s ease-in-out infinite;
+        animation: fadeInOut1 12s ease-in-out infinite, floating 4s ease-in-out infinite;
     }
     
     .carousel-img:nth-child(2) {
-        animation: fadeInOut2 20s ease-in-out infinite;
+        animation: fadeInOut2 12s ease-in-out infinite, floating 4s ease-in-out infinite;
     }
 
     .colored-text {
