@@ -77,6 +77,14 @@
 
                 <!-- Content Management -->
                 <li class="nav-header">CONTENT MANAGEMENT</li>
+
+                <!-- Pengetahuan -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.pengetahuan.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.pengetahuan') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Pengetahuan</p>
+                    </a>
+                </li>
                 
                 <!-- Kategori -->
                 <li class="nav-item">
@@ -87,12 +95,12 @@
                 </li>
 
                 <!-- Layanan -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.layanan.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.layanan') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>Layanan</p>
                     </a>
-                </li>
+                </li> --}}
 
 
                 <!-- Galeri -->
@@ -137,7 +145,7 @@
 
                 <!-- Client -->
                 <li class="nav-item">
-                    <a href="{{ route('admin.client.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.client') ? 'active' : '' }}">
+                    <a href="{{ route('admin.layanan.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.layanan') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>Client</p>
                     </a>
@@ -176,12 +184,12 @@
                 </li>
 
                 <!-- Social Media -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.sosial.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.sosial') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-share-alt"></i>
                         <p>Social Media</p>
                     </a>
-                </li>
+                </li> --}}
 
                 <!-- Settings -->
                 <li class="nav-header">SYSTEM</li>

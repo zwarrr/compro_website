@@ -16,7 +16,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                 <i class="fas fa-search"></i>
             </a>
@@ -35,10 +35,10 @@
                     </div>
                 </form>
             </div>
-        </li>
+        </li> --}}
 
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>
                 <span class="badge badge-danger navbar-badge">3</span>
@@ -103,35 +103,60 @@
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('admin.pesan.index') }}" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
-        </li>
+        </li> --}}
         
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <!-- Notifications Dropdown Menu Dinamis -->
+        <li class="nav-item dropdown" id="notif-dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-warning navbar-badge" id="notif-count">0</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="notif-menu">
+                <span class="dropdown-item dropdown-header" id="notif-header">Loading...</span>
+                <div id="notif-list"></div>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function loadNotifications() {
+                fetch("{{ route('admin.notifikasi.all') }}")
+                    .then(res => res.json())
+                    .then(data => {
+                        let notifList = document.getElementById('notif-list');
+                        let notifCount = document.getElementById('notif-count');
+                        let notifHeader = document.getElementById('notif-header');
+                        notifList.innerHTML = '';
+                        notifCount.textContent = data.length;
+                        notifHeader.textContent = data.length + ' Notifications';
+                        if(data.length === 0) {
+                            notifList.innerHTML = '<span class="dropdown-item">Tidak ada notifikasi baru.</span>';
+                        } else {
+                            data.forEach(function(item) {
+                                // Hindari null pada title/desc
+                                let title = item.title ?? 'Notifikasi';
+                                let desc = (item.desc === null || item.desc === undefined || item.desc === 'null') ? '-' : item.desc;
+                                let time = item.time ?? '';
+                                notifList.innerHTML += `
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-bell mr-2"></i> ${title}: ${desc}
+                                        <span class="float-right text-muted text-sm">${time}</span>
+                                    </a>
+                                `;
+                            });
+                        }
+                    });
+            }
+            // Polling setiap 5 detik
+            setInterval(loadNotifications, 5000);
+            // Load pertama kali
+            loadNotifications();
+            // Load saat dropdown dibuka (agar responsif)
+            document.getElementById('notif-dropdown').addEventListener('show.bs.dropdown', loadNotifications);
+        });
+        </script>
         
         <!-- User Account Menu -->
         <li class="nav-item dropdown">
@@ -163,12 +188,12 @@
                     <small class="text-muted">{{ Auth::user()->email ?? 'admin@example.com' }}</small>
                 </div>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                {{-- <a href="#" class="dropdown-item">
                     <i class="fas fa-user mr-2"></i> Profile
                 </a>
                 <a href="#" class="dropdown-item">
                     <i class="fas fa-cog mr-2"></i> Settings
-                </a>
+                </a> --}}
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form-navbar').submit();">
                     <i class="fas fa-sign-out-alt mr-2 text-danger"></i> 

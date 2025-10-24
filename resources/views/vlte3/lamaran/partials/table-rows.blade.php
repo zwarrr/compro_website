@@ -33,10 +33,12 @@
                     {{-- Detail and Tolak --}}
                     <a class="dropdown-item text-info" href="javascript:void(0)" onclick="showLamaranDetail({{ $item->id_lamaran }})"><i class="fas fa-eye mr-2"></i> Detail</a>
                     <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="confirmTolakLamaran({{ $item->id_lamaran }}, '{{ addslashes($item->nama_lengkap) }}')"><i class="fas fa-ban mr-2"></i> Tolak</a>
+                        <a class="dropdown-item text-primary" href="javascript:void(0)" onclick="openEditLamaranModal({{ $item->id_lamaran }}, '{{ addslashes($item->nama_lengkap) }}', '{{ $item->status }}', '{{ $item->email }}', '{{ $item->kode_lamaran }}', '{{ $item->nama_lengkap }}')"><i class="fas fa-edit mr-2"></i> Edit Status</a>
                 @else
                     {{-- Fallback: show detail and delete --}}
                     <a class="dropdown-item text-info" href="javascript:void(0)" onclick="showLamaranDetail({{ $item->id_lamaran }})"><i class="fas fa-eye mr-2"></i> Detail</a>
                     <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="confirmDeleteLamaran({{ $item->id_lamaran }}, '{{ addslashes($item->nama_lengkap) }}')"><i class="fas fa-trash mr-2"></i> Hapus</a>
+                        <a class="dropdown-item text-primary" href="javascript:void(0)" onclick="openEditLamaranModal({{ $item->id_lamaran }}, '{{ addslashes($item->nama_lengkap) }}', '{{ $item->status }}', '{{ $item->email }}', '{{ $item->kode_lamaran }}', '{{ $item->nama_lengkap }}')"><i class="fas fa-edit mr-2"></i> Edit Status</a>
                 @endif
             </div>
         </div>

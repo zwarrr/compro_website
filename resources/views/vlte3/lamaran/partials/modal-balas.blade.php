@@ -8,8 +8,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formBalasLamaran">
+            <form id="formBalasLamaran" onsubmit="return false;">
                 <div class="modal-body">
+                    <!-- PASTIKAN INPUT HIDDEN ADA -->
+                    <input type="hidden" id="lamaran_id_for_reply" name="lamaran_id" value="">
                     <div class="form-group">
                         <label for="catatan_hrd">Catatan HRD <span class="text-danger">*</span></label>
                         <textarea name="catatan_hrd" id="catatan_hrd" class="form-control" rows="4" placeholder="Masukkan catatan untuk pelamar..." required></textarea>
@@ -23,7 +25,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary" id="sendBalasBtn">
+                    <button type="button" class="btn btn-primary" id="sendBalasBtn" onclick="try{ submitReply(); }catch(e){ console && console.error(e); }">
                         <i class="fas fa-paper-plane"></i> Kirim Balasan
                     </button>
                 </div>

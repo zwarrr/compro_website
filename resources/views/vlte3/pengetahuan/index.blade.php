@@ -1,0 +1,39 @@
+<x-vlte3.app>
+    <x-slot name="title">Manajemen Pengetahuan</x-slot>
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Manajemen Pengetahuan</h1>
+                    <p class="text-muted">Kelola data pengetahuan perusahaan</p>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Pengetahuan</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            @include('vlte3.pengetahuan.partials.filter')
+            <div class="card mt-3">
+                <div class="card-body">
+                    @include('vlte3.pengetahuan.partials.table')
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @include('vlte3.pengetahuan.partials.modal-create')
+    @include('vlte3.pengetahuan.partials.modal-edit')
+    @include('vlte3.pengetahuan.partials.modal-detail')
+    @include('vlte3.pengetahuan.partials.modal-delete')
+    @include('vlte3.pengetahuan.partials.scripts')
+</x-vlte3.app>

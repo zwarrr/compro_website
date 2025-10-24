@@ -9,6 +9,7 @@ use App\Models\Loker;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LamaranReply;
+use Illuminate\Support\Facades\Log;
 
 class LamaranController extends Controller
 {
@@ -152,13 +153,39 @@ class LamaranController extends Controller
         $tanggal = $request->tanggal_interview ? date('d M Y H:i', strtotime($request->tanggal_interview)) : '-';
 
         try {
-            // Kirim email
-            Mail::to($lamaran->email)->queue(new LamaranReply(
+            // basic email validation
+            if (empty($lamaran->email) || !filter_var($lamaran->email, FILTER_VALIDATE_EMAIL)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Email pelamar tidak valid atau kosong'
+                ], 422);
+            }
+            // Try to send email immediately. If that fails, fallback to queue.
+            $mailable = new LamaranReply(
                 $lamaran->nama_lengkap,
                 $lamaran->loker ? $lamaran->loker->perusahaan : config('app.name'),
                 $tanggal,
                 $catatan
-            ));
+            );
+
+            try {
+                // attempt synchronous send
+                Mail::to($lamaran->email)->send($mailable);
+                Log::info('Lamaran reply sent synchronously to ' . $lamaran->email . ' for lamaran id ' . $lamaran->id);
+            } catch (\Exception $mailEx) {
+                // fallback to queueing the mailable if sync send fails
+                Log::warning('Synchronous mail send failed, attempting to queue. Error: ' . $mailEx->getMessage());
+                try {
+                    Mail::to($lamaran->email)->queue($mailable);
+                    Log::info('Lamaran reply queued for ' . $lamaran->email . ' for lamaran id ' . $lamaran->id);
+                } catch (\Exception $queueEx) {
+                    Log::error('Failed to queue lamaran reply: ' . $queueEx->getMessage());
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Gagal mengirim email: ' . $queueEx->getMessage()
+                    ], 500);
+                }
+            }
 
             // Update database
             $lamaran->update([
@@ -172,7 +199,7 @@ class LamaranController extends Controller
                 'message' => 'Balasan berhasil dikirim ke email pelamar'
             ]);
         } catch (\Exception $e) {
-            // \Log::error('Gagal mengirim balasan lamaran: ' . $e->getMessage());
+            Log::error('Gagal mengirim balasan lamaran: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,

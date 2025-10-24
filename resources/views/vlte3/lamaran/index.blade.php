@@ -26,5 +26,6 @@
     @include('vlte3.lamaran.partials.modal-detail')
     @include('vlte3.lamaran.partials.modal-delete')
     @include('vlte3.lamaran.partials.modal-balas')
+    @include('vlte3.lamaran.partials.modal-edit')
     @include('vlte3.lamaran.partials.scripts')
 </x-vlte3.app>
