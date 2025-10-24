@@ -316,7 +316,18 @@ async function cancelLamaran(id){
     }
 }
 
-// Handler untuk form balas (tetap pakai event listener)
+
+// Fungsi untuk membuka modal edit lamaran
+function openEditLamaranModal(id, nama, status, email, kode_lamaran, nama_lengkap) {
+    $('#edit_lamaran_id').val(id);
+    $('#edit_kode_lamaran').val(kode_lamaran);
+    $('#edit_nama_lengkap').val(nama_lengkap);
+    $('#edit_email').val(email);
+    $('#edit_status').val(status);
+    $('#modalLamaranEdit').modal('show');
+}
+
+// Handler untuk form balas dan edit lamaran
 $(document).ready(function() {
     console.log('Document ready - attaching form handler');
     // keep form submit handler (in case of enter key)
@@ -326,5 +337,50 @@ $(document).ready(function() {
         evt.preventDefault();
         submitReply();
     });
+
+    // Handler untuk form edit lamaran
+    $('#formEditLamaran').on('submit', submitEditLamaran);
+    $('#saveEditLamaranBtn').off('click').on('click', function(evt){
+        evt.preventDefault();
+        submitEditLamaran();
+    });
 });
+
+// Fungsi submit edit lamaran (status saja)
+async function submitEditLamaran(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    const id = $('#edit_lamaran_id').val();
+    const status = $('#edit_status').val();
+    const btn = $('#saveEditLamaranBtn');
+    if (!id) {
+        notify('ID lamaran tidak valid', 'error');
+        return;
+    }
+    btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Menyimpan...');
+    try {
+        const res = await fetch(`{{ url('admin/lamaran') }}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ status })
+        });
+        const data = await res.json().catch(() => null);
+        if (res.ok) {
+            $('#modalLamaranEdit').modal('hide');
+            notify((data && data.message) || 'Status lamaran berhasil diubah.', 'success');
+            setTimeout(() => location.reload(), 800);
+        } else {
+            notify((data && data.message) || 'Gagal mengubah status lamaran.', 'error');
+        }
+    } catch (err) {
+        console.error('Error edit lamaran:', err);
+        notify('Terjadi kesalahan saat mengubah status lamaran.', 'error');
+    } finally {
+        btn.prop('disabled', false).text('Simpan Perubahan');
+    }
+}
 </script>

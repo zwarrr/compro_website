@@ -72,6 +72,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Spotlight Search
     Route::get('search', [App\Http\Controllers\Admin\SearchController::class, 'search'])->name('search');
     
+    // Notifikasi dinamis
+    Route::get('notifikasi/all', [App\Http\Controllers\Admin\NotifikasiController::class, 'getAllNotifications'])->name('notifikasi.all');
     // CRUD routes with resource controllers
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class);
     Route::resource('layanan', App\Http\Controllers\Admin\LayananController::class);
@@ -94,12 +96,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     
     // FAQ routes
     Route::resource('faq', App\Http\Controllers\Admin\FaqController::class);
-    
+
+    // Pengetahuan routes
+    Route::resource('pengetahuan', App\Http\Controllers\Admin\PengetahuanController::class);
+
     // Sosial Media routes
     Route::resource('sosial', App\Http\Controllers\Admin\SosialMediaController::class);
-    
+
     // Konfigurasi (single profile) - gunakan resource minimal: index, store, update, show (optional)
     Route::resource('konfigurasi', App\Http\Controllers\Admin\ProfilePerusahaanController::class)
         ->only(['index','store','update','show'])
         ->parameters(['konfigurasi' => 'konfigurasi']);
+    
+    Route::get('pengetahuan/next-kode', [App\Http\Controllers\Admin\PengetahuanController::class, 'nextKode'])->name('admin.pengetahuan.nextKode');
 });

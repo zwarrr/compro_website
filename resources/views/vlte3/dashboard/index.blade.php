@@ -200,7 +200,7 @@
                 </div> --}}
 
                 <!-- Line Chart - Tren Data Berdasarkan Waktu -->
-                <div class="col-lg-10 col-md-12 mb-3">
+                <div class="col-lg-12 col-md-12 mb-3">
                     <div class="card h-100">
                         <div class="card-header">
                             <h3 class="card-title">
