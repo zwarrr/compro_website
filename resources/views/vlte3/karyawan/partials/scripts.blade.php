@@ -39,19 +39,30 @@ function showToast(message, type = 'success') {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // Isi kategori filter
+                    // Isi divisi filter
                     const kategoriSelect = document.getElementById('filterKategoriPosisi');
-                    kategoriSelect.innerHTML = '<option value=\"\">Semua Kategori</option>';
-                    data.kategoris.forEach(kat => {
-                        kategoriSelect.innerHTML +=
-                            `<option value=\"${kat.id_kategori}\">${kat.nama_kategori}</option>`;
-                    });
-                    kategoriSelect.onchange = function() {
-                        renderKaryawanCards(data.karyawans, this.value);
-                    };
+                    if (kategoriSelect) {
+                        kategoriSelect.innerHTML = '<option value=\"\">Semua Divisi</option>';
+                        // Handle baik divisis maupun kategoris (untuk compatibility)
+                        const divisis = data.divisis || data.kategoris || [];
+                        if (divisis && divisis.length > 0) {
+                            divisis.forEach(div => {
+                                kategoriSelect.innerHTML +=
+                                    `<option value=\"${div.id_kategori}\">${div.nama_kategori}</option>`;
+                            });
+                        }
+                        kategoriSelect.onchange = function() {
+                            renderKaryawanCards(data.karyawans, this.value);
+                        };
+                    }
                     // Render karyawan cards
-                    renderKaryawanCards(data.karyawans, kategoriSelect.value);
+                    if (kategoriSelect) {
+                        renderKaryawanCards(data.karyawans, kategoriSelect.value);
+                    }
                 }
+            })
+            .catch(error => {
+                console.error('Error loading posisi data:', error);
             });
     }
 
@@ -203,8 +214,8 @@ function showToast(message, type = 'success') {
                     $('#detail_kode_karyawan').text(k.kode_karyawan);
                     $('#detail_nik').text(k.nik);
                     $('#detail_nama').text(k.nama);
-                    $('#detail_staff').text(k.staff || '-');
                     $('#detail_kategori').text(k.kategori_nama || '-');
+                    $('#detail_staff').text(k.staff_nama || '-');
                     $('#detail_status').text(k.status);
                     $('#detail_deskripsi').text(k.deskripsi || '-');
                     if (k.foto) {
@@ -224,9 +235,9 @@ function showToast(message, type = 'success') {
                     const k = data.karyawan;
                     $('#edit_id').val(k.id_karyawan);
                     $('#edit_kategori_id').val(k.kategori_id);
+                    $('#edit_staff_id').val(k.staff_id);
                     $('#edit_nik').val(k.nik);
                     $('#edit_nama').val(k.nama);
-                    $('#edit_staff').val(k.staff);
                     $('#edit_status').val(k.status);
                     $('#edit_deskripsi').val(k.deskripsi);
                     $('#edit_foto').val('');

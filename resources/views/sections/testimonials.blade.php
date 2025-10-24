@@ -63,7 +63,7 @@
         </div>
         
         <!-- Testimonials Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 scroll-reveal">
             @forelse($testimonis as $testimoni)
             <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 scroll-reveal">
                 <div class="flex items-center mb-6">

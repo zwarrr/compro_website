@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id('id_kategori');
             $table->string('kode_kategori')->unique();
             $table->string('nama_kategori');
-            $table->enum('tipe', ['layanan', 'galeri', 'karyawan', 'client']);
+            $table->enum('tipe', ['layanan', 'galeri', 'karyawan', 'client', 'divisi']);
             $table->timestamps();
         });
     }

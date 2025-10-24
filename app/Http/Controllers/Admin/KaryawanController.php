@@ -17,7 +17,7 @@ class KaryawanController extends Controller
     public function posisiData()
     {
         // Ambil semua karyawan, urutkan: jika ada posisi pakai posisi ASC, jika null taruh di bawah (pakai id_karyawan ASC)
-        $karyawans = Karyawan::with('kategori')
+        $karyawans = Karyawan::with(['kategori', 'staffKategori'])
             ->orderByRaw('ISNULL(posisi), posisi ASC, id_karyawan ASC')
             ->get();
         $karyawans = $karyawans->map(function ($k) {
@@ -28,13 +28,17 @@ class KaryawanController extends Controller
                 'foto' => $k->foto,
                 'kategori_id' => $k->kategori_id,
                 'kategori_nama' => $k->kategori ? $k->kategori->nama_kategori : '-',
+                'staff_id' => $k->staff_id,
+                'staff_nama' => $k->staffKategori ? $k->staffKategori->nama_kategori : '-',
             ];
         });
-        $kategoris = Kategori::where('tipe', 'karyawan')->get();
+        $divisis = Kategori::where('tipe', 'divisi')->get();
+        $staffs = Kategori::where('tipe', 'karyawan')->get();
         return response()->json([
             'success' => true,
             'karyawans' => $karyawans,
-            'kategoris' => $kategoris,
+            'divisis' => $divisis,
+            'staffs' => $staffs,
         ]);
     }
 
@@ -71,7 +75,7 @@ class KaryawanController extends Controller
      */
     public function index(Request $request)
     {
-    $query = Karyawan::with('kategori');
+    $query = Karyawan::with(['kategori', 'staffKategori']);
 
         // Search functionality
         if ($request->has('search') && $request->search != '') {
@@ -113,9 +117,10 @@ class KaryawanController extends Controller
 
     // Pagination
     $karyawans = $query->paginate(10)->appends($request->except('page'));
-    $kategoris = Kategori::where('tipe', 'karyawan')->get();
+    $divisis = Kategori::where('tipe', 'divisi')->get();
+    $staffs = Kategori::where('tipe', 'karyawan')->get();
 
-    return view('vlte3.karyawan.index', compact('karyawans', 'kategoris', 'sort', 'direction'));
+    return view('vlte3.karyawan.index', compact('karyawans', 'divisis', 'staffs', 'sort', 'direction'));
     }
 
     /**
@@ -125,18 +130,19 @@ class KaryawanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'required|exists:kategori,id_kategori',
+            'staff_id' => 'required|exists:kategori,id_kategori',
             'nik' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
-            'staff' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // Maks 10MB
             'status' => 'required|in:aktif,nonaktif',
         ], [
-            'kategori_id.required' => 'Kategori harus dipilih',
-            'kategori_id.exists' => 'Kategori tidak valid',
+            'kategori_id.required' => 'Divisi harus dipilih',
+            'kategori_id.exists' => 'Divisi tidak valid',
+            'staff_id.required' => 'Staff harus dipilih',
+            'staff_id.exists' => 'Staff tidak valid',
             'nik.required' => 'NIK harus diisi',
             'nama.required' => 'Nama harus diisi',
-            'staff.required' => 'Staff harus diisi',
             'foto.image' => 'File harus berupa gambar',
             'foto.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'foto.max' => 'Ukuran foto maksimal 10MB',
@@ -154,9 +160,9 @@ class KaryawanController extends Controller
             $data = [
                 'kode_karyawan' => $this->generateKode(),
                 'kategori_id' => $request->kategori_id,
+                'staff_id' => $request->staff_id,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
-                'staff' => $request->staff,
                 'deskripsi' => $request->deskripsi,
                 'status' => $request->status,
             ];
@@ -197,13 +203,15 @@ class KaryawanController extends Controller
     public function show($id)
     {
         try {
-            $karyawan = Karyawan::with('kategori')->findOrFail($id);
+            $karyawan = Karyawan::with(['kategori', 'staffKategori'])->findOrFail($id);
 
             $karyawanData = [
                 'id_karyawan' => $karyawan->id_karyawan,
                 'kode_karyawan' => $karyawan->kode_karyawan,
                 'kategori_id' => $karyawan->kategori_id,
                 'kategori_nama' => $karyawan->kategori->nama_kategori ?? '-',
+                'staff_id' => $karyawan->staff_id,
+                'staff_nama' => $karyawan->staffKategori->nama_kategori ?? '-',
                 'nik' => $karyawan->nik,
                 'nama' => $karyawan->nama,
                 'deskripsi' => $karyawan->deskripsi,
@@ -254,9 +262,9 @@ class KaryawanController extends Controller
 
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'required|exists:kategori,id_kategori',
+            'staff_id' => 'required|exists:kategori,id_kategori',
             'nik' => 'required|string|max:50',
             'nama' => 'required|string|max:255',
-            'staff' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:aktif,nonaktif',
@@ -272,9 +280,9 @@ class KaryawanController extends Controller
         try {
             $data = [
                 'kategori_id' => $request->kategori_id,
+                'staff_id' => $request->staff_id,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
-                'staff' => $request->staff,
                 'deskripsi' => $request->deskripsi,
                 'status' => $request->status,
             ];

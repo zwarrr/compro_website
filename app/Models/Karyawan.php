@@ -15,9 +15,9 @@ class Karyawan extends Model
     protected $fillable = [
         'kode_karyawan',
         'kategori_id',
+        'staff_id',
         'nik',
         'nama',
-        'staff',
         'foto',
         'deskripsi',
         'status',
@@ -27,5 +27,10 @@ class Karyawan extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
+    }
+
+    public function staffKategori()
+    {
+        return $this->belongsTo(Kategori::class, 'staff_id', 'id_kategori');
     }
 }

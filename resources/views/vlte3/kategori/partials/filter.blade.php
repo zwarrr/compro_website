@@ -43,6 +43,8 @@
                                 <option value="layanan" {{ request('tipe') == 'layanan' ? 'selected' : '' }}>Layanan</option>
                                 <option value="galeri" {{ request('tipe') == 'galeri' ? 'selected' : '' }}>Galeri</option>
                                 <option value="karyawan" {{ request('tipe') == 'karyawan' ? 'selected' : '' }}>Karyawan</option>
+                                <option value="divisi" {{ request('tipe') == 'divisi' ? 'selected' : '' }}>Divisi</option>
+                                <option value="client" {{ request('tipe') == 'client' ? 'selected' : '' }}>Client</option>
                             </select>
                         </div>
                     </div>

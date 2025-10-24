@@ -16,8 +16,8 @@
                             <strong>Kode:</strong> <span id="detail_kode_karyawan"></span><br>
                             <strong>NIK:</strong> <span id="detail_nik"></span><br>
                             <strong>Nama:</strong> <span id="detail_nama"></span><br>
+                            <strong>Divisi:</strong> <span id="detail_kategori"></span><br>
                             <strong>Staff:</strong> <span id="detail_staff"></span><br>
-                            <strong>Kategori:</strong> <span id="detail_kategori"></span><br>
                             <strong>Status:</strong> <span id="detail_status"></span><br>
                         </div>
                         <div class="col-md-6 mb-3 text-center">
