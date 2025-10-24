@@ -2,6 +2,20 @@
 /* ============================================
    FITUR SECTION - Dedicated Styles
    ============================================ */
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
 .fitur-card {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -20,20 +34,6 @@
 
 .fitur-card.active {
     animation: slideInUp 0.6s ease-out;
-}
-
-/* Floating animation for image */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-.animate-float {
-    animation: float 6s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
@@ -70,7 +70,7 @@
         <!-- New Layout: Left Illustration + Right Features -->
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <!-- Left Side: Illustration -->
-            <div class="relative">
+            <div class="relative scroll-reveal">
                 <!-- Main illustration with floating animation -->
                 <div class="text-center">
                     <img src="{{ asset('img/featurs_yesorno.svg') }}"

@@ -54,6 +54,20 @@
            ANIMATIONS
            ============================================ */
         
+        /* Page Entrance Animation */
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        body.page-loaded {
+            animation: pageEnter 0.5s ease-out;
+        }
+        
         /* Scroll Reveal */
         .scroll-reveal { 
             opacity: 0; 
@@ -64,7 +78,6 @@
         .scroll-reveal.active { 
             opacity: 1; 
             transform: translateY(0); 
-            animation: slideInUp 0.8s ease-out;
         }
         
         @keyframes slideInUp {
@@ -313,60 +326,79 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Page fade-in animation
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
+            // Flag untuk mencegah duplikasi inisialisasi
+            if (window.landingPageInitialized) return;
+            window.landingPageInitialized = true;
             
-            // Scroll Reveal Animation
+            // Page fade-in animation dengan class
+            document.body.classList.add('page-loaded');
+            
+            // Scroll Reveal Animation dengan observer
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
             
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
+                        // Cegah duplikasi dengan mengecek class
+                        if (!entry.target.classList.contains('active')) {
                             entry.target.classList.add('active');
-                        }, index * 100);
+                            // Unobserve setelah animated untuk performa
+                            observer.unobserve(entry.target);
+                        }
                     }
                 });
             }, observerOptions);
             
-            document.querySelectorAll('.scroll-reveal').forEach(el => {
+            // Observe semua scroll-reveal elements
+            const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+            scrollRevealElements.forEach(el => {
                 observer.observe(el);
             });
             
-            // Scroll to Top Button
+            // Scroll to Top Button dengan smooth scroll
             const scrollTopBtn = document.createElement('button');
             scrollTopBtn.className = 'scroll-to-top';
             scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
+            scrollTopBtn.setAttribute('type', 'button');
             document.body.appendChild(scrollTopBtn);
             
+            // Show/hide scroll to top button dengan smooth transition
+            let scrollTimeout;
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 300) {
                     scrollTopBtn.classList.add('show');
                 } else {
                     scrollTopBtn.classList.remove('show');
                 }
-            });
+            }, { passive: true });
             
-            scrollTopBtn.addEventListener('click', () => {
+            // Click handler untuk scroll to top
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
             });
             
-            // Smooth scroll for anchor links
+            // Smooth scroll untuk anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
+                    const href = this.getAttribute('href');
+                    
+                    // Skip jika href hanya "#"
+                    if (href === '#' || href === '') return;
+                    
+                    const target = document.querySelector(href);
+                    
                     if (target) {
+                        e.preventDefault();
                         target.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'
@@ -374,7 +406,7 @@
                     }
                 });
             });
-        });
+        }, { once: true }); // Tambahkan { once: true } untuk memastikan hanya jalan satu kali
     </script>
 </body>
 </html>

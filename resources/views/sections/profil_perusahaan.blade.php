@@ -180,10 +180,14 @@
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Header -->
                 <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                        {{ $profile->nama_perusahaan ?? 'Profil Perusahaan' }} <span
-                            class="colored-text">{{ $profile->slogan ?? '' }}</span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+                        {{ $profile->nama_perusahaan ?? 'Profil Perusahaan' }}
                     </h1>
+                    @if($profile->slogan)
+                    <p class="text-2xl md:text-3xl font-semibold colored-text">
+                        {{ $profile->slogan }}
+                    </p>
+                    @endif
                 </div>
 
                 <!-- Main Content: Slider + Description -->
@@ -192,11 +196,22 @@
                     <div class="relative">
                         <div class="swiper company-swiper rounded-3xl overflow-hidden shadow-2xl">
                             <div class="swiper-wrapper">
-                                @foreach ($galeri as $item)
+                                @forelse ($galeri as $item)
                                     <div class="swiper-slide">
                                         <div class="aspect-w-4 aspect-h-3 relative">
-                                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}"
-                                                class="w-full h-80 object-cover">
+                                            @php
+                                                // Cek apakah gambar sudah memiliki path folder atau belum
+                                                $gambarPath = $item->gambar;
+                                                if ($gambarPath && !str_contains($gambarPath, '/')) {
+                                                    // Jika hanya nama file, tambahkan folder galeri/
+                                                    $gambarPath = 'galeri/' . $gambarPath;
+                                                }
+                                                $imagePath = $gambarPath ? asset('storage/' . $gambarPath) : asset('img/logo_tms.png');
+                                            @endphp
+                                            <img src="{{ $imagePath }}" 
+                                                 alt="{{ $item->judul }}"
+                                                 class="w-full h-80 object-cover"
+                                                 onerror="this.src='{{ asset('img/logo_tms.png') }}'">
                                             <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent">
                                             </div>
                                             <div class="absolute bottom-4 left-4 text-white">
@@ -205,7 +220,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <div class="swiper-slide">
+                                        <div class="aspect-w-4 aspect-h-3 relative">
+                                            <img src="https://placehold.co/300x300?text=no-image" 
+                                                 alt="Default Image"
+                                                 class="w-full h-80 object-cover">
+                                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent">
+                                            </div>
+                                            <div class="absolute bottom-4 left-4 text-white">
+                                                <h3 class="text-xl font-bold">Galeri Perusahaan</h3>
+                                                <p class="text-sm opacity-90">Belum ada foto tersedia</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforelse
                             </div>
                             <div class="swiper-pagination"></div>
                             <div class="swiper-button-next"></div>

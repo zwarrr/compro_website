@@ -14,12 +14,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            ['nama' => 'Admin', 'email' => 'admin@compro.com', 'password' => Hash::make('admin')],
-        ];
+        // Hapus semua user terlebih dahulu untuk memastikan fresh data
+        User::truncate();
 
-        foreach ($users as $user) {
-            User::create($user);
-        }
+        // Buat hanya 1 user admin
+        User::create([
+            'nama' => 'Admin',
+            'email' => 'admin@compro.com',
+            'password' => Hash::make('admin'), // Password: admin
+        ]);
+
+        $this->command->info('User seeder completed successfully!');
+        $this->command->info('Login credentials:');
+        $this->command->info('Email: admin@compro.com');
+        $this->command->info('Password: admin');
     }
 }

@@ -16,21 +16,40 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label for="create_kategori_id">Kategori <span class="text-danger">*</span></label>
+                                    <label for="create_kategori_id">Divisi <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-list"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
                                         <select class="form-control" id="create_kategori_id" name="kategori_id" required>
-                                            <option value="">Pilih Kategori</option>
-                                            @foreach ($kategoris as $kategori)
-                                                <option value="{{ $kategori->id_kategori }}">{{ $kategori->nama_kategori }}</option>
+                                            <option value="">Pilih Divisi</option>
+                                            @foreach ($divisis as $divisi)
+                                                <option value="{{ $divisi->id_kategori }}">{{ $divisi->nama_kategori }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="invalid-feedback hidden" id="error_create_kategori_id"></div>
                                 </div>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="create_staff_id">Staff <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                        </div>
+                                        <select class="form-control" id="create_staff_id" name="staff_id" required>
+                                            <option value="">Pilih Staff</option>
+                                            @foreach ($staffs as $staff)
+                                                <option value="{{ $staff->id_kategori }}">{{ $staff->nama_kategori }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback hidden" id="error_create_staff_id"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="create_nik">NIK <span class="text-danger">*</span></label>
@@ -55,18 +74,6 @@
                                         <input type="text" class="form-control" id="create_nama" name="nama" required>
                                     </div>
                                     <div class="invalid-feedback hidden" id="error_create_nama"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="create_staff">Staff <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="create_staff" name="staff" required>
-                                    </div>
-                                    <div class="invalid-feedback hidden" id="error_create_staff"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">

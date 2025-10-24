@@ -19,8 +19,8 @@
                             <th width="13%">Kode</th>
                             <th width="20%">Nama</th>
                             <th width="13%">NIK</th>
+                            <th width="13%">Divisi</th>
                             <th width="13%">Staff</th>
-                            <th width="13%">Kategori</th>
                             <th width="10%">Status</th>
                             <th width="12%">Aksi</th>
                         </tr>
@@ -39,8 +39,8 @@
                                 <td><span class="badge badge-secondary">{{ $karyawan->kode_karyawan }}</span></td>
                                 <td class="font-weight-bold">{{ $karyawan->nama }}</td>
                                 <td>{{ $karyawan->nik }}</td>
-                                <td>{{ $karyawan->staff }}</td>
                                 <td>{{ $karyawan->kategori->nama_kategori ?? '-' }}</td>
+                                <td>{{ $karyawan->staffKategori->nama_kategori ?? '-' }}</td>
                                 <td>
                                     @if ($karyawan->status == 'aktif')
                                         <span class="badge badge-success"><i class="fas fa-check"></i> Aktif</span>

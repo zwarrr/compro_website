@@ -1,3 +1,7 @@
+<style>
+    /* Hero section styles - animasi dihandle oleh landing page */
+</style>
+
 <!-- Hero Section -->
 <section id="beranda" class="pt-28 pb-20 bg-gradient-to-br from-gray-50 to-white min-h-screen flex items-center relative overflow-hidden">
        <!-- Background decoration -->
@@ -9,7 +13,7 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div class="grid md:grid-cols-2 gap-12 items-center min-h-[70vh]">
-            <div class="space-y-8 text-center md:text-left">
+            <div class="space-y-8 text-center md:text-left scroll-reveal">
 
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent">
                     PT. Technology Multi System
@@ -35,7 +39,7 @@
 
             </div>
 
-            <div class="relative flex items-center justify-center">
+            <div class="relative flex items-center justify-center scroll-reveal">
                 <!-- Logo with enhanced styling -->
                 <div>
                     <div class="animate-floating">
