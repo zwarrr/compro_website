@@ -4,11 +4,13 @@
         0%, 100% { opacity: 1; }
         40% { opacity: 1; }
         50% { opacity: 0; }
+        60% { opacity: 0; }
     }
     
     @keyframes fadeInOut2 {
         0%, 100% { opacity: 0; }
-        50% { opacity: 0; }
+        40% { opacity: 0; }
+        50% { opacity: 1; }
         60% { opacity: 1; }
     }
 

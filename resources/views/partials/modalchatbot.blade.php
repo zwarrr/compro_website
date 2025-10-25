@@ -371,8 +371,8 @@
 
       const newQuesBtn = document.createElement('button');
       newQuesBtn.className = 'flex-1 bg-gray-600 hover:bg-gray-700 text-white p-2 rounded-md text-xs font-medium transition';
-      newQuesBtn.innerHTML = '<i class="fas fa-plus mr-1"></i>Pertanyaan Baru';
-      newQuesBtn.addEventListener('click', resetChatCompletely);
+      newQuesBtn.innerHTML = '<i class="fas fa-plus mr-1"></i>Pertanyaan Lain';
+      newQuesBtn.addEventListener('click', newQuestionInSubCategory);
 
       wrapper.appendChild(researchBtn);
       wrapper.appendChild(newQuesBtn);
@@ -442,6 +442,27 @@
       loadCategories();
       
       scrollToBottom();
+    }
+
+    // New question dalam sub kategori yang sama (lanjut dengan sub kategori)
+    function newQuestionInSubCategory() {
+      const chatBox = document.getElementById('chatMessages');
+      const researchWrapper = document.getElementById('researchWrapper');
+      
+      if (researchWrapper) researchWrapper.remove();
+
+      // Add separator
+      const separator = document.createElement('div');
+      separator.className = 'border-t border-gray-300 my-3';
+      chatBox.appendChild(separator);
+
+      // Add new greeting
+      const newGreeting = document.createElement('div');
+      newGreeting.className = 'bg-white border border-gray-300 p-2 rounded-md text-xs';
+      newGreeting.innerHTML = '<i class="fas fa-arrow-right text-gray-600 mr-2"></i><strong>Pilih sub kategori pertanyaan:</strong>';
+      chatBox.appendChild(newGreeting);
+
+      renderSubCategories();
     }
 
     // Auto show welcome message dan categories on load
