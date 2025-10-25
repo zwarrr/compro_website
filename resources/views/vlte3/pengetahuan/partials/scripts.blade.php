@@ -97,7 +97,7 @@ async function submitCreate(event) {
     const submitBtn = form.querySelector('button[type="submit"]');
     const formData = new FormData(form);
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+    submitBtn.innerHTd
     clearErrors('create');
     try {
         const response = await fetch(`{{ route('admin.pengetahuan.store') }}`, {

@@ -1,22 +1,20 @@
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="max-width: 800px; margin: auto;">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">
-                    <i class="fas fa-plus mr-2"></i>Tambah Karyawan
-                </h5>
+                <h5 class="modal-title">Tambah Karyawan</h5>
                 <button type="button" class="close" data-dismiss="modal" onclick="closeCreateModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createKaryawanForm" onsubmit="submitCreate(event)" style="width:100%;">
+            <form id="createKaryawanForm" onsubmit="submitCreate(event)">
                 @csrf
                 <div class="modal-body">
-                    <div class="container-fluid px-2">
+                    <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label for="create_kategori_id">Divisi <span class="text-danger">*</span></label>
+                                    <label>Divisi <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
@@ -33,7 +31,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label for="create_staff_id">Staff <span class="text-danger">*</span></label>
+                                    <label>Staff <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
@@ -49,36 +47,38 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label for="create_nik">NIK <span class="text-danger">*</span></label>
+                                    <label>NIK <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="create_nik" name="nik" required>
+                                        <input type="text" class="form-control" id="create_nik" name="nik" required placeholder="Masukkan NIK">
                                     </div>
                                     <div class="invalid-feedback hidden" id="error_create_nik"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label for="create_nama">Nama <span class="text-danger">*</span></label>
+                                    <label>Nama <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="create_nama" name="nama" required>
+                                        <input type="text" class="form-control" id="create_nama" name="nama" required placeholder="Masukkan nama lengkap">
                                     </div>
                                     <div class="invalid-feedback hidden" id="error_create_nama"></div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label for="create_status">Status <span class="text-danger">*</span></label>
+                                    <label>Status <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
@@ -91,47 +91,47 @@
                                     <div class="invalid-feedback hidden" id="error_create_status"></div>
                                 </div>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label>Foto</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                        </div>
+                                        <input type="file" class="form-control" id="create_foto" name="foto" accept="image/*" onchange="previewCreateImage(event)">
+                                    </div>
+                                    <div class="invalid-feedback hidden" id="error_create_foto"></div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="text-center">
+                                    <img id="preview-create-img" src="#" alt="Preview" class="img-fluid rounded shadow-sm d-none" style="max-height: 200px; max-width: 100%; object-fit: contain;" />
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label for="create_deskripsi">Deskripsi</label>
+                                    <label>Deskripsi</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-align-left"></i></span>
                                         </div>
-                                        <textarea class="form-control" id="create_deskripsi" name="deskripsi" rows="2"></textarea>
+                                        <textarea class="form-control" id="create_deskripsi" name="deskripsi" rows="3" placeholder="Masukkan deskripsi karyawan"></textarea>
                                     </div>
                                     <div class="invalid-feedback hidden" id="error_create_deskripsi"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group">
-                                    <label for="create_foto">Foto</label>
-                                    <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                        </div>
-                                        <input type="file" class="form-control-file" id="create_foto" name="foto" accept="image/*" onchange="previewCreateImage(event)">
-                                    </div>
-                                    <div class="text-center mb-2">
-                                        <img id="preview-create-img" src="#" alt="Preview" class="img-fluid rounded shadow-sm d-none" style="max-height: 180px; max-width: 100%; object-fit: contain;" />
-                                    </div>
-                                    <div class="invalid-feedback hidden" id="error_create_foto"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeCreateModal()">
-                        <i class="fas fa-times"></i> Batal
-                    </button>
-                    <button type="submit" class="btn btn-primary" id="createSubmitBtn">
-                        <i class="fas fa-save"></i> Simpan
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeCreateModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="createSubmitBtn">Simpan</button>
                 </div>
             </form>
             <script>

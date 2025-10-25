@@ -45,10 +45,11 @@
 <style>
 .karyawan-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px 18px;
   min-height: 120px;
   margin-bottom: 10px;
+  transition: grid-template-columns 0.2s;
 }
 .karyawan-card-grid {
   background: #fff;
@@ -59,17 +60,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: grab;
+  cursor: pointer;
   position: relative;
-  transition: box-shadow 0.25s, transform 0.18s;
-  will-change: box-shadow, transform;
+  transition: box-shadow 0.25s, transform 0.18s, background 0.18s;
+  will-change: box-shadow, transform, background;
   min-height: 180px;
   overflow: hidden;
+  outline: none;
 }
 .karyawan-card-grid:active, .karyawan-card-grid.dragging {
   box-shadow: 0 8px 32px rgba(44,62,80,0.18), 0 2px 8px rgba(44,62,80,0.10);
   transform: scale(1.03) rotate(-1deg);
   z-index: 2;
+}
+.karyawan-card-grid.selected {
+  background: linear-gradient(90deg,#e3e8f0 60%,#f8fafc 100%);
+  box-shadow: 0 8px 32px rgba(44,62,80,0.18), 0 2px 8px rgba(44,62,80,0.10);
+  outline: 2.5px solid #2d7be5;
+  transform: scale(1.04);
+  z-index: 3;
 }
 .karyawan-card-grid.animate-card {
   animation: fadeInCard 0.45s cubic-bezier(.4,1.4,.6,1) both;
