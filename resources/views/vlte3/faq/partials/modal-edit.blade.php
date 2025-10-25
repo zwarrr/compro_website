@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit mr-2"></i>Edit FAQ</h5>
+                <h5 class="modal-title">Edit FAQ</h5>
                 <button type="button" class="close" data-dismiss="modal" onclick="closeEditModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,28 +12,39 @@
                 <input type="hidden" id="edit_id" name="id">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="edit_pertanyaan">Pertanyaan <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="edit_pertanyaan" name="pertanyaan" required>
+                        <label>Pertanyaan <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="edit_pertanyaan" name="pertanyaan" required placeholder="Masukkan pertanyaan">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_jawaban">Jawaban <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="edit_jawaban" name="jawaban" rows="3" required></textarea>
+                        <label>Jawaban <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
+                            </div>
+                            <textarea class="form-control" id="edit_jawaban" name="jawaban" rows="3" required placeholder="Masukkan jawaban"></textarea>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_status">Status <span class="text-danger">*</span></label>
-                        <select class="form-control" id="edit_status" name="status" required>
-                            <option value="aktif">Aktif</option>
-                            <option value="nonaktif">Nonaktif</option>
-                        </select>
+                        <label>Status <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+                            </div>
+                            <select class="form-control" id="edit_status" name="status" required>
+                                <option value="publik">Publish</option>
+                                <option value="draft">Draft</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeEditModal()">
-                        <i class="fas fa-times"></i> Batal
-                    </button>
-                    <button type="submit" class="btn btn-primary" id="editSubmitBtn">
-                        <i class="fas fa-save"></i> Simpan
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeEditModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="editSubmitBtn">Simpan</button>
                 </div>
             </form>
         </div>

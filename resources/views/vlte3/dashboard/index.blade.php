@@ -252,10 +252,10 @@
                                 <canvas id="distributionChart"></canvas>
                                 <div id="chart-loading" class="d-none">
                                     <div class="text-center">
-                                        <div class="spinner-border text-primary mb-3" role="status">
+                                        {{-- <div class="spinner-border text-primary mb-3" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
-                                        <p class="text-muted">Memuat data...</p>
+                                        <p class="text-muted">Memuat data...</p> --}}
                                     </div>
                                 </div>
                             </div>

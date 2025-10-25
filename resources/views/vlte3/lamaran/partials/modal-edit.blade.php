@@ -16,24 +16,44 @@
                     <input type="hidden" id="edit_lamaran_id" name="id">
                     <div class="form-group">
                         <label>Kode Lamaran</label>
-                        <input type="text" id="edit_kode_lamaran" class="form-control" disabled>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-code"></i></span>
+                            </div>
+                            <input type="text" id="edit_kode_lamaran" class="form-control bg-light" disabled>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Nama Lengkap</label>
-                        <input type="text" id="edit_nama_lengkap" class="form-control" disabled>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" id="edit_nama_lengkap" class="form-control bg-light" disabled>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" id="edit_email" class="form-control" disabled>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <input type="text" id="edit_email" class="form-control bg-light" disabled>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select id="edit_status" name="status" class="form-control">
-                            <option value="Diajukan">Diajukan</option>
-                            <option value="Dikirim">Dikirim</option>
-                            <option value="Diterima">Diterima</option>
-                            <option value="Ditolak">Ditolak</option>
-                        </select>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                            </div>
+                            <select id="edit_status" name="status" class="form-control">
+                                <option value="Diajukan">Diajukan</option>
+                                <option value="Dikirim">Dikirim</option>
+                                <option value="Diterima">Diterima</option>
+                                <option value="Ditolak">Ditolak</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

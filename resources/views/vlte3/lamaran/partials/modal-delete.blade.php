@@ -8,7 +8,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p id="deleteLamaranText">Apakah Anda yakin ingin menghapus lamaran ini?</p>
+                <div class="text-center mb-3">
+                    <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                    <h6 class="font-weight-bold">Konfirmasi Penghapusan</h6>
+                </div>
+                <p class="text-center" id="deleteLamaranText">Apakah Anda yakin ingin menghapus lamaran ini?</p>
+                <div class="alert alert-warning mt-3" role="alert">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <strong>Peringatan:</strong> Data yang dihapus tidak dapat dikembalikan!
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

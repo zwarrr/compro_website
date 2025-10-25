@@ -10,48 +10,97 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label class="text-muted d-block">Kode Profile</label>
-            <p id="detail_kode_profile">-</p>
+            <label><i class="fas fa-code mr-2"></i>Kode Profile</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-code"></i></span>
+              </div>
+              <p class="form-control bg-light mb-0" id="detail_kode_profile">-</p>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label class="text-muted d-block">Nama Perusahaan</label>
-            <p id="detail_nama_perusahaan">-</p>
-          </div>
-          <div class="col-md-12 mb-3">
-            <label class="text-muted d-block">Slogan</label>
-            <p id="detail_slogan">-</p>
+            <label><i class="fas fa-building mr-2"></i>Nama Perusahaan</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-building"></i></span>
+              </div>
+              <p class="form-control bg-light mb-0" id="detail_nama_perusahaan">-</p>
+            </div>
           </div>
 
           <div class="col-md-12 mb-3">
-            <label class="text-muted d-block">Deskripsi</label>
-            <p id="detail_deskripsi" class="whitespace-pre-line">-</p>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label class="text-muted d-block">Visi</label>
-            <p id="detail_visi">-</p>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="text-muted d-block">Misi</label>
-            <p id="detail_misi">-</p>
+            <label><i class="fas fa-quote-left mr-2"></i>Slogan</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-quote-left"></i></span>
+              </div>
+              <p class="form-control bg-light mb-0" id="detail_slogan">-</p>
+            </div>
           </div>
 
           <div class="col-md-12 mb-3">
-            <label class="text-muted d-block">Alamat</label>
-            <p id="detail_alamat" class="whitespace-pre-line">-</p>
+            <label><i class="fas fa-align-left mr-2"></i>Deskripsi</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+              </div>
+              <textarea class="form-control bg-light mb-0" id="detail_deskripsi" rows="4" readonly>-</textarea>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label><i class="fas fa-bullseye mr-2"></i>Visi</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-bullseye"></i></span>
+              </div>
+              <textarea class="form-control bg-light mb-0" id="detail_visi" rows="3" readonly>-</textarea>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label class="text-muted d-block">Telepon</label>
-            <p id="detail_telepon">-</p>
+            <label><i class="fas fa-tasks mr-2"></i>Misi</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-tasks"></i></span>
+              </div>
+              <textarea class="form-control bg-light mb-0" id="detail_misi" rows="3" readonly>-</textarea>
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label><i class="fas fa-map-marker-alt mr-2"></i>Alamat</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+              </div>
+              <textarea class="form-control bg-light mb-0" id="detail_alamat" rows="3" readonly>-</textarea>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label><i class="fas fa-phone mr-2"></i>Telepon</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+              </div>
+              <p class="form-control bg-light mb-0" id="detail_telepon">-</p>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label class="text-muted d-block">Email</label>
-            <p id="detail_email">-</p>
+            <label><i class="fas fa-envelope mr-2"></i>Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              </div>
+              <p class="form-control bg-light mb-0" id="detail_email">-</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <i class="fas fa-times mr-1"></i> Tutup
+        </button>
       </div>
     </div>
   </div>

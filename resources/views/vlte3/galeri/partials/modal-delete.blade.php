@@ -10,17 +10,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus galeri <strong id="delete_galeri_name"></strong>?</p>
-                <p class="text-danger">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Data yang dihapus tidak dapat dikembalikan!
-                </p>
+                <div class="text-center mb-3">
+                    <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                    <h6 class="font-weight-bold">Konfirmasi Penghapusan</h6>
+                </div>
+                <p class="text-center">Apakah Anda yakin ingin menghapus galeri <strong id="delete_galeri_name"></strong>?</p>
+                <div class="alert alert-warning mt-3" role="alert">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <strong>Peringatan:</strong> Data yang dihapus tidak dapat dikembalikan!
+                </div>
                 <input type="hidden" id="delete_galeri_id">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeDeleteModal()">Batal</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeDeleteModal()">
+                    <i class="fas fa-times mr-1"></i> Batal
+                </button>
                 <button type="button" class="btn btn-danger" id="deleteSubmitBtn" onclick="submitDelete(event)">
-                    <i class="fas fa-trash"></i> Hapus
+                    <i class="fas fa-trash mr-1"></i> Hapus
                 </button>
             </div>
         </div>

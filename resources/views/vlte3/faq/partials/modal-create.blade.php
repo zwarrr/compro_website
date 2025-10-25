@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-plus mr-2"></i>Tambah FAQ</h5>
+                <h5 class="modal-title">Tambah FAQ</h5>
                 <button type="button" class="close" data-dismiss="modal" onclick="closeCreateModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,28 +11,39 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="create_pertanyaan">Pertanyaan <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="create_pertanyaan" name="pertanyaan" required>
+                        <label>Pertanyaan <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-question-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="create_pertanyaan" name="pertanyaan" required placeholder="Masukkan pertanyaan">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="create_jawaban">Jawaban <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="create_jawaban" name="jawaban" rows="3" required></textarea>
+                        <label>Jawaban <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-comment-dots"></i></span>
+                            </div>
+                            <textarea class="form-control" id="create_jawaban" name="jawaban" rows="3" required placeholder="Masukkan jawaban"></textarea>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="create_status">Status <span class="text-danger">*</span></label>
-                        <select class="form-control" id="create_status" name="status" required>
-                            <option value="publik">Publish</option>
-                            <option value="draft">Draft</option>
-                        </select>
+                        <label>Status <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+                            </div>
+                            <select class="form-control" id="create_status" name="status" required>
+                                <option value="publik">Publish</option>
+                                <option value="draft">Draft</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeCreateModal()">
-                        <i class="fas fa-times"></i> Batal
-                    </button>
-                    <button type="submit" class="btn btn-primary" id="createSubmitBtn">
-                        <i class="fas fa-save"></i> Simpan
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeCreateModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="createSubmitBtn">Simpan</button>
                 </div>
             </form>
         </div>

@@ -99,48 +99,57 @@ function showToast(message, type = 'success') {
             document.querySelectorAll('.karyawan-card-grid').forEach(card => {
                 card.classList.add('animate-card');
             });
+            enableCardNavigation();
         }, 10);
         enableDragDrop();
     }
 
-    // Drag & Drop logic
-    function enableDragDrop() {
-        let dragSrc = null;
-        const cards = document.querySelectorAll('.karyawan-card-grid');
-        cards.forEach(card => {
-            card.addEventListener('dragstart', function(e) {
-                dragSrc = this;
-                e.dataTransfer.effectAllowed = 'move';
-                this.classList.add('dragging');
-            });
-            card.addEventListener('dragend', function() {
-                this.classList.remove('dragging');
-            });
-            card.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                e.dataTransfer.dropEffect = 'move';
-                this.classList.add('drag-over');
-            });
-            card.addEventListener('dragleave', function(e) {
-                this.classList.remove('drag-over');
-            });
-            card.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.classList.remove('drag-over');
-                if (dragSrc && dragSrc !== this) {
-                    // Insert before or after depending on mouse position
-                    const rect = this.getBoundingClientRect();
-                    const offset = e.clientY - rect.top;
-                    if (offset < rect.height / 2) {
-                        this.parentNode.insertBefore(dragSrc, this);
-                    } else {
-                        this.parentNode.insertBefore(dragSrc, this.nextSibling);
-                    }
-                }
-            });
+    // Card selection and keyboard navigation for posisi modal
+    function enableCardNavigation() {
+        const grid = document.getElementById('posisiKaryawanList');
+        let cards = Array.from(grid.querySelectorAll('.karyawan-card-grid'));
+        let selectedIdx = -1;
+        function selectCard(idx) {
+            cards.forEach(card => card.classList.remove('selected'));
+            if (idx >= 0 && idx < cards.length) {
+                cards[idx].classList.add('selected');
+                cards[idx].focus();
+                selectedIdx = idx;
+            }
+        }
+        function moveCard(fromIdx, toIdx) {
+            if (fromIdx === toIdx || toIdx < 0 || toIdx >= cards.length) return;
+            const card = cards[fromIdx];
+            if (toIdx > fromIdx) {
+                grid.insertBefore(card, cards[toIdx].nextSibling);
+            } else {
+                grid.insertBefore(card, cards[toIdx]);
+            }
+            // Re-query cards after move
+            cards = Array.from(grid.querySelectorAll('.karyawan-card-grid'));
+            selectCard(toIdx);
+        }
+        cards.forEach((card, idx) => {
+            card.setAttribute('tabindex', '0');
+            card.onclick = function() {
+                selectCard(idx);
+            };
         });
+        grid.onkeydown = function(e) {
+            if (selectedIdx === -1) return;
+            let nextIdx = selectedIdx;
+            if (e.key === 'ArrowRight') nextIdx = Math.min(cards.length - 1, selectedIdx + 1);
+            if (e.key === 'ArrowLeft') nextIdx = Math.max(0, selectedIdx - 1);
+            if (e.key === 'ArrowDown') nextIdx = Math.min(cards.length - 1, selectedIdx + 4);
+            if (e.key === 'ArrowUp') nextIdx = Math.max(0, selectedIdx - 4);
+            if (nextIdx !== selectedIdx) {
+                moveCard(selectedIdx, nextIdx);
+                cards[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        };
+        // Initial select first card
+        if (cards.length > 0) selectCard(0);
     }
-
     // Simpan posisi karyawan
     document.getElementById('btnSimpanPosisiKaryawan').onclick = function() {
         const ids = Array.from(document.querySelectorAll('#posisiKaryawanList .karyawan-card-grid')).map(

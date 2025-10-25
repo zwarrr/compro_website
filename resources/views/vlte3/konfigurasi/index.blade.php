@@ -28,9 +28,9 @@
                 </div>
                 <div class="col-auto">
                     @if(isset($profile))
-                        <button class="btn btn-sm btn-danger" onclick="openEditProfileModal()"><i class="fas fa-edit mr-1"></i> Edit Profil</button>
+                        <button class="btn btn-sm btn-primary" onclick="openEditProfileModal()"><i class="fas fa-edit mr-1"></i> Edit Profil</button>
                     @else
-                        <button class="btn btn-sm btn-danger" onclick="openCreateProfileModal()"><i class="fas fa-plus mr-1"></i> Buat Profil</button>
+                        <button class="btn btn-sm btn-primary" onclick="openCreateProfileModal()"><i class="fas fa-plus mr-1"></i> Buat Profil</button>
                     @endif
                 </div>
             </div>
@@ -47,7 +47,7 @@
                             <h5 class="mb-2">Profil Perusahaan Belum Dibuat</h5>
                             <p class="text-muted">Mulai dengan membuat profil perusahaan untuk menampilkan informasi lengkap di website Anda</p>
                             <div class="mt-3">
-                                <button class="btn btn-danger" onclick="openCreateProfileModal()"><i class="fas fa-plus mr-1"></i> Buat Profil Sekarang</button>
+                                <button class="btn btn-primary" onclick="openCreateProfileModal()"><i class="fas fa-plus mr-1"></i> Buat Profil Sekarang</button>
                             </div>
                         </div>
                     </div>
@@ -55,8 +55,8 @@
                     <div class="row align-items-stretch">
                         <div class="col-lg-3 d-flex mb-3">
                             <div class="card w-100 h-100">
-                                <div class="card-header bg-danger text-white d-flex align-items-center">
-                                    <span class="bg-white text-danger rounded-circle mr-2 p-2" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;">
+                                <div class="card-header bg-primary text-white d-flex align-items-center">
+                                    <span class="bg-white text-primary rounded-circle mr-2 p-2" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;">
                                         <i class="fas fa-building"></i>
                                     </span>
                                     <h3 class="card-title mb-0">Informasi Umum</h3>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="mt-auto text-right">
                                         <button class="btn btn-sm btn-secondary" onclick="openDetailProfileModal()"><i class="fas fa-eye mr-1"></i> Detail</button>
-                                        <button class="btn btn-sm btn-danger" onclick="openEditProfileModal()"><i class="fas fa-edit mr-1"></i> Edit</button>
+                                        <button class="btn btn-sm btn-primary" onclick="openEditProfileModal()"><i class="fas fa-edit mr-1"></i> Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
 
                         <div class="col-lg-6 d-flex mb-3">
                             <div class="card w-100 h-100">
-                                <div class="card-header bg-danger text-white d-flex align-items-center">
-                                    <span class="bg-white text-danger rounded-circle mr-2 p-2" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;">
+                                <div class="card-header bg-primary text-white d-flex align-items-center">
+                                    <span class="bg-white text-primary rounded-circle mr-2 p-2" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;">
                                         <i class="fas fa-file-alt"></i>
                                     </span>
                                     <h3 class="card-title mb-0">Konten Perusahaan</h3>
@@ -106,8 +106,8 @@
 
                         <div class="col-lg-3 d-flex mb-3">
                             <div class="card w-100 h-100">
-                                <div class="card-header bg-danger text-white d-flex align-items-center">
-                                    <span class="bg-white text-danger rounded-circle mr-2 p-2" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;">
+                                <div class="card-header bg-primary text-white d-flex align-items-center">
+                                    <span class="bg-white text-primary rounded-circle mr-2 p-2" style="width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;">
                                         <i class="fas fa-address-book"></i>
                                     </span>
                                     <h3 class="card-title mb-0">Kontak & Alamat</h3>
