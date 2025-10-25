@@ -23,11 +23,7 @@
     <section class="content">
         <div class="container-fluid">
             @include('vlte3.pengetahuan.partials.filter')
-            <div class="card mt-3">
-                <div class="card-body">
-                    @include('vlte3.pengetahuan.partials.table')
-                </div>
-            </div>
+            @include('vlte3.pengetahuan.partials.table')
         </div>
     </section>
 

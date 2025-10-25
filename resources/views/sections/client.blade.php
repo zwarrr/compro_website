@@ -11,8 +11,42 @@
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .client-card:hover {
-        transform: translateY(-12px) scale(1.02);
+    /* Hover hanya berfungsi ketika card ada di tengah (swiper-center-card) */
+    .swiper-center-card {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .swiper-center-card:hover {
+        /* Hapus transform dari card itu sendiri */
+    }
+
+    /* Hover effect HANYA pada icon button untuk center card */
+    .swiper-center-card .center-card-button:hover {
+        background-color: #dc2626 !important;
+        transform: scale(1.1);
+    }
+
+    /* Hover effect pada shadow icon - hanya untuk center card */
+    .swiper-center-card:hover [data-card-shadow] {
+        box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Hover effect HANYA pada detail link text untuk center card */
+    .swiper-center-card [data-detail-link]:hover {
+        color: #dc2626 !important;
+    }
+
+    .swiper-center-card [data-detail-link]:hover i {
+        transform: translateX(4px);
+    }
+
+    /* Side card - tidak ada hover effect */
+    .swiper-side-card {
+        cursor: not-allowed;
+    }
+
+    .swiper-side-card:hover {
+        /* No hover effect untuk side cards */
     }
 
     .client-swiper {
@@ -23,6 +57,8 @@
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+        width: 100%;
+        margin: 0 auto;
     }
 
     /* Force hardware acceleration for smooth animations */
@@ -89,45 +125,65 @@
         pointer-events: none;
     }
 
+    /* MOBILE & TABLET - TAMPILKAN SEMUA SLIDE (TIDAK HIDE) */
+    @media (max-width: 768px) {
+        .client-swiper .swiper-slide:not(.swiper-slide-prev):not(.swiper-slide-active):not(.swiper-slide-next) {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+    }
+
     /* Responsif slide width - DESKTOP PRIORITAS */
 
-    /* Mobile - 480px ke bawah */
-    @media (max-width: 480px) {
+    /* Mobile - 320px ke bawah - UKURAN MINI */
+    @media (max-width: 320px) {
+        .client-card {
+            width: 270px;
+            height: 370px;
+        }
+
         .client-swiper .swiper-slide {
-            width: 300px !important;
+            width: 270px !important;
+        }
+
+        .client-swiper {
+            padding: 15px 0 50px;
+        }
+    }
+
+    /* Mobile - 321px sampai 480px - UKURAN SMALL */
+    @media (min-width: 321px) and (max-width: 480px) {
+        .client-card {
+            width: 290px;
+            height: 390px;
+        }
+
+        .client-swiper .swiper-slide {
+            width: 290px !important;
+        }
+
+        .client-swiper {
+            padding: 15px 0 50px;
+        }
+    }
+
+    /* Tablet - 481px sampai 768px - TAMPILKAN 2 CARDS */
+    @media (min-width: 481px) and (max-width: 768px) {
+        .client-swiper .swiper-slide {
+            width: 320px !important;
         }
 
         .client-card {
-            width: 300px;
+            width: 320px;
+            height: 420px;
         }
 
-        /* Gradient overlay mobile */
-        .absolute.left-0 {
-            width: 15px !important;
-        }
-
-        .absolute.right-0 {
-            width: 15px !important;
+        .client-swiper {
+            padding: 25px 0 70px;
         }
     }
 
-    /* Tablet - 481px sampai 768px */
-    @media (min-width: 481px) and (max-width: 768px) {
-        .client-swiper .swiper-slide {
-            width: 340px !important;
-        }
-
-        /* Gradient overlay tablet */
-        .absolute.left-0 {
-            width: 20px !important;
-        }
-
-        .absolute.right-0 {
-            width: 20px !important;
-        }
-    }
-
-    /* Desktop - 769px ke atas - FOKUS UTAMA */
+    /* Desktop - 769px ke atas - TAMPILKAN 3 CARDS (TETAP SAMA) */
     @media (min-width: 769px) {
         .client-swiper .swiper-slide {
             width: 380px !important;
@@ -135,6 +191,7 @@
 
         .client-card {
             width: 380px;
+            height: 450px;
         }
 
         /* Pastikan center effect berfungsi di desktop */
@@ -144,15 +201,6 @@
 
         .client-swiper .swiper-slide .swiper-center-card {
             transform: scale(1.05) !important;
-        }
-
-        /* Gradient overlay desktop */
-        .absolute.left-0 {
-            width: 32px !important;
-        }
-
-        .absolute.right-0 {
-            width: 32px !important;
         }
     }
 
@@ -205,49 +253,18 @@
 
             <div class="swiper client-swiper">
                 <div class="swiper-wrapper">
-                    @php
-                        $gradients = [
-                            'from-rose-500 to-pink-600',
-                            'from-blue-500 to-indigo-600',
-                            'from-green-500 to-emerald-600',
-                            'from-purple-500 to-indigo-600',
-                            'from-pink-500 to-rose-600',
-                            'from-orange-500 to-red-600',
-                        ];
-                        $icons = [
-                            'fa-handshake',
-                            'fa-cash-register',
-                            'fa-credit-card',
-                            'fa-mobile-alt',
-                            'fa-piggy-bank',
-                            'fa-city',
-                        ];
-                        $colorSchemes = [
-                            ['bg' => 'rose', 'text' => 'rose'],
-                            ['bg' => 'blue', 'text' => 'blue'],
-                            ['bg' => 'green', 'text' => 'green'],
-                            ['bg' => 'purple', 'text' => 'purple'],
-                            ['bg' => 'pink', 'text' => 'pink'],
-                            ['bg' => 'orange', 'text' => 'orange'],
-                        ];
-                    @endphp
-
                     @forelse($layanans as $index => $layanan)
                         @php
-                            $gradient = $gradients[$index % count($gradients)];
-                            $colorScheme = $colorSchemes[$index % count($colorSchemes)];
                             $gambarPath = $layanan->gambar
                                 ? asset('storage/' . $layanan->gambar)
                                 : asset('images/placeholder-layanan.jpg');
                         @endphp
                         <div class="swiper-slide">
                             <div class="client-card group {{ $layanan->link ? 'cursor-pointer' : 'cursor-default' }}"
-                                data-client="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}"
-                                @if($layanan->link)
-                                    onclick="window.open('{{ $layanan->link }}', '_blank')"
-                                @endif>
+                                data-client="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}">
                                 <div
-                                    class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col">
+                                    class="bg-white rounded-3xl shadow-xl transition-all duration-500 overflow-hidden h-full flex flex-col"
+                                    data-card-shadow>
                                     <!-- Visual Header with Background Image -->
                                     <div
                                         class="h-40 relative overflow-hidden flex items-center justify-center bg-gray-200">
@@ -255,27 +272,27 @@
                                         @php
                                             $backgroundPath = $layanan->background
                                                 ? asset('storage/' . $layanan->background)
-                                                : null;
+                                                : asset('img/mentahan_bg_client.svg');
                                         @endphp
-                                        @if ($backgroundPath)
-                                            <div class="absolute inset-0">
-                                                <img src="{{ $backgroundPath }}" alt="Background {{ $layanan->judul }}"
-                                                    class="w-full h-full object-cover" style="object-fit:cover;">
-                                                <div class="absolute inset-0 bg-black bg-opacity-10"></div>
-                                            </div>
-                                        @else
-                                            <div class="absolute inset-0 bg-gray-300"></div>
-                                        @endif
+                                        <div class="absolute inset-0">
+                                            <img src="{{ $backgroundPath }}" alt="Background {{ $layanan->judul }}"
+                                                class="w-full h-full object-cover" style="object-fit:cover; filter: blur(1.5px);">
+                                            <div class="absolute inset-0 bg-black bg-opacity-15"></div>
+                                            <!-- Info Teks Ukuran - DINONAKTIFKAN (UNCOMMENT UNTUK MENGAKTIFKAN) -->
+                                            {{-- <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] px-2 py-1 rounded-md font-semibold">
+                                                {{ $layanan->judul }}
+                                            </div> --}}
+                                        </div>
 
-                                        <!-- Icon di atas background -->
+                                        <!-- Icon di atas background dengan Glass Effect -->
                                         <div class="relative z-10">
                                             @if ($layanan->gambar)
                                                 <img src="{{ $gambarPath }}" alt="{{ $layanan->judul }}"
-                                                    class="w-24 h-24 object-cover rounded-[20px] group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                                                    class="w-24 h-24 object-cover rounded-[20px] transition-transform duration-500 shadow-lg backdrop-blur-2xl border border-white border-opacity-30 bg-white bg-opacity-20">
                                             @else
                                                 <div
-                                                    class="w-24 h-24 bg-white rounded-[20px] flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                                                    <i class="fas fa-image text-gray-400 text-3xl"></i>
+                                                    class="w-24 h-24 bg-white bg-opacity-20 rounded-[20px] flex items-center justify-center transition-transform duration-500 shadow-lg backdrop-blur-2xl border border-white border-opacity-30">
+                                                    <i class="fas fa-image text-white text-3xl opacity-50"></i>
                                                 </div>
                                             @endif
                                         </div>
@@ -292,13 +309,14 @@
                                                    target="_blank" 
                                                    rel="noopener noreferrer"
                                                    onclick="event.stopPropagation()"
-                                                   class="w-10 h-10 bg-black bg-opacity-10 hover:bg-red-600 hover:bg-opacity-100 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 transition-all duration-300 group"
-                                                   title="Buka Link">
-                                                    <i class="fas fa-external-link-alt text-black group-hover:text-white text-sm transition-colors duration-300"></i>
+                                                   class="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 transition-all duration-300 group center-card-button"
+                                                   title="Buka Link"
+                                                   data-link-button>
+                                                    <i class="fas fa-external-link-alt text-white text-sm transition-all duration-300"></i>
                                                 </a>
                                             @else
-                                                <div class="w-10 h-10 bg-black bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 opacity-50 cursor-not-allowed">
-                                                    <i class="fas fa-external-link-alt text-black text-sm"></i>
+                                                <div class="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 opacity-50 cursor-not-allowed">
+                                                    <i class="fas fa-external-link-alt text-white text-sm"></i>
                                                 </div>
                                             @endif
                                         </div>
@@ -325,9 +343,10 @@
                                                    target="_blank" 
                                                    rel="noopener noreferrer"
                                                    onclick="event.stopPropagation()"
-                                                   class="client-detail-btn flex items-center gap-2 text-black hover:text-red-600 font-semibold text-sm transition-all duration-300 group">
+                                                   class="client-detail-btn flex items-center gap-2 text-black font-semibold text-sm transition-all duration-300 detail-link-button"
+                                                   data-detail-link>
                                                     Lihat Detail
-                                                    <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                                                    <i class="fas fa-arrow-right text-[10px] transition-transform duration-300"></i>
                                                 </a>
                                             @else
                                                 <button
@@ -406,17 +425,17 @@
                 breakpoints: {
                     320: {
                         slidesPerView: 3,
+                        spaceBetween: 10,
+                        centeredSlides: true
+                    },
+                    481: {
+                        slidesPerView: 2,
                         spaceBetween: 15,
                         centeredSlides: true
                     },
-                    480: {
+                    769: {
                         slidesPerView: 3,
-                        spaceBetween: 20,
-                        centeredSlides: true
-                    },
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 25,
+                        spaceBetween: 30,
                         centeredSlides: true
                     },
                     1024: {
@@ -480,9 +499,41 @@
                     if (index === activeIndex) {
                         card.classList.add('swiper-center-card');
                         slide.style.zIndex = '5';
+                        
+                        // Enable button untuk center card
+                        const linkButton = card.querySelector('[data-link-button]');
+                        if (linkButton) {
+                            linkButton.style.pointerEvents = 'auto';
+                            linkButton.style.opacity = '1';
+                            linkButton.style.cursor = 'pointer';
+                        }
+
+                        // Enable detail link untuk center card
+                        const detailLink = card.querySelector('[data-detail-link]');
+                        if (detailLink) {
+                            detailLink.style.pointerEvents = 'auto';
+                            detailLink.style.opacity = '1';
+                            detailLink.style.cursor = 'pointer';
+                        }
                     } else {
                         card.classList.add('swiper-side-card');
                         slide.style.zIndex = '1';
+                        
+                        // Disable button untuk side card
+                        const linkButton = card.querySelector('[data-link-button]');
+                        if (linkButton) {
+                            linkButton.style.pointerEvents = 'none';
+                            linkButton.style.opacity = '0.5';
+                            linkButton.style.cursor = 'not-allowed';
+                        }
+
+                        // Disable detail link untuk side card
+                        const detailLink = card.querySelector('[data-detail-link]');
+                        if (detailLink) {
+                            detailLink.style.pointerEvents = 'none';
+                            detailLink.style.opacity = '0.5';
+                            detailLink.style.cursor = 'not-allowed';
+                        }
                     }
                 });
             }
