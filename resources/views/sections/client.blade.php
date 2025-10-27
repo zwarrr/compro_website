@@ -236,13 +236,23 @@
                 <i class="fas fa-briefcase"></i>
                 CLIENT KAMI
             </div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                Client Unggulan Kami
-            </h2>
-            <p class="text-gray-600 text-xl max-w-3xl mx-auto">
-                Bergabunglah dengan ribuan perusahaan yang telah merasakan transformasi bisnis bersama solusi teknologi
-                kami
-            </p>
+            @if (isset($client) && $client)
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+                    {{$client->judul}}
+                </h2>
+                <p class="text-gray-600 text-xl max-w-3xl mx-auto">
+                    {{$client->sub_judul}}
+                </p>
+            @else
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+                    Client Unggulan Kami
+                </h2>
+                <p class="text-gray-600 text-xl max-w-3xl mx-auto">
+                    Bergabunglah dengan ribuan perusahaan yang telah merasakan transformasi bisnis bersama solusi
+                    teknologi
+                    kami
+                </p>
+            @endif
         </div>
 
         <!-- Client Swiper Slider -->
@@ -262,8 +272,7 @@
                         <div class="swiper-slide">
                             <div class="client-card group {{ $layanan->link ? 'cursor-pointer' : 'cursor-default' }}"
                                 data-client="{{ strtolower(str_replace(' ', '-', $layanan->judul)) }}">
-                                <div
-                                    class="bg-white rounded-3xl shadow-xl transition-all duration-500 overflow-hidden h-full flex flex-col"
+                                <div class="bg-white rounded-3xl shadow-xl transition-all duration-500 overflow-hidden h-full flex flex-col"
                                     data-card-shadow>
                                     <!-- Visual Header with Background Image -->
                                     <div
@@ -276,7 +285,8 @@
                                         @endphp
                                         <div class="absolute inset-0">
                                             <img src="{{ $backgroundPath }}" alt="Background {{ $layanan->judul }}"
-                                                class="w-full h-full object-cover" style="object-fit:cover; filter: blur(1.5px);">
+                                                class="w-full h-full object-cover"
+                                                style="object-fit:cover; filter: blur(1.5px);">
                                             <div class="absolute inset-0 bg-black bg-opacity-15"></div>
                                             <!-- Info Teks Ukuran - DINONAKTIFKAN (UNCOMMENT UNTUK MENGAKTIFKAN) -->
                                             {{-- <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-[10px] px-2 py-1 rounded-md font-semibold">
@@ -304,18 +314,17 @@
                                         <div class="flex items-center justify-between mb-4">
                                             <h3 class="text-lg font-bold text-gray-900 truncate">
                                                 {{ strtoupper($layanan->judul) }}</h3>
-                                            @if($layanan->link)
-                                                <a href="{{ $layanan->link }}" 
-                                                   target="_blank" 
-                                                   rel="noopener noreferrer"
-                                                   onclick="event.stopPropagation()"
-                                                   class="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 transition-all duration-300 group center-card-button"
-                                                   title="Buka Link"
-                                                   data-link-button>
-                                                    <i class="fas fa-external-link-alt text-white text-sm transition-all duration-300"></i>
+                                            @if ($layanan->link)
+                                                <a href="{{ $layanan->link }}" target="_blank" rel="noopener noreferrer"
+                                                    onclick="event.stopPropagation()"
+                                                    class="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 transition-all duration-300 group center-card-button"
+                                                    title="Buka Link" data-link-button>
+                                                    <i
+                                                        class="fas fa-external-link-alt text-white text-sm transition-all duration-300"></i>
                                                 </a>
                                             @else
-                                                <div class="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 opacity-50 cursor-not-allowed">
+                                                <div
+                                                    class="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 ml-2 opacity-50 cursor-not-allowed">
                                                     <i class="fas fa-external-link-alt text-white text-sm"></i>
                                                 </div>
                                             @endif
@@ -338,19 +347,17 @@
 
                                         <!-- Link Button -->
                                         <div class="flex justify-end">
-                                            @if($layanan->link)
-                                                <a href="{{ $layanan->link }}" 
-                                                   target="_blank" 
-                                                   rel="noopener noreferrer"
-                                                   onclick="event.stopPropagation()"
-                                                   class="client-detail-btn flex items-center gap-2 text-black font-semibold text-sm transition-all duration-300 detail-link-button"
-                                                   data-detail-link>
+                                            @if ($layanan->link)
+                                                <a href="{{ $layanan->link }}" target="_blank"
+                                                    rel="noopener noreferrer" onclick="event.stopPropagation()"
+                                                    class="client-detail-btn flex items-center gap-2 text-black font-semibold text-sm transition-all duration-300 detail-link-button"
+                                                    data-detail-link>
                                                     Lihat Detail
-                                                    <i class="fas fa-arrow-right text-[10px] transition-transform duration-300"></i>
+                                                    <i
+                                                        class="fas fa-arrow-right text-[10px] transition-transform duration-300"></i>
                                                 </a>
                                             @else
-                                                <button
-                                                    disabled
+                                                <button disabled
                                                     class="client-detail-btn flex items-center gap-2 text-gray-400 font-semibold text-sm cursor-not-allowed opacity-50">
                                                     Lihat Detail
                                                     <i class="fas fa-arrow-right text-[10px]"></i>
@@ -499,7 +506,7 @@
                     if (index === activeIndex) {
                         card.classList.add('swiper-center-card');
                         slide.style.zIndex = '5';
-                        
+
                         // Enable button untuk center card
                         const linkButton = card.querySelector('[data-link-button]');
                         if (linkButton) {
@@ -518,7 +525,7 @@
                     } else {
                         card.classList.add('swiper-side-card');
                         slide.style.zIndex = '1';
-                        
+
                         // Disable button untuk side card
                         const linkButton = card.querySelector('[data-link-button]');
                         if (linkButton) {

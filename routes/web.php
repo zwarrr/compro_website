@@ -46,9 +46,10 @@ Route::get('/loker', [LokerController::class, 'index'])->name('loker');
 // Submit lamaran
 Route::post('/loker/lamar', [LokerController::class, 'store'])->name('loker.lamar');
 
-Route::get('/hubungi-kami', function () {
-    return view('sections.hubungi_kami');
-})->name('hubungi-kami');
+Route::get('/hubungi-kami', [KontakController::class, 'index'])->name('hubungi-kami');
+// Route::get('/hubungi-kami', function () {
+//     return view('sections.hubungi_kami');
+// })->name('hubungi-kami');
 
 // Contact form submission
 Route::post('/hubungi-kami', [KontakController::class, 'store'])->name('hubungi-kami.store');
@@ -88,6 +89,14 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('testimoni', App\Http\Controllers\Admin\TestimoniController::class);
     Route::resource('client', App\Http\Controllers\Admin\ClientController::class);
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
+    // Ilustrasi CRUD
+    Route::resource('ilustrasi', App\Http\Controllers\Admin\IlustrasiController::class);
+
+    // Page CRUD
+    Route::resource('page', App\Http\Controllers\Admin\PageController::class);
+
+    // Features CRUD
+    Route::resource('features', App\Http\Controllers\Admin\FeaturesController::class);
     
     // Pesan/Kontak routes
     Route::resource('pesan', App\Http\Controllers\Admin\KontakController::class);
@@ -109,4 +118,5 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->parameters(['konfigurasi' => 'konfigurasi']);
     
     Route::get('pengetahuan/next-kode', [App\Http\Controllers\Admin\PengetahuanController::class, 'nextKode'])->name('admin.pengetahuan.nextKode');
+
 });
