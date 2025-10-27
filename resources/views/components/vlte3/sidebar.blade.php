@@ -67,6 +67,30 @@
                     </a>
                 </li> --}}
 
+                <!-- Ilustrasi -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.ilustrasi.index') }}" class="nav-link {{ $currentRoute == 'admin.ilustrasi.index' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-image"></i>
+                        <p>Ilustrasi</p>
+                    </a>
+                </li>
+
+                <!-- Page -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.page.index') }}" class="nav-link {{ $currentRoute == 'admin.page.index' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>Page</p>
+                    </a>
+                </li>
+
+                <!-- Features -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.features.index') }}" class="nav-link {{ $currentRoute == 'admin.features.index' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-star"></i>
+                        <p>Features</p>
+                    </a>
+                </li>
+
                 <!-- Company Profile -->
                 <li class="nav-item">
                     <a href="{{ route('admin.konfigurasi.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.konfigurasi') ? 'active' : '' }}">

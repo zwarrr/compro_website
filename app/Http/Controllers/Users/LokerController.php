@@ -17,8 +17,12 @@ class LokerController extends Controller
         $lokers = Loker::where('status', 'aktif')
             ->orderBy('created_at', 'desc')
             ->get();
-        
-        return view('sections.loker', compact('lokers'));
+
+        // untuk loker sections
+        $kode = 'loker'; // ganti sesuai kebutuhan
+        $loker = \App\Models\Page::where('digunakan_untuk', $kode)->where('status', 'public')->first();
+
+        return view('sections.loker', compact('lokers','loker'));
     }
 
     public function store(Request $request)
@@ -84,7 +88,6 @@ class LokerController extends Controller
                 'success' => true,
                 'message' => 'Lamaran berhasil dikirim!'
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

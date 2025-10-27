@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team - Technology Multi System</title>
-    <meta name="description" content="Tim ahli Technology Multi System yang berdedikasi memberikan solusi teknologi terbaik">
-    
+    <meta name="description"
+        content="Tim ahli Technology Multi System yang berdedikasi memberikan solusi teknologi terbaik">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_tms.png') }}">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -36,80 +39,93 @@
             }
         }
     </script>
-    
+
     <!-- Custom Styles -->
     <style>
         * {
             box-sizing: border-box;
         }
-        
+
         html {
             overflow-x: hidden;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
         }
-        
+
         html::-webkit-scrollbar {
-            display: none; /* Safari and Chrome */
+            display: none;
+            /* Safari and Chrome */
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             width: 100%;
             max-width: 100vw;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
         }
-        
+
         body::-webkit-scrollbar {
-            display: none; /* Safari and Chrome */
+            display: none;
+            /* Safari and Chrome */
         }
-        
+
         /* Hide all scrollbars */
         *::-webkit-scrollbar {
             display: none;
         }
-        
+
         * {
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
-        
+
         .smooth-transition {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
-        
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
-        
+
         .bg-pattern {
             background-image: radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0);
             background-size: 40px 40px;
         }
-        
+
         .colored-text {
             color: #FD0103;
         }
-        
+
         /* Scroll animations */
         .scroll-animate {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease-out;
         }
-        
+
         .scroll-animate.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         /* Wave melengkung halus - MEMOTONG FOTO DI BAWAH */
         .custom-wave {
             position: absolute;
@@ -120,12 +136,14 @@
             line-height: 0;
             z-index: 30;
         }
+
         .custom-wave svg {
             position: relative;
             display: block;
             width: calc(100% + 1.3px);
             height: 75px;
         }
+
         .custom-wave path {
             fill: #ffffff;
             stroke: none;
@@ -148,19 +166,21 @@
             flex-direction: column;
             height: auto;
         }
-        
+
         .team-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
             border: none !important;
             outline: none !important;
         }
-        
-        .team-card *, .team-card *:hover, .team-card *:focus {
+
+        .team-card *,
+        .team-card *:hover,
+        .team-card *:focus {
             border: none !important;
             outline: none !important;
         }
-        
+
         .team-card-header {
             position: relative;
             height: 260px;
@@ -169,7 +189,7 @@
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
         }
-        
+
         .team-card-header::before {
             content: '';
             position: absolute;
@@ -177,12 +197,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('{{ asset("img/team_cards/bg_cards.png") }}') center/cover;
+            background: url('{{ asset('img/team_cards/bg_cards.png') }}') center/cover;
             opacity: 0.3;
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
         }
-        
+
         .team-avatar {
             position: absolute;
             top: -120px;
@@ -191,12 +211,12 @@
             z-index: 20;
             overflow: visible;
         }
-        
+
         .team-card:hover .team-avatar {
             transform: translateX(-50%) scale(1.02);
             transition: all 0.4s ease;
         }
-        
+
         .team-member-photo {
             height: 380px;
             width: auto;
@@ -205,7 +225,7 @@
             object-position: top;
             border-radius: 24px;
         }
-        
+
         .team-info-box {
             padding: 0 20px 28px;
             text-align: center;
@@ -216,7 +236,7 @@
             align-items: center;
             flex-grow: 1;
         }
-        
+
         .name-title {
             font-size: 14px;
             font-weight: 900;
@@ -235,7 +255,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        
+
         .job-title {
             color: #4b5563;
             font-size: 12px;
@@ -251,7 +271,7 @@
             overflow: hidden;
             min-height: 28px;
         }
-        
+
         .nik-number {
             color: #9ca3af;
             font-size: 11px;
@@ -262,7 +282,7 @@
             line-height: 1.2;
             min-height: 16px;
         }
-        
+
         .description-text {
             color: #4b5563;
             font-size: 12px;
@@ -275,7 +295,7 @@
             display: block;
             overflow: visible;
         }
-        
+
         /* Scroll to top button */
         .scroll-to-top {
             position: fixed;
@@ -298,13 +318,13 @@
             border: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .scroll-to-top.show {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
-        
+
         .scroll-to-top:hover {
             background: linear-gradient(135deg, #B80000, #ff0000ff);
             transform: translateY(-2px);
@@ -313,28 +333,51 @@
 
         /* Container Image Animations */
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
         }
+
         @keyframes float-small {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-3px, 4px); }
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-3px, 4px);
+            }
         }
 
         .animate-float {
             animation: float 5s ease-in-out infinite;
         }
+
         .animate-float-small {
             animation: float-small 4s ease-in-out infinite;
         }
 
         @keyframes bounce-gentle {
-            0%, 20%, 50%, 80%, 100% {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translateY(0);
             }
+
             40% {
                 transform: translateY(-4px);
             }
+
             60% {
                 transform: translateY(-2px);
             }
@@ -344,9 +387,11 @@
             0% {
                 box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
             }
+
             70% {
                 box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
             }
@@ -357,11 +402,14 @@
         }
 
         @keyframes label-glow-pulse {
-            0%, 100% { 
+
+            0%,
+            100% {
                 transform: scale(1) translateY(0px);
                 box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
             }
-            50% { 
+
+            50% {
                 transform: scale(1.05) translateY(-8px);
                 box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 25px rgba(239, 68, 68, 0.15);
             }
@@ -371,15 +419,19 @@
             0% {
                 left: -100%;
             }
+
             100% {
                 left: 100%;
             }
         }
 
         @keyframes cardBounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1) translateY(0px);
             }
+
             50% {
                 transform: scale(1.05) translateY(-6px);
             }
@@ -403,31 +455,55 @@
         }
 
         @keyframes card-deep-glow {
-            0%, 100% { 
-                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12), 
-                            0 0 30px rgba(59, 130, 246, 0.05),
-                            0 0 60px rgba(239, 68, 68, 0.03);
+
+            0%,
+            100% {
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12),
+                    0 0 30px rgba(59, 130, 246, 0.05),
+                    0 0 60px rgba(239, 68, 68, 0.03);
             }
-            50% { 
-                box-shadow: 0 35px 80px rgba(0, 0, 0, 0.2), 
-                            0 0 50px rgba(59, 130, 246, 0.1),
-                            0 0 100px rgba(239, 68, 68, 0.08);
+
+            50% {
+                box-shadow: 0 35px 80px rgba(0, 0, 0, 0.2),
+                    0 0 50px rgba(59, 130, 246, 0.1),
+                    0 0 100px rgba(239, 68, 68, 0.08);
             }
         }
 
         @keyframes layer-depth {
-            0%, 100% { filter: brightness(1) saturate(1); }
-            50% { filter: brightness(1.1) saturate(1.05); }
+
+            0%,
+            100% {
+                filter: brightness(1) saturate(1);
+            }
+
+            50% {
+                filter: brightness(1.1) saturate(1.05);
+            }
         }
 
         @keyframes container-subtle-scale {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.01); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.01);
+            }
         }
 
         @keyframes glow-soft {
-            0%, 100% { box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); }
-            50% { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); }
+
+            0%,
+            100% {
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            }
+
+            50% {
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+            }
         }
 
         .soft-shadow {
@@ -438,19 +514,34 @@
             transform: rotate(-8deg) translate(-30px, 40px);
             animation: layer-float 6s ease-in-out infinite, layer-depth 8s ease-in-out infinite;
         }
+
         .blue-layer {
             transform: rotate(8deg) translate(30px, -30px);
             animation: layer-float-blue 7s ease-in-out infinite, layer-depth 9s ease-in-out infinite reverse;
         }
 
         @keyframes layer-float {
-            0%, 100% { transform: rotate(-8deg) translate(-30px, 40px); }
-            50% { transform: rotate(-8deg) translate(-30px, 35px); }
+
+            0%,
+            100% {
+                transform: rotate(-8deg) translate(-30px, 40px);
+            }
+
+            50% {
+                transform: rotate(-8deg) translate(-30px, 35px);
+            }
         }
 
         @keyframes layer-float-blue {
-            0%, 100% { transform: rotate(8deg) translate(30px, -30px); }
-            50% { transform: rotate(8deg) translate(30px, -35px); }
+
+            0%,
+            100% {
+                transform: rotate(8deg) translate(30px, -30px);
+            }
+
+            50% {
+                transform: rotate(8deg) translate(30px, -35px);
+            }
         }
 
         .soft-shadow {
@@ -462,7 +553,7 @@
 <body class="bg-gray-50">
     <!-- Include Header -->
     @include('partials.header')
-    
+
     <!-- Main Content -->
     <main>
         <!-- Section 1: Hero/Header Section -->
@@ -474,66 +565,103 @@
                 <div class="absolute bottom-20 right-10 w-24 h-24 bg-blue-300 rounded-full animate-bounce"></div>
                 <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-green-300 rounded-full animate-ping"></div>
             </div>
-            
+
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                 <!-- Header Section - Centered -->
                 <div class="scroll-animate">
                     <!-- Content Section with Grid Layout -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-4 overflow-visible">
+                    <div
+                        class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-4 overflow-visible">
                         <!-- Left Content -->
                         <div class="text-left">
-                            <!-- Title -->
-                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                                Tim <span class="colored-text">Profesional</span> Kami
-                            </h1>
-                            
-                            <!-- Description -->
-                            <p class="text-gray-600 text-base md:text-lg leading-relaxed">
-                                Bertemu dengan tim ahli yang berdedikasi untuk memberikan solusi teknologi terbaik bagi bisnis Anda. Setiap anggota tim memiliki keahlian khusus dalam bidangnya masing-masing.
-                            </p>
-                            
-                            <!-- Buttons -->
-                            <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                                <a href="#team-cards" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 text-center">
-                                    Lihat Tim
-                                </a>
-                                <a href="{{ route('hubungi-kami') }}" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-center">
-                                    Bergabung 
-                                </a>
-                            </div>
+                            @if (isset($team) && $team)
+                                <!-- Title -->
+                                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                                    Tim <span class="colored-text">Profesional</span> Kami
+                                </h1>
+                                <!-- Description -->
+                                <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                                    {{$team->deskripsi}}
+                                </p>
+
+                                <!-- Buttons -->
+                                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                                    <a href="#team-cards"
+                                        class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 text-center">
+                                        Lihat Tim
+                                    </a>
+                                    <a href="{{ route('hubungi-kami') }}"
+                                        class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-center">
+                                        Bergabung
+                                    </a>
+                                </div>
+                            @else
+                                <!-- Title -->
+                                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                                    Tim <span class="colored-text">Profesional</span> Kami
+                                </h1>
+
+                                <!-- Description -->
+                                <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                                    Bertemu dengan tim ahli yang berdedikasi untuk memberikan solusi teknologi terbaik
+                                    bagi bisnis Anda. Setiap anggota tim memiliki keahlian khusus dalam bidangnya
+                                    masing-masing.
+                                </p>
+
+                                <!-- Buttons -->
+                                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                                    <a href="#team-cards"
+                                        class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 text-center">
+                                        Lihat Tim
+                                    </a>
+                                    <a href="{{ route('hubungi-kami') }}"
+                                        class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-center">
+                                        Bergabung
+                                    </a>
+                                </div>
+                            @endif
                         </div>
-                        
+
                         <!-- Right Image - TMS Container Layout -->
                         <div class="flex justify-center lg:justify-end items-center overflow-visible">
                             <!-- Container utama -->
                             <div class="relative w-64 md:w-80 lg:w-96 animate-float">
 
                                 <!-- Layer belakang merah -->
-                                <div class="absolute inset-0 rounded-2xl red-layer z-0 bg-gradient-to-br from-red-500 to-red-700"></div>
+                                <div
+                                    class="absolute inset-0 rounded-2xl red-layer z-0 bg-gradient-to-br from-red-500 to-red-700">
+                                </div>
 
                                 <!-- Layer belakang biru -->
-                                <div class="absolute inset-0 rounded-2xl blue-layer z-0 bg-gradient-to-br from-blue-500 to-blue-900"></div>
+                                <div
+                                    class="absolute inset-0 rounded-2xl blue-layer z-0 bg-gradient-to-br from-blue-500 to-blue-900">
+                                </div>
 
                                 <!-- Kartu putih -->
                                 <div class="relative bg-white rounded-2xl overflow-hidden soft-shadow z-10">
-                                    <div class="w-[full] h-80 md:h-96 lg:h-[420px] flex items-center justify-center bg-white overflow-hidden">
-                                        <img src="{{ asset('img/team_cards/full_team.png') }}" 
-                                             alt="Tim Kami" 
-                                             class="w-[700] h-auto object-contain object-bottom translate-y-10 translate-x-3 scale-[1.15]"
-                                             onerror="this.style.display='none'">
+                                    <div
+                                        class="w-[full] h-80 md:h-96 lg:h-[420px] flex items-center justify-center bg-white overflow-hidden">
+                                        <img src="{{ asset('img/team_cards/full_team.png') }}" alt="Tim Kami"
+                                            class="w-[700] h-auto object-contain object-bottom translate-y-10 translate-x-3 scale-[1.15]"
+                                            onerror="this.style.display='none'">
                                     </div>
                                 </div>
 
                                 <!-- Label melayang di luar kartu -->
-                                <div class="absolute top-2 -left-28 bg-white rounded-2xl px-4 py-3 shadow-2xl z-20 border border-gray-100 pulse-subtle" style="box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12)">
+                                <div class="absolute top-2 -left-28 bg-white rounded-2xl px-4 py-3 shadow-2xl z-20 border border-gray-100 pulse-subtle"
+                                    style="box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12)">
                                     <div class="flex items-center gap-2 relative z-10">
-                                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600"
+                                                viewBox="0 0 24 24" fill="currentColor">
+                                                <path
+                                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-xs font-semibold text-red-600 tracking-wide text-center">Solution For</p>
+                                            <p class="text-xs font-semibold text-red-600 tracking-wide text-center">
+                                                Solution For</p>
                                             <p class="text-xs font-bold text-gray-900">Your Technology</p>
                                         </div>
                                     </div>
@@ -553,56 +681,57 @@
                 <div class="absolute bottom-20 right-10 w-24 h-24 bg-blue-300 rounded-full animate-bounce"></div>
                 <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-green-300 rounded-full animate-ping"></div>
             </div>
-            
+
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden w-full">
                 <!-- Team Cards Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 w-full">
                     @forelse($karyawans as $karyawan)
-                    <!-- Team Member Card -->
-                    <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
-                        <div class="team-card-header">
-                            <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
-                            
-                            <!-- FOTO PROFIL -->
-                            <div class="team-avatar">
-                                @if($karyawan->foto)
-                                    <img src="{{ asset('storage/karyawan/' . $karyawan->foto) }}" 
-                                         alt="{{ $karyawan->nama }}" 
-                                         class="team-member-photo"
-                                         onerror="this.style.display='none'">
-                                @else
-                                    <img src="{{ asset('img/team_cards/no_photo.png') }}" 
-                                         alt="{{ $karyawan->nama }}" 
-                                         class="team-member-photo"
-                                         onerror="this.style.display='none'">
-                                @endif
+                        <!-- Team Member Card -->
+                        <div class="team-card shadow-xl hover:shadow-2xl scroll-animate" style="margin-top: 120px;">
+                            <div class="team-card-header">
+                                <img src="{{ asset('img/team_cards/bg_cards.png') }}" alt="Background"
+                                    class="absolute inset-0 w-full h-full object-cover opacity-30 rounded-t-3xl">
+
+                                <!-- FOTO PROFIL -->
+                                <div class="team-avatar">
+                                    @if ($karyawan->foto)
+                                        <img src="{{ asset('storage/karyawan/' . $karyawan->foto) }}"
+                                            alt="{{ $karyawan->nama }}" class="team-member-photo"
+                                            onerror="this.style.display='none'">
+                                    @else
+                                        <img src="{{ asset('img/team_cards/no_photo.png') }}"
+                                            alt="{{ $karyawan->nama }}" class="team-member-photo"
+                                            onerror="this.style.display='none'">
+                                    @endif
+                                </div>
+
+                                <!-- Wave putih MEMOTONG foto di bawah -->
+                                <div class="custom-wave">
+                                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                        <path
+                                            d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z">
+                                        </path>
+                                    </svg>
+                                </div>
                             </div>
 
-                            <!-- Wave putih MEMOTONG foto di bawah -->
-                            <div class="custom-wave">
-                                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                                    <path d="M0,50 C300,110 500,20 600,60 C700,100 900,20 1200,60 L1200,120 L0,120 Z"></path>
-                                </svg>
+                            <!-- Konten bawah putih -->
+                            <div class="team-info-box">
+                                <h3 class="name-title">{{ strtoupper($karyawan->nama) }}</h3>
+                                <p class="job-title">{{ $karyawan->staffKategori->nama_kategori ?? '-' }}</p>
+                                <p class="nik-number">NIK : {{ $karyawan->nik }}</p>
+                                <p class="description-text">
+                                    "{{ $karyawan->deskripsi ?? 'Tim profesional yang siap memberikan solusi terbaik.' }}"
+                                </p>
                             </div>
                         </div>
-                        
-                        <!-- Konten bawah putih -->
-                        <div class="team-info-box">
-                            <h3 class="name-title">{{ strtoupper($karyawan->nama) }}</h3>
-                            <p class="job-title">{{ $karyawan->staffKategori->nama_kategori ?? '-' }}</p>
-                            <p class="nik-number">NIK : {{ $karyawan->nik }}</p>
-                            <p class="description-text">
-                                "{{ $karyawan->deskripsi ?? 'Tim profesional yang siap memberikan solusi terbaik.' }}"
-                            </p>
-                        </div>
-                    </div>
                     @empty
-                    <div class="col-span-full text-center py-12">
-                        <p class="text-gray-500 text-lg">Tidak ada data karyawan yang ditampilkan.</p>
-                    </div>
+                        <div class="col-span-full text-center py-12">
+                            <p class="text-gray-500 text-lg">Tidak ada data karyawan yang ditampilkan.</p>
+                        </div>
                     @endforelse
-                    </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -614,7 +743,7 @@
                 <div class="absolute bottom-20 right-10 w-24 h-24 bg-blue-300 rounded-full animate-bounce"></div>
                 <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-green-300 rounded-full animate-ping"></div>
             </div>
-            
+
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden w-full">
                 <!-- CTA Section -->
                 <div class="text-center scroll-animate">
@@ -625,11 +754,13 @@
                         Kami selalu mencari talenta terbaik untuk bergabung dalam misi mengembangkan teknologi
                     </p>
                     <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                        <a href="{{ route('hubungi-kami') }}" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-lg">
+                        <a href="{{ route('hubungi-kami') }}"
+                            class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-lg">
                             <i class="fas fa-users mr-2"></i>
                             Bergabung dengan Kami
                         </a>
-                        <a href="https://member.tms.web.id/" class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-lg">
+                        <a href="https://member.tms.web.id/"
+                            class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-red-300 transition-all duration-300 text-lg">
                             <i class="fas fa-briefcase mr-2"></i>
                             Lihat Lowongan
                         </a>
@@ -637,9 +768,9 @@
                 </div>
             </div>
         </section>
-    </main>    <!-- Include Footer -->
+    </main> <!-- Include Footer -->
     @include('partials.footer')
-    
+
     <!-- Scripts -->
     <script>
         // Intersection Observer for animations
@@ -662,14 +793,14 @@
             document.querySelectorAll('.scroll-animate').forEach(el => {
                 observer.observe(el);
             });
-            
+
             // Scroll to Top Button
             const scrollTopBtn = document.createElement('button');
             scrollTopBtn.className = 'scroll-to-top';
             scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
             document.body.appendChild(scrollTopBtn);
-            
+
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 300) {
                     scrollTopBtn.classList.add('show');
@@ -677,7 +808,7 @@
                     scrollTopBtn.classList.remove('show');
                 }
             });
-            
+
             scrollTopBtn.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
@@ -697,4 +828,5 @@
         });
     </script>
 </body>
+
 </html>

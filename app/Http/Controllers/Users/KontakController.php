@@ -10,6 +10,15 @@ use Illuminate\Support\Str;
 
 class KontakController extends Controller
 {
+    public function index()
+    {
+
+        // untuk loker sections
+        $kode = 'kontak'; // ganti sesuai kebutuhan
+        $kontak = \App\Models\Page::where('digunakan_untuk', $kode)->where('status', 'public')->first();
+
+        return view('sections.hubungi_kami', compact('kontak'));
+    }
     /**
      * Store a newly created contact message
      */

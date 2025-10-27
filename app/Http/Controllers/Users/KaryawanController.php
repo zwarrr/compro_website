@@ -18,7 +18,12 @@ class KaryawanController extends Controller
             ->where('status', 'aktif')
             ->orderByRaw('CASE WHEN posisi IS NULL THEN 1 ELSE 0 END, posisi ASC, id_karyawan ASC')
             ->get();
-        return view('sections.team', compact('karyawans'));
+
+        // untuk team sections
+        $kode = 'team'; // ganti sesuai kebutuhan
+        $team = \App\Models\Page::where('digunakan_untuk', $kode)->where('status', 'public')->first();
+
+        return view('sections.team', compact('karyawans','team'));
     }
 
     /**
@@ -31,10 +36,10 @@ class KaryawanController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%{$search}%")
-                  ->orWhere('kode_karyawan', 'like', "%{$search}%")
-                  ->orWhere('nik', 'like', "%{$search}%");
+                    ->orWhere('kode_karyawan', 'like', "%{$search}%")
+                    ->orWhere('nik', 'like', "%{$search}%");
             });
         }
 
@@ -61,7 +66,7 @@ class KaryawanController extends Controller
     {
         try {
             $karyawan = Karyawan::with('kategori')->findOrFail($id);
-            
+
             $karyawanData = [
                 'id_karyawan' => $karyawan->id_karyawan,
                 'kode_karyawan' => $karyawan->kode_karyawan,
@@ -76,7 +81,7 @@ class KaryawanController extends Controller
                 'created_at_formatted' => $karyawan->created_at ? $karyawan->created_at->format('d M Y H:i') : '-',
                 'updated_at_formatted' => $karyawan->updated_at ? $karyawan->updated_at->format('d M Y H:i') : '-',
             ];
-            
+
             return response()->json([
                 'success' => true,
                 'karyawan' => $karyawanData
