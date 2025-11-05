@@ -18,6 +18,8 @@
                     <dd class="col-sm-8" id="detail_judul"></dd>
                     <dt class="col-sm-4">Sub Judul</dt>
                     <dd class="col-sm-8" id="detail_sub_judul"></dd>
+                    <dt class="col-sm-4">Posisi</dt>
+                    <dd class="col-sm-8" id="detail_replace_position"></dd>
                     <dt class="col-sm-4">Status</dt>
                     <dd class="col-sm-8" id="detail_status"></dd>
                     <dt class="col-sm-4">Dibuat</dt>

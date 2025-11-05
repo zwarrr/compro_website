@@ -66,18 +66,9 @@
                 <i class="fas fa-star"></i>
                 FEATURES
             </div>
-            @if (isset($features) && $features)
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                    {{ $features->judul }}
-                </h2>
-                <p class="text-lg md:text-xl max-w-2xl text-gray-600 mx-auto md:mx-0 leading-relaxed">
-                    {{ $features->sub_judul }}
-                </p>
-            @else
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                    Mengapa harus memilih kami?
-                </h2>
-            @endif
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+                Mengapa harus memilih kami?
+            </h2>
         </div>
 
         <!-- New Layout: Left Illustration + Right Features -->
@@ -86,7 +77,7 @@
             <div class="relative scroll-reveal">
                 <!-- Main illustration with floating animation -->
                 <div class="text-center">
-                    <img src="{{ asset(isset($features) && $features ? 'storage/' . $features->ilustrasi->image : 'img/featurs_default.svg') }}"
+                    <img src="{{ asset(isset($features) && $features && $features->ilustrasi ? 'storage/' . $features->ilustrasi->image : 'img/featurs_yesorno.svg') }}"
                         alt="TMS Features Illustration"
                         class="w-full max-w-3xl mx-auto h-auto object-contain rounded-2xl animate-float">
                 </div>
@@ -95,86 +86,43 @@
             <!-- Right Side: Features List -->
             <div class="space-y-8">
                 <!-- Features Grid (2 columns) -->
-
                 <div class="grid sm:grid-cols-2 gap-6">
-                    @if (isset($fiturs) && count($fiturs) > 0)
-                        @foreach ($fiturs as $fitur)
-                            @if ($fitur->status === 'public')
-                                <div class="flex items-start gap-4 group">
-                                    <div
-                                        class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
-                                        <i class="fas fa-check text-white text-xs"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                            {{ $fitur->judul }}
-                                        </h3>
-                                        @if (!empty($fitur->sub_judul))
-                                            <p class="text-gray-600 text-sm leading-relaxed">
-                                                {{ $fitur->sub_judul }}
-                                            </p>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                        @if ($fiturs->where('status', 'public')->count() == 0)
-                            <div class="col-span-2 text-center text-gray-500 py-8">
-                                <i class="fas fa-inbox fa-2x mb-2"></i><br>
-                                Tidak ada fitur yang tersedia.
-                            </div>
-                        @endif
-                    @else
-                        <!-- Features Grid (2 columns) -->
-                        <!-- Feature 1 -->
-                        <div class="flex items-start gap-4 group">
-                            <div
-                                class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                    Aksesnya mudah
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Platform mudah digunakan oleh semua kalangan dengan interface yang intuitif.
-                                </p>
-                            </div>
-                        </div>
+                    @php
+                        // Default features
+                        $defaultFeatures = [
+                            1 => ['judul' => 'Aksesnya mudah', 'sub_judul' => 'Platform mudah digunakan oleh semua kalangan dengan interface yang intuitif.'],
+                            2 => ['judul' => 'Fitur Lengkap', 'sub_judul' => 'Dukungan pulsa, pembayaran, voucher, dan layanan bisnis dalam satu platform.'],
+                            3 => ['judul' => 'Komunitas Besar', 'sub_judul' => 'Ribuan pengguna aktif dan partner bisnis yang saling mendukung.'],
+                            4 => ['judul' => 'Aman & Terpercaya', 'sub_judul' => 'Keamanan berlapis dan enkripsi untuk melindungi setiap transaksi.'],
+                            5 => ['judul' => 'Cocok untuk semua kalangan', 'sub_judul' => 'Mendukung individu, UMKM, dan enterprise dengan solusi terbaik.'],
+                            6 => ['judul' => 'Terjangkau', 'sub_judul' => 'Biaya layanan kompetitif untuk berbagai kebutuhan bisnis Anda.']
+                        ];
 
-                        <!-- Feature 2 -->
-                        <div class="flex items-start gap-4 group">
-                            <div
-                                class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                    Fitur Lengkap
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Dukungan pulsa, pembayaran, voucher, dan layanan bisnis dalam satu platform.
-                                </p>
-                            </div>
-                        </div>
+                        // Debug: Log data fiturs
+                        // dd($fiturs); // Uncomment untuk debug
+                        
+                        // Debug untuk development - hapus setelah testing
+                        if (config('app.debug')) {
+                            \Log::info('Features Debug', [
+                                'fiturs_count' => isset($fiturs) ? count($fiturs) : 0,
+                                'fiturs_data' => isset($fiturs) ? $fiturs->toArray() : []
+                            ]);
+                        }
 
-                        <!-- Feature 3 -->
-                        <div class="flex items-start gap-4 group">
-                            <div
-                                class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                    Komunitas Besar
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Ribuan pengguna aktif dan partner bisnis yang saling mendukung.
-                                </p>
-                            </div>
-                        </div>
+                        // Replace default with database data based on replace_position
+                        if (isset($fiturs) && count($fiturs) > 0) {
+                            foreach ($fiturs as $fitur) {
+                                if ($fitur->status === 'public' && !empty($fitur->replace_position) && isset($defaultFeatures[$fitur->replace_position])) {
+                                    $defaultFeatures[$fitur->replace_position] = [
+                                        'judul' => $fitur->judul,
+                                        'sub_judul' => $fitur->sub_judul
+                                    ];
+                                }
+                            }
+                        }
+                    @endphp
 
-                        <!-- Feature 4 -->
+                    @foreach($defaultFeatures as $feature)
                         <div class="flex items-start gap-4 group">
                             <div
                                 class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
@@ -182,46 +130,16 @@
                             </div>
                             <div>
                                 <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                    Aman & Terpercaya
+                                    {{ $feature['judul'] }}
                                 </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Keamanan berlapis dan enkripsi untuk melindungi setiap transaksi.
-                                </p>
+                                @if (!empty($feature['sub_judul']))
+                                    <p class="text-gray-600 text-sm leading-relaxed">
+                                        {{ $feature['sub_judul'] }}
+                                    </p>
+                                @endif
                             </div>
                         </div>
-
-                        <!-- Feature 5 -->
-                        <div class="flex items-start gap-4 group">
-                            <div
-                                class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                    Cocok untuk semua kalangan
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Mendukung individu, UMKM, dan enterprise dengan solusi terbaik.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Feature 6 -->
-                        <div class="flex items-start gap-4 group">
-                            <div
-                                class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1 transition-colors duration-300 group-hover:bg-red-500">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-900 mb-1">
-                                    Terjangkau
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Biaya layanan kompetitif untuk berbagai kebutuhan bisnis Anda.
-                                </p>
-                            </div>
-                        </div>
-                    @endif
+                    @endforeach
                 </div>
             </div>
         </div>

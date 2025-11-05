@@ -65,10 +65,13 @@ class FeaturesController extends Controller
             'judul' => 'required|string|max:255',
             'sub_judul' => 'nullable|string|max:255',
             'status' => 'required|in:public,draft',
+            'replace_position' => 'required|integer|between:1,6',
         ], [
             'judul.required' => 'Judul harus diisi',
             'sub_judul.max' => 'Sub Judul maksimal 255 karakter',
             'status.required' => 'Status harus dipilih',
+            'replace_position.required' => 'Posisi harus dipilih',
+            'replace_position.between' => 'Posisi harus antara 1-6',
         ]);
 
         if ($validator->fails()) {
@@ -84,7 +87,7 @@ class FeaturesController extends Controller
             $nextNumber = $last ? intval(substr($last->kode_features, 3)) + 1 : 1;
             $kode_features = 'FTR' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
-            $data = $request->only(['judul', 'sub_judul', 'status']);
+            $data = $request->only(['judul', 'sub_judul', 'status', 'replace_position']);
             $data['kode_features'] = $kode_features;
 
             $features = \App\Models\Features::create($data);
@@ -115,6 +118,7 @@ class FeaturesController extends Controller
                 'judul' => $features->judul,
                 'sub_judul' => $features->sub_judul,
                 'status' => $features->status,
+                'replace_position' => $features->replace_position,
                 'created_at_formatted' => $features->created_at ? $features->created_at->format('d M Y H:i') : '-',
                 'updated_at_formatted' => $features->updated_at ? $features->updated_at->format('d M Y H:i') : '-',
             ];
@@ -159,10 +163,13 @@ class FeaturesController extends Controller
             'judul' => 'required|string|max:255',
             'sub_judul' => 'nullable|string|max:255',
             'status' => 'required|in:public,draft',
+            'replace_position' => 'required|integer|between:1,6',
         ], [
             'judul.required' => 'Judul harus diisi',
             'sub_judul.max' => 'Sub Judul maksimal 255 karakter',
             'status.required' => 'Status harus dipilih',
+            'replace_position.required' => 'Posisi harus dipilih',
+            'replace_position.between' => 'Posisi harus antara 1-6',
         ]);
 
         if ($validator->fails()) {
@@ -173,7 +180,7 @@ class FeaturesController extends Controller
         }
 
         try {
-            $data = $request->only(['judul', 'sub_judul', 'status']);
+            $data = $request->only(['judul', 'sub_judul', 'status', 'replace_position']);
             // kode_features tidak diubah
             $features->update($data);
             return response()->json([

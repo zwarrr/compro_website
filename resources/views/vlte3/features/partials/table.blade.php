@@ -16,12 +16,13 @@
                     <thead>
                         <tr>
                             <th width="5%">No</th>
-                            <th width="13%">Kode</th>
-                            <th width="25%">Judul</th>
-                            <th width="25%">Sub Judul</th>
+                            <th width="10%">Kode</th>
+                            <th width="20%">Judul</th>
+                            <th width="20%">Sub Judul</th>
+                            <th width="10%">Posisi</th>
                             <th width="10%">Status</th>
                             <th width="12%">Dibuat</th>
-                            <th width="10%">Aksi</th>
+                            <th width="13%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,6 +32,11 @@
                                 <td><span class="badge badge-secondary">{{ $feature->kode_features }}</span></td>
                                 <td class="font-weight-bold">{{ $feature->judul }}</td>
                                 <td>{{ $feature->sub_judul ?? '-' }}</td>
+                                <td>
+                                    <span class="badge badge-info">
+                                        <i class="fas fa-map-marker-alt"></i> {{ $feature->replace_position ?? '-' }}
+                                    </span>
+                                </td>
                                 <td>
                                     @if ($feature->status == 'public')
                                         <span class="badge badge-success"><i class="fas fa-globe"></i> Public</span>

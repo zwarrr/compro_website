@@ -28,6 +28,18 @@ async function showDetail(featuresId) {
     $('#detail_kode_features').text(features.kode_features || '');
     $('#detail_judul').text(features.judul || '');
     $('#detail_sub_judul').text(features.sub_judul || '-');
+    
+    // Format replace_position
+    const positionLabels = {
+        1: 'Posisi 1: Aksesnya mudah',
+        2: 'Posisi 2: Fitur Lengkap',
+        3: 'Posisi 3: Komunitas Besar',
+        4: 'Posisi 4: Aman & Terpercaya',
+        5: 'Posisi 5: Cocok untuk semua kalangan',
+        6: 'Posisi 6: Terjangkau'
+    };
+    $('#detail_replace_position').text(positionLabels[features.replace_position] || '-');
+    
     $('#detail_status').text(features.status || '-');
     $('#detail_created_at').text(features.created_at_formatted || '-');
     $('#detail_updated_at').text(features.updated_at_formatted || '-');
@@ -58,6 +70,7 @@ async function openEditModal(featuresId) {
     $('#edit_judul').val(features.judul);
     $('#edit_sub_judul').val(features.sub_judul);
     $('#edit_status').val(features.status);
+    $('#edit_replace_position').val(features.replace_position);
     } catch (error) {
         showNotification('Gagal mengambil data features', 'error');
         closeEditModal();
