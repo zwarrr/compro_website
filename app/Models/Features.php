@@ -17,5 +17,10 @@ class Features extends Model
         'judul',
         'sub_judul',
         'status',
+        'replace_position',
+    ];
+
+    protected $casts = [
+        'replace_position' => 'integer',
     ];
 }
