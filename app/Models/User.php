@@ -17,6 +17,7 @@ class User extends Authenticatable
         'nama',
         'email',
         'password',
+        'foto_profile',
         'status',
         'terakhir_aktif',
     ];
