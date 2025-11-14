@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PengetahuanApiController;
+use App\Http\Controllers\ChatbotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ use App\Http\Controllers\Api\PengetahuanApiController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Chatbot API Routes (OpenAI Integration)
+Route::prefix('chatbot')->name('chatbot.')->group(function () {
+    Route::post('/send', [ChatbotController::class, 'sendMessage'])->name('send');
+    Route::get('/test', [ChatbotController::class, 'testConnection'])->name('test');
 });
 
 // Knowledge Base API Routes
