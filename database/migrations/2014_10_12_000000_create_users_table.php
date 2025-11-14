@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('foto_profile')->nullable();
             $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->timestamp('terakhir_aktif')->nullable();
             $table->timestamps();

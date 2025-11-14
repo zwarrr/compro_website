@@ -119,4 +119,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     
     Route::get('pengetahuan/next-kode', [App\Http\Controllers\Admin\PengetahuanController::class, 'nextKode'])->name('admin.pengetahuan.nextKode');
 
+    // Profile User routes
+    Route::get('profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile.index');
+    Route::get('profile/show', [App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('profile.show');
+    Route::post('profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
 });

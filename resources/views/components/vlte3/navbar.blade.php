@@ -161,37 +161,81 @@
         <!-- User Account Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#">
-                @php
-                    $userName = Auth::user()->name ?? 'Administrator';
-                    $words = explode(' ', $userName);
-                    $initials = '';
-                    foreach($words as $word) {
-                        $initials .= strtoupper(substr($word, 0, 1));
-                    }
-                    if(strlen($initials) > 2) {
-                        $initials = substr($initials, 0, 2);
-                    }
-                @endphp
-                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
-                     style="width: 32px; height: 32px; font-size: 14px; font-weight: bold;">
-                    {{ $initials }}
-                </div>
-                <span class="d-none d-md-inline ml-2">{{ $userName }}</span>
+                @if(Auth::user()->foto_profile)
+                    <img src="{{ asset('storage/' . Auth::user()->foto_profile) }}" 
+                         alt="User" 
+                         class="img-circle elevation-2"
+                         style="width: 32px; height: 32px; object-fit: cover;
+                                box-shadow: 
+                                    0 -4px 8px rgba(74, 158, 255, 0.4),
+                                    0 4px 8px rgba(0, 0, 0, 0.3);
+                                border: 1px solid rgba(255, 255, 255, 0.3);
+                                position: relative;
+                                transform: translateY(-1px);">
+                @else
+                    @php
+                        $userName = Auth::user()->nama ?? 'Administrator';
+                        $words = explode(' ', $userName);
+                        $initials = '';
+                        foreach($words as $word) {
+                            $initials .= strtoupper(substr($word, 0, 1));
+                        }
+                        if(strlen($initials) > 2) {
+                            $initials = substr($initials, 0, 2);
+                        }
+                    @endphp
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                         style="width: 32px; height: 32px; font-size: 14px; font-weight: bold;
+                                background: linear-gradient(145deg, #4a9eff 0%, #007bff 50%, #0056b3 100%);
+                                box-shadow: 
+                                    0 -4px 8px rgba(74, 158, 255, 0.4),
+                                    0 4px 8px rgba(0, 0, 0, 0.3),
+                                    inset 0 -3px 6px rgba(0, 0, 0, 0.3),
+                                    inset 0 3px 6px rgba(255, 255, 255, 0.3);
+                                border: 1px solid rgba(255, 255, 255, 0.3);
+                                position: relative;
+                                transform: translateY(-1px);">
+                        {{ $initials }}
+                    </div>
+                @endif
+                <span class="d-none d-md-inline ml-2">{{ Auth::user()->nama ?? 'Administrator' }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-header text-center">
-                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" 
-                         style="width: 60px; height: 60px; font-size: 24px; font-weight: bold;">
-                        {{ $initials }}
-                    </div>
-                    <strong>{{ $userName }}</strong><br>
+                    @if(Auth::user()->foto_profile)
+                        <img src="{{ asset('storage/' . Auth::user()->foto_profile) }}" 
+                             alt="User" 
+                             class="img-circle elevation-2 mb-2"
+                             style="width: 60px; height: 60px; object-fit: cover;
+                                    box-shadow: 
+                                        0 -6px 12px rgba(74, 158, 255, 0.5),
+                                        0 6px 12px rgba(0, 0, 0, 0.3);
+                                    border: 2px solid rgba(255, 255, 255, 0.3);
+                                    position: relative;
+                                    transform: translateY(-2px);">
+                    @else
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" 
+                             style="width: 60px; height: 60px; font-size: 24px; font-weight: bold;
+                                    background: linear-gradient(145deg, #4a9eff 0%, #007bff 50%, #0056b3 100%);
+                                    box-shadow: 
+                                        0 -6px 12px rgba(74, 158, 255, 0.5),
+                                        0 6px 12px rgba(0, 0, 0, 0.3),
+                                        inset 0 -5px 10px rgba(0, 0, 0, 0.3),
+                                        inset 0 5px 10px rgba(255, 255, 255, 0.3);
+                                    border: 2px solid rgba(255, 255, 255, 0.3);
+                                    position: relative;
+                                    transform: translateY(-2px);">
+                            {{ $initials }}
+                        </div>
+                    @endif
+                    <strong>{{ Auth::user()->nama ?? 'Administrator' }}</strong><br>
                     <small class="text-muted">{{ Auth::user()->email ?? 'admin@example.com' }}</small>
                 </div>
                 <div class="dropdown-divider"></div>
-                {{-- <a href="#" class="dropdown-item">
+                <a href="/admin/profile" class="dropdown-item">
                     <i class="fas fa-user mr-2"></i> Profile
                 </a>
-                <a href="#" class="dropdown-item">
+                {{-- <a href="#" class="dropdown-item">
                     <i class="fas fa-cog mr-2"></i> Settings
                 </a> --}}
                 <div class="dropdown-divider"></div>
