@@ -23,41 +23,88 @@
                     <!-- Profile Image Card -->
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
+                            <style>
+                                /* Wave melengkung halus - MEMOTONG FOTO DI BAWAH */
+                                .custom-wave {
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    overflow: hidden;
+                                    line-height: 0;
+                                    z-index: 30;
+                                }
+
+                                .custom-wave svg {
+                                    position: relative;
+                                    display: block;
+                                    width: calc(100% + 1.3px);
+                                    height: 120px;
+                                }
+
+                                .custom-wave path {
+                                    fill: #ffffff;
+                                    stroke: none;
+                                }
+                            </style>
+                            
                             <div class="text-center">
-                                @if($user->foto_profile)
-                                    <img src="{{ asset('storage/' . $user->foto_profile) }}" 
-                                         alt="Profile Photo" 
-                                         class="profile-user-img img-fluid img-circle"
-                                         style="width: 100px; height: 100px; object-fit: cover;">
-                                @else
-                                    @php
-                                        $userName = $user->nama ?? 'User';
-                                        $words = explode(' ', $userName);
-                                        $initials = '';
-                                        foreach($words as $word) {
-                                            $initials .= strtoupper(substr($word, 0, 1));
-                                        }
-                                        if(strlen($initials) > 2) {
-                                            $initials = substr($initials, 0, 2);
-                                        }
-                                    @endphp
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" 
-                                         style="width: 100px; height: 100px; font-size: 40px; font-weight: bold;
-                                                background: linear-gradient(145deg, #4a9eff 0%, #007bff 50%, #0056b3 100%);
-                                                box-shadow: 
-                                                    0 -8px 16px rgba(74, 158, 255, 0.6),
-                                                    0 8px 16px rgba(0, 0, 0, 0.3),
-                                                    inset 0 -6px 12px rgba(0, 0, 0, 0.3),
-                                                    inset 0 6px 12px rgba(255, 255, 255, 0.3);
-                                                border: 2px solid rgba(255, 255, 255, 0.3);
-                                                position: relative;
-                                                transform: translateY(-3px);">
-                                        {{ $initials }}
-                                    </div>
-                                @endif
+                                <div class="position-relative mx-auto mb-3" style="width: 120px; height: 120px; margin-top: 30px; filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.25));">
+                                    @if($user->foto_profile)
+                                        <!-- Background Circle (Black) - dengan background image -->
+                                        <div class="position-absolute rounded-circle" 
+                                             style="top: -7.2px; left: 0; width: 100%; height: 100%; z-index: 0; 
+                                                    background-image: url('{{ asset('storage/' . $user->foto_profile) }}'); 
+                                                    background-size: cover; 
+                                                    background-position: center; 
+                                                    background-color: #000000;">
+                                        </div>
+                                        
+                                        <!-- Profile Image (Bulat) -->
+                                        <div class="position-absolute rounded-circle overflow-hidden" 
+                                             style="top: -64.8px; left: 0; width: 100%; height: 100%; z-index: 10;">
+                                            <img src="{{ asset('storage/' . $user->foto_profile) }}" 
+                                                 alt="Profile Photo" 
+                                                 class="w-100 h-100"
+                                                 style="object-fit: cover; object-position: top;">
+                                        </div>
+                                        
+                                        <!-- Wave putih MEMOTONG foto di bawah -->
+                                        <div class="custom-wave">
+                                            <svg viewBox="-50 0 600 500" preserveAspectRatio="xMidYMid meet">
+                                                <path d="M-50,195 C100,260 200,130 250,175 C300,220 400,130 550,195 L550,220 A250,250 0 0,1 -50,220 Z"></path>
+                                            </svg>
+                                        </div>
+                                    @else
+                                        <!-- Background Circle (Black) - dengan background image -->
+                                        <div class="position-absolute rounded-circle" 
+                                             style="top: -7.2px; left: 0; width: 100%; height: 100%; z-index: 0; 
+                                                    background-image: url('{{ asset('img/team_cards/bg_cards.png') }}'); 
+                                                    background-size: cover; 
+                                                    background-position: center; 
+                                                    background-color: #000000;">
+                                        </div>
+                                        
+                                        <!-- Profile Image (Bulat) -->
+                                        <div class="position-absolute rounded-circle overflow-hidden" 
+                                             style="top: -64.8px; left: 0; width: 100%; height: 100%; z-index: 10;">
+                                            <img src="{{ asset('img/team_cards/eja.png') }}" 
+                                                 alt="No Photo" 
+                                                 class="w-100 h-100"
+                                                 style="object-fit: cover; object-position: top;">
+                                        </div>
+                                        
+                                        <!-- Wave putih MEMOTONG foto di bawah -->
+                                        <div class="custom-wave">
+                                            <svg viewBox="-50 0 600 500" preserveAspectRatio="xMidYMid meet">
+                                                <path d="M-50,195 C100,260 200,130 250,175 C300,220 400,130 550,195 L550,220 A250,250 0 0,1 -50,220 Z"></path>
+                                            </svg>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
 
-                            <h3 class="profile-username text-center">{{ $user->nama }}</h3>
+                            <h3 class="profile-username text-center mt-3">{{ $user->nama }}</h3>
 
                             <p class="text-muted text-center">{{ $user->email }}</p>
 
