@@ -160,76 +160,123 @@
         
         <!-- User Account Menu -->
         <li class="nav-item dropdown">
+            <style>
+                /* Wave melengkung halus untuk navbar */
+                .navbar-custom-wave {
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    line-height: 0;
+                    z-index: 30;
+                }
+
+                .navbar-custom-wave svg {
+                    position: relative;
+                    display: block;
+                    width: calc(100% + 1.3px);
+                    height: 32px;
+                }
+
+                .navbar-custom-wave path {
+                    fill: #ffffff;
+                    stroke: none;
+                }
+            </style>
             <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#">
-                @if(Auth::user()->foto_profile)
-                    <img src="{{ asset('storage/' . Auth::user()->foto_profile) }}" 
-                         alt="User" 
-                         class="img-circle elevation-2"
-                         style="width: 32px; height: 32px; object-fit: cover;
-                                box-shadow: 
-                                    0 -4px 8px rgba(74, 158, 255, 0.4),
-                                    0 4px 8px rgba(0, 0, 0, 0.3);
-                                border: 1px solid rgba(255, 255, 255, 0.3);
-                                position: relative;
-                                transform: translateY(-1px);">
-                @else
+                <div class="position-relative" style="width: 32px; height: 32px; padding-top: 5px;">
                     @php
-                        $userName = Auth::user()->nama ?? 'Administrator';
-                        $words = explode(' ', $userName);
-                        $initials = '';
-                        foreach($words as $word) {
-                            $initials .= strtoupper(substr($word, 0, 1));
-                        }
-                        if(strlen($initials) > 2) {
-                            $initials = substr($initials, 0, 2);
-                        }
+                        $profileImage = Auth::user()->foto_profile 
+                            ? asset('storage/' . Auth::user()->foto_profile) 
+                            : asset('img/team_cards/eja.png');
                     @endphp
-                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
-                         style="width: 32px; height: 32px; font-size: 14px; font-weight: bold;
-                                background: linear-gradient(145deg, #4a9eff 0%, #007bff 50%, #0056b3 100%);
-                                box-shadow: 
-                                    0 -4px 8px rgba(74, 158, 255, 0.4),
-                                    0 4px 8px rgba(0, 0, 0, 0.3),
-                                    inset 0 -3px 6px rgba(0, 0, 0, 0.3),
-                                    inset 0 3px 6px rgba(255, 255, 255, 0.3);
-                                border: 1px solid rgba(255, 255, 255, 0.3);
-                                position: relative;
-                                transform: translateY(-1px);">
-                        {{ $initials }}
+                    
+                    <!-- Background Circle hitam sebagai bayangan -->
+                    <div class="position-absolute rounded-circle" 
+                         style="top: 7px; left: 0; width: 32px; height: 32px; z-index: 0; 
+                                background-color: #000000;
+                                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);">
                     </div>
-                @endif
+                    
+                    <!-- Profile Image (Bulat) -->
+                    <div class="position-absolute rounded-circle overflow-hidden" 
+                         style="top: -10px; left: 0; width: 32px; height: 32px; z-index: 10;
+                                filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));">
+                        <img src="{{ $profileImage }}" 
+                             alt="User" 
+                             class="w-100 h-100"
+                             style="object-fit: cover; object-position: top;">
+                    </div>
+                    
+                    <!-- Wave putih MEMOTONG foto di bawah -->
+                    <div class="navbar-custom-wave" style="top: 8px;">
+                        <svg viewBox="-50 0 600 500" preserveAspectRatio="xMidYMid meet">
+                            <path d="M-50,195 C100,260 200,130 250,175 C300,220 400,130 550,195 L550,220 A250,250 0 0,1 -50,220 Z"></path>
+                        </svg>
+                    </div>
+                </div>
                 <span class="d-none d-md-inline ml-2">{{ Auth::user()->nama ?? 'Administrator' }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <style>
+                    /* Wave melengkung halus untuk dropdown navbar */
+                    .dropdown-custom-wave {
+                        position: absolute;
+                        left: 0;
+                        width: 100%;
+                        overflow: hidden;
+                        line-height: 0;
+                        z-index: 30;
+                    }
+
+                    .dropdown-custom-wave svg {
+                        position: relative;
+                        display: block;
+                        width: calc(100% + 1.3px);
+                        height: 55px;
+                    }
+
+                    .dropdown-custom-wave path {
+                        fill: #ffffff;
+                        stroke: none;
+                    }
+                </style>
                 <div class="dropdown-header text-center">
-                    @if(Auth::user()->foto_profile)
-                        <img src="{{ asset('storage/' . Auth::user()->foto_profile) }}" 
-                             alt="User" 
-                             class="img-circle elevation-2 mb-2"
-                             style="width: 60px; height: 60px; object-fit: cover;
-                                    box-shadow: 
-                                        0 -6px 12px rgba(74, 158, 255, 0.5),
-                                        0 6px 12px rgba(0, 0, 0, 0.3);
-                                    border: 2px solid rgba(255, 255, 255, 0.3);
-                                    position: relative;
-                                    transform: translateY(-2px);">
-                    @else
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" 
-                             style="width: 60px; height: 60px; font-size: 24px; font-weight: bold;
-                                    background: linear-gradient(145deg, #4a9eff 0%, #007bff 50%, #0056b3 100%);
-                                    box-shadow: 
-                                        0 -6px 12px rgba(74, 158, 255, 0.5),
-                                        0 6px 12px rgba(0, 0, 0, 0.3),
-                                        inset 0 -5px 10px rgba(0, 0, 0, 0.3),
-                                        inset 0 5px 10px rgba(255, 255, 255, 0.3);
-                                    border: 2px solid rgba(255, 255, 255, 0.3);
-                                    position: relative;
-                                    transform: translateY(-2px);">
-                            {{ $initials }}
+                    <div class="position-relative mx-auto mb-2" style="width: 55px; height: 55px;">
+                        @php
+                            $profileImageLarge = Auth::user()->foto_profile 
+                                ? asset('storage/' . Auth::user()->foto_profile) 
+                                : asset('img/team_cards/eja.png');
+                        @endphp
+                        
+                        <!-- Background Circle hitam sebagai bayangan -->
+                        <div class="position-absolute rounded-circle" 
+                             style="top: 8px; left: 0; width: 55px; height: 55px; z-index: 0; 
+                                    background-color: #000000;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
                         </div>
-                    @endif
-                    <strong>{{ Auth::user()->nama ?? 'Administrator' }}</strong><br>
-                    <small class="text-muted">{{ Auth::user()->email ?? 'admin@example.com' }}</small>
+                        
+                        <!-- Profile Image (Bulat) -->
+                        <div class="position-absolute rounded-circle overflow-hidden" 
+                             style="top: -15px; left: 0; width: 55px; height: 55px; z-index: 10;
+                                    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));">
+                            <img src="{{ $profileImageLarge }}" 
+                                 alt="User" 
+                                 class="w-100 h-100"
+                                 style="object-fit: cover; object-position: top;">
+                        </div>
+                        
+                        <!-- Wave putih MEMOTONG foto di bawah -->
+                        <div class="dropdown-custom-wave" style="top: 15px;">
+                            <svg viewBox="-50 0 600 500" preserveAspectRatio="xMidYMid meet">
+                                <path d="M-50,195 C100,260 200,130 250,175 C300,220 400,130 550,195 L550,220 A250,250 0 0,1 -50,220 Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <strong>{{ Auth::user()->nama ?? 'Administrator' }}</strong><br>
+                        <small class="text-muted">{{ Auth::user()->email ?? 'admin@example.com' }}</small>
+                    </div>
                 </div>
                 <div class="dropdown-divider"></div>
                 <a href="/admin/profile" class="dropdown-item">
