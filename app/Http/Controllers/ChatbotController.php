@@ -37,8 +37,8 @@ class ChatbotController extends Controller
             $message = $request->input('message');
             $conversationHistory = $request->input('conversation_history', []);
 
-            // Get AI response
-            $aiResponse = $this->openAIService->chat($message, $conversationHistory);
+            // Get AI response with request for logging
+            $aiResponse = $this->openAIService->chat($message, $conversationHistory, $request);
 
             return response()->json([
                 'success' => true,

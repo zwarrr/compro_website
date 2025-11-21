@@ -106,6 +106,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // FAQ routes
     Route::resource('faq', App\Http\Controllers\Admin\FaqController::class);
 
+    // Chatbot Log routes
+    // Chatbot Log routes
+    Route::resource('chatbot-log', App\Http\Controllers\Admin\ChatbotLogController::class)->only(['index', 'show', 'destroy']);
+    Route::post('chatbot-log/clear-all', [App\Http\Controllers\Admin\ChatbotLogController::class, 'clearAll'])->name('chatbot-log.clear-all');
+
     // Pengetahuan routes
     Route::resource('pengetahuan', App\Http\Controllers\Admin\PengetahuanController::class);
 

@@ -82,7 +82,7 @@
 
     <!-- Footer -->
     <div class="text-center px-4 py-2 bg-gray-50 text-[10px] text-gray-500 select-none border-t">
-      Powered by OpenAI GPT-4 Turbo · <a href="#" class="underline hover:text-gray-600">Privacy Policy</a>
+      Powered by TechAI <a href="#" class="underline hover:text-gray-600">Privacy Policy</a>
     </div>
   </div>
   

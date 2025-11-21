@@ -271,6 +271,14 @@
                     </a>
                 </li>
 
+                <!-- Chatbot Log -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.chatbot-log.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.chatbot-log') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-comments"></i>
+                        <p>Chatbot Log</p>
+                    </a>
+                </li>
+
                 <!-- Social Media -->
                 {{-- <li class="nav-item">
                     <a href="{{ route('admin.sosial.index') }}" class="nav-link {{ Str::startsWith($currentRoute, 'admin.sosial') ? 'active' : '' }}">
