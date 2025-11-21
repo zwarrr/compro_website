@@ -5,6 +5,8 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\Pengetahuan;
+use App\Models\ChatbotLog;
+use Illuminate\Http\Request;
 
 class OpenAIService
 {
@@ -60,9 +62,15 @@ class OpenAIService
     /**
      * Send chat request to OpenAI with knowledge base
      */
-    public function chat(string $message, array $conversationHistory = []): string
+    public function chat(string $message, array $conversationHistory = [], Request $request = null): string
     {
         try {
+            // Parse user agent if request provided
+            $metadata = null;
+            if ($request) {
+                $metadata = $this->parseUserAgent($request);
+            }
+
             // Build messages array
             $messages = $this->buildMessages($message, $conversationHistory);
 
@@ -88,7 +96,14 @@ class OpenAIService
             $aiResponse = $result['choices'][0]['message']['content'] ?? 'Maaf, tidak ada respons.';
 
             // Clean markdown formatting
-            return $this->cleanMarkdown($aiResponse);
+            $cleanResponse = $this->cleanMarkdown($aiResponse);
+
+            // Save to chatbot log if request provided
+            if ($request && $metadata) {
+                $this->saveChatbotLog($message, $cleanResponse, $metadata);
+            }
+
+            return $cleanResponse;
 
         } catch (\Exception $e) {
             Log::error('OpenAI Service Error: ' . $e->getMessage());
@@ -199,6 +214,171 @@ class OpenAIService
                 'success' => false,
                 'error' => $e->getMessage()
             ];
+        }
+    }
+
+    /**
+     * Parse user agent to detect device, browser, and OS
+     */
+    private function parseUserAgent(Request $request): array
+    {
+        $userAgent = $request->header('User-Agent', '');
+        
+        // Detect device type
+        $device = 'Desktop';
+        if (preg_match('/mobile|android|iphone|ipod|blackberry|windows phone/i', $userAgent)) {
+            $device = 'Mobile';
+        } elseif (preg_match('/tablet|ipad/i', $userAgent)) {
+            $device = 'Tablet';
+        }
+
+        // Detect browser
+        $browser = 'Unknown';
+        if (preg_match('/edg(?:e|ios|a)?\/([\d\.]+)/i', $userAgent, $matches)) {
+            $browser = 'Edge ' . $matches[1];
+        } elseif (preg_match('/chrome\/([\d\.]+)/i', $userAgent, $matches)) {
+            $browser = 'Chrome ' . $matches[1];
+        } elseif (preg_match('/firefox\/([\d\.]+)/i', $userAgent, $matches)) {
+            $browser = 'Firefox ' . $matches[1];
+        } elseif (preg_match('/safari\/([\d\.]+)/i', $userAgent, $matches)) {
+            if (!preg_match('/chrome|chromium|crios/i', $userAgent)) {
+                $browser = 'Safari ' . $matches[1];
+            }
+        } elseif (preg_match('/msie\s([\d\.]+)|trident.*rv:([\d\.]+)/i', $userAgent, $matches)) {
+            $browser = 'IE ' . ($matches[1] ?? $matches[2]);
+        } elseif (preg_match('/opera|opr\/([\d\.]+)/i', $userAgent, $matches)) {
+            $browser = 'Opera ' . ($matches[1] ?? 'Unknown');
+        }
+
+        // Detect OS
+        $os = 'Unknown';
+        if (preg_match('/windows nt ([\d\.]+)/i', $userAgent, $matches)) {
+            $version = $matches[1];
+            $windowsVersions = [
+                '10.0' => '10/11',
+                '6.3' => '8.1',
+                '6.2' => '8',
+                '6.1' => '7',
+            ];
+            $os = 'Windows ' . ($windowsVersions[$version] ?? $version);
+        } elseif (preg_match('/mac os x ([\d_\.]+)/i', $userAgent, $matches)) {
+            $os = 'macOS ' . str_replace('_', '.', $matches[1]);
+        } elseif (preg_match('/linux/i', $userAgent)) {
+            $os = 'Linux';
+        } elseif (preg_match('/android ([\d\.]+)/i', $userAgent, $matches)) {
+            $os = 'Android ' . $matches[1];
+        } elseif (preg_match('/ios ([\d_\.]+)|iphone os ([\d_\.]+)/i', $userAgent, $matches)) {
+            $os = 'iOS ' . str_replace('_', '.', $matches[1] ?? $matches[2]);
+        }
+
+        return [
+            'user_agent' => $userAgent,
+            'device' => $device,
+            'browser' => $browser,
+            'os_platform' => $os,
+        ];
+    }
+
+    /**
+     * Save chatbot conversation to log
+     */
+    private function saveChatbotLog(string $question, string $answer, array $metadata): void
+    {
+        try {
+            // Check if answer matches knowledge base
+            $matchedKnowledge = null;
+            $knowledgeStatus = 'not_found';
+            $questionLower = strtolower($question);
+
+            $pengetahuans = Pengetahuan::all();
+            $bestMatch = null;
+            $highestScore = 0;
+
+            foreach ($pengetahuans as $item) {
+                $score = 0;
+                $matchedField = '';
+                
+                // Check kategori_pertanyaan - word by word
+                $kategoriLower = strtolower($item->kategori_pertanyaan);
+                $kategoriWords = preg_split('/\s+/', $kategoriLower);
+                $matchedKategoriWords = 0;
+                foreach ($kategoriWords as $word) {
+                    if (strlen($word) > 2 && strpos($questionLower, $word) !== false) {
+                        $matchedKategoriWords++;
+                    }
+                }
+                if (count($kategoriWords) > 0) {
+                    $kategoriScore = ($matchedKategoriWords / count($kategoriWords)) * 100;
+                    if ($kategoriScore > $score) {
+                        $score = $kategoriScore;
+                        $matchedField = 'kategori: ' . $item->kategori_pertanyaan;
+                    }
+                }
+                
+                // Check sub_kategori - word by word
+                if ($item->sub_kategori) {
+                    $subLower = strtolower($item->sub_kategori);
+                    $subWords = preg_split('/\s+/', $subLower);
+                    $matchedSubWords = 0;
+                    foreach ($subWords as $word) {
+                        if (strlen($word) > 2 && strpos($questionLower, $word) !== false) {
+                            $matchedSubWords++;
+                        }
+                    }
+                    if (count($subWords) > 0) {
+                        $subScore = ($matchedSubWords / count($subWords)) * 100;
+                        if ($subScore > $score) {
+                            $score = $subScore;
+                            $matchedField = 'sub kategori: ' . $item->sub_kategori;
+                        }
+                    }
+                }
+                
+                // Check jawaban - partial text matching
+                $jawabanLower = strtolower($item->jawaban);
+                $jawabanWords = preg_split('/\s+/', $jawabanLower);
+                $matchedJawabanWords = 0;
+                foreach ($jawabanWords as $word) {
+                    if (strlen($word) > 3 && strpos($questionLower, $word) !== false) {
+                        $matchedJawabanWords++;
+                    }
+                }
+                if (count($jawabanWords) > 0) {
+                    $jawabanScore = ($matchedJawabanWords / count($jawabanWords)) * 100;
+                    if ($jawabanScore > $score) {
+                        $score = $jawabanScore;
+                        $matchedField = 'jawaban: ' . substr($item->jawaban, 0, 50) . '...';
+                    }
+                }
+                
+                // Keep track of best match
+                if ($score > $highestScore && $score > 20) {
+                    $highestScore = $score;
+                    $bestMatch = $item;
+                    $matchedKnowledge = 'Cocok dengan ' . $matchedField;
+                }
+            }
+
+            // Set status based on match
+            if ($bestMatch) {
+                $knowledgeStatus = 'found';
+            } else {
+                $knowledgeStatus = 'not_found';
+                $matchedKnowledge = null;
+            }
+
+            ChatbotLog::create([
+                'question' => $question,
+                'answer' => $answer,
+                'matched_knowledge' => $matchedKnowledge,
+                'user_agent' => $metadata['user_agent'],
+                'device' => $metadata['device'],
+                'browser' => $metadata['browser'],
+                'os_platform' => $metadata['os_platform'],
+                'knowledge_status' => $knowledgeStatus,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to save chatbot log: ' . $e->getMessage());
         }
     }
 }
